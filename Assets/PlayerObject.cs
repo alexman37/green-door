@@ -54,7 +54,7 @@ public class PlayerObject : MonoBehaviour
         currPosition = newRoomPosition;
 
         // Offset real position by (0.5,0.5) so it's in the middle of that tile
-        characterObj.transform.position = room.convertRoomPosToRealPos(newRoomPosition) + new Vector2(0.5f, 0.5f);
+        characterObj.transform.position = newRoomPosition.asVector2() + new Vector2(0.5f, 0.5f);
     }
 
     // Asset bundles needed for sprite movement

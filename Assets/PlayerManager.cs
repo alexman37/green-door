@@ -108,27 +108,26 @@ public class PlayerManager : MonoBehaviour
 
         //If applicable...
         Coords wouldBeHere = c.currPosition.offset((int)xChange, (int)yChange);
-        if (inBounds(wouldBeHere) && RoomManager.activeRoom.tileArray[wouldBeHere.x, wouldBeHere.y].walkable)
-        {
-            // Update their charPosition in the PlayerObject once and immediately
-            c.currPosition.offsetThis((int)xChange, (int)yChange);
-            for (int i = 0; i < steps; i++)
-            {
-                // Update their physical location in-game periodically
-                c.characterObj.transform.position = c.characterObj.transform.position + new Vector3(1 / steps * xChange, 1 / steps * yChange, 0);
 
-                //We end up using a total of 4 sprites in a loop: 0, 1, 0, 2...
-                int nextIFrame = (int)(i / (steps / animationLoops / 4)) % 4;
-                if (prevAnimation != nextIFrame)
-                {
-                    c.changeAnimationFrame(nextIFrame);
-                }
-                yield return new WaitForSeconds(timeToMove1Tile / steps);
+        // TODO : Check that there is not an object here, and (with colliders?) don't run out of bounds
+        // Update their charPosition in the PlayerObject once and immediately
+        c.currPosition.offsetThis((int)xChange, (int)yChange);
+        for (int i = 0; i < steps; i++)
+        {
+            // Update their physical location in-game periodically
+            c.characterObj.transform.position = c.characterObj.transform.position + new Vector3(1 / steps * xChange, 1 / steps * yChange, 0);
+
+            //We end up using a total of 4 sprites in a loop: 0, 1, 0, 2...
+            int nextIFrame = (int)(i / (steps / animationLoops / 4)) % 4;
+            if (prevAnimation != nextIFrame)
+            {
+                c.changeAnimationFrame(nextIFrame);
             }
+            yield return new WaitForSeconds(timeToMove1Tile / steps);
         }
         //else Debug.Log("I was stopped at " + wouldBeHere);
 
-        
+
     }
 
     // Move the characters. Follow the leader.
@@ -164,7 +163,7 @@ public class PlayerManager : MonoBehaviour
         RoomObject onTopOf;
 
         // Try getting on top of object first.
-        onTopOf = RoomManager.activeRoom.getRoomObjectAt(playerObjects[0].currPosition);
+        onTopOf = RoomManager.instance.activeRoom.getRoomObjectAt(playerObjects[0].currPosition);
         if (onTopOf != null) return onTopOf;
 
         // Else, look in front of you.
@@ -172,22 +171,18 @@ public class PlayerManager : MonoBehaviour
         switch(playerObjects[0].direction)
         {
             case Direction.NORTH:
-                return RoomManager.activeRoom.getRoomObjectAt(playerObjects[0].currPosition.offset(0, 1));
+                return RoomManager.instance.activeRoom.getRoomObjectAt(playerObjects[0].currPosition.offset(0, 1));
             case Direction.SOUTH:
-                return RoomManager.activeRoom.getRoomObjectAt(playerObjects[0].currPosition.offset(0, -1));
+                return RoomManager.instance.activeRoom.getRoomObjectAt(playerObjects[0].currPosition.offset(0, -1));
             case Direction.EAST:
-                return RoomManager.activeRoom.getRoomObjectAt(playerObjects[0].currPosition.offset(1, 0));
+                return RoomManager.instance.activeRoom.getRoomObjectAt(playerObjects[0].currPosition.offset(1, 0));
             case Direction.WEST:
-                return RoomManager.activeRoom.getRoomObjectAt(playerObjects[0].currPosition.offset(-1, 0));
+                return RoomManager.instance.activeRoom.getRoomObjectAt(playerObjects[0].currPosition.offset(-1, 0));
             default: return null;
         }
     }
 
 
-    private bool inBounds(Coords wouldBeHere)
-    {
-        return RoomManager.activeRoom.inBounds(wouldBeHere);
-    }
 
     // Room transition - move all characters to next spot, and other things
     private void updateCurrentRoom(Room r)
@@ -225,10 +220,6 @@ public class PlayerManager : MonoBehaviour
 
 public enum ActiveCharacter
 {
-    hazel,
-    winter,
-    cassidy,
-    allison,
-    damon,
-    angelo
+    red,
+    lena
 }

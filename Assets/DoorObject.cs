@@ -34,7 +34,7 @@ public class DoorObject : RoomObject
             animator.SetTrigger("Opened");
 
             // RoomManager handles the fade transition
-            RoomManager.changeCurrentRoom(nextRoom);
+            RoomManager.instance.changeCurrentRoom(nextRoom);
         } else
         {
             //TODO suffer consequences
