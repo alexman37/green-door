@@ -104,7 +104,7 @@ public class PlayerManager : MonoBehaviour
     }
 
     // Move a tile, and adjust animation frame as you go. Takes a certain amount of time
-    IEnumerator moveOneOver(PlayerObject c, float timeToMove1Tile, float xChange, float yChange)
+    IEnumerator moveOneOver(PlayerObject c, float timeToMove1Tile, float xChange, float yChange, Direction dir)
     {
         float steps = 30;
         float animationLoops = 1;
@@ -114,7 +114,7 @@ public class PlayerManager : MonoBehaviour
 
         // Check that there is not an object here, and (with colliders?) don't run out of bounds
         Coords wouldBeHere = c.currPosition.offset((int)xChange, (int)yChange);
-        if(!c.lookingAtWall && RoomManager.instance.activeRoom.getRoomObjectAt(wouldBeHere) == null)
+        if(!c.lookingAtWall(dir) && RoomManager.instance.activeRoom.getRoomObjectAt(wouldBeHere) == null)
         {
             // Update their charPosition in the PlayerObject once and immediately
             c.currPosition.offsetThis((int)xChange, (int)yChange);
@@ -158,7 +158,7 @@ public class PlayerManager : MonoBehaviour
                 (_, float xChange, float yChange) = moveInputs[q];
 
                 changeSpriteDirection(playerObjects[q], direction);
-                StartCoroutine(moveOneOver(playerObjects[q], time, xChange, yChange));
+                StartCoroutine(moveOneOver(playerObjects[q], time, xChange, yChange, direction));
             }
         }
         yield return new WaitUntil(() => readyForNextMove);

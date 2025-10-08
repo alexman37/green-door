@@ -15,20 +15,44 @@ public class PlayerObject : MonoBehaviour
     public int order;
 
     public Transform aheadCollider; // detects wall collisions
-    public bool lookingAtWall;
 
     // Collider logic
+    private Dictionary<Direction, bool> blockedInDirection;
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void Start()
     {
-        Debug.Log("Obj " + name + " colliding with " + collision.gameObject.name);
-        lookingAtWall = true;
+        blockedInDirection = new Dictionary<Direction, bool>();
+        blockedInDirection.Add(Direction.NORTH, false);
+        blockedInDirection.Add(Direction.SOUTH, false);
+        blockedInDirection.Add(Direction.EAST, false);
+        blockedInDirection.Add(Direction.WEST, false);
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
+    private void OnEnable()
     {
-        Debug.Log("Obj " + name + " stopped colliding with " + collision.gameObject.name);
-        lookingAtWall = false;
+        PlayerObjWallChecker.checkerCollisionEnter += touchingWall;
+        PlayerObjWallChecker.checkerCollisionExit += offWall;
+    }
+
+    private void OnDisable()
+    {
+        PlayerObjWallChecker.checkerCollisionEnter -= touchingWall;
+        PlayerObjWallChecker.checkerCollisionExit -= offWall;
+    }
+
+    private void touchingWall(Direction dir)
+    {
+        blockedInDirection[dir] = true;
+    }
+
+    private void offWall(Direction dir)
+    {
+        blockedInDirection[dir] = false;
+    }
+
+    public bool lookingAtWall(Direction dir)
+    {
+        return blockedInDirection[dir];
     }
 
     //Spawn the character in a new room. Reset some of their stats
