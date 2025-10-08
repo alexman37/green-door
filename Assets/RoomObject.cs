@@ -18,6 +18,10 @@ public class RoomObject : MonoBehaviour
     {
         dialogueManager = FindObjectsOfType<DialogueManager>()[0];
         physicalObjectRef = this.gameObject;
+
+        // Everything is offset by 0.5 because...that's just the way it is
+        properties.absoluteCoords = new Coords((int)(transform.position.x - 0.5f), (int)(transform.position.y - 0.5f));
+        properties.roomObjectRef = this;
     }
 
     // If you are looking at an object and press E, you see its dialogue if there is any

@@ -1,0 +1,21 @@
+/BLOCK=start
+	HAZEL(default):Basic conversation 2...
+	HAZEL(huh):This conversation demonstrates dialogue choices.
+	HAZEL(naturally):In the text file, the conversation is split up into "blocks".
+	HAZEL(well):Each option has a block associated with it. When you choose that option, the conversation jumps to that block.
+	HAZEL(naturally):Try it here...
+	/CHOICE
+		opt1:Option 1
+		opt2:Option 2
+	/ENDCHOICE
+	HAZEL(default):If you have more dialogue after the option, it'll play before going to the desired block.
+	HAZEL(huh):Now let's see which one you picked...
+/ENDBLOCK
+
+/BLOCK=opt1
+	HAZEL(wink):That's option 1 alright. Good pick buddy.
+/ENDBLOCK
+
+/BLOCK=opt2
+	WINTER(down):you picked option 2. yay.\n\sthey forced me to say this.\!
+/ENDBLOCK

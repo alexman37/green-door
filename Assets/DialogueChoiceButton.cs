@@ -5,7 +5,7 @@ using System;
 using TMPro;
 using UnityEngine.EventSystems;
 
-public class DialogueChoiceButton : MonoBehaviour, IPointerDownHandler
+public class DialogueChoiceButton : MonoBehaviour
 {
     public static event Action<string> dialogueChoiceMade;
     public string dialogueChoiceBlock;
@@ -16,9 +16,8 @@ public class DialogueChoiceButton : MonoBehaviour, IPointerDownHandler
         dialogueChoiceMade += (s) => { };
     }
 
-    public void OnPointerDown(PointerEventData data)
+    public void buttonPressed()
     {
-        Debug.Log("button pressed");
         dialogueChoiceMade.Invoke(dialogueChoiceBlock);
     }
 

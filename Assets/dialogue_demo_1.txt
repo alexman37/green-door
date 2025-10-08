@@ -1,0 +1,13 @@
+/BLOCK=start
+	HAZEL(default):Basic conversation 1...
+	HAZEL(huh):Every Room has a hardcoded list of RoomObjects associated with it.
+	HAZEL(default):You interacted with this RoomObject by pressing 'E' while looking at it.
+	HAZEL(well):Theoretically, other things can happen when you interact with RoomObjects...
+	HAZEL(really):But the first thing we check for is if the RoomObject has a dialogue file.
+	HAZEL(wink):If it does, we play it, like you're seeing now.
+	HAZEL(really):This is just a simple dialogue file that does nothing special, just reads text in order.
+	WINTER(smoke):You can change the portrait and speaker from the file as well.
+	HAZEL(default):You can use format shortcuts for \bbold\!, \iitalic\!, \ssmall\!, \3colored\!\n...newlines, and others.
+	HAZEL(huh):As well as a dramatic pause of any length. (Like this).
+	HAZEL(naturally)[2]:All the weeds are in DialogueManager and DialogueParser, if you care! But hopefully, this is a good template.
+/ENDBLOCK

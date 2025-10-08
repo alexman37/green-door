@@ -30,7 +30,7 @@ public class Room : MonoBehaviour
     {
         foreach(RoomObject ro in roomObjects)
         {
-            roomObjectsMap.Add(ro.properties.absoluteCoords.asVector2Int(), ro.properties);
+            addRoomObject(ro.properties);
         }
     }
 
@@ -43,6 +43,7 @@ public class Room : MonoBehaviour
         foreach (Coords c in ro.relativePositions)
         {
             roomObjectsMap.Add(ro.absoluteCoords.offset(c.x, c.y).asVector2Int(), ro);
+            Debug.Log("Adding object " + ro.objectName + " to " + ro.absoluteCoords.offset(c.x, c.y) + " in room " + roomNumber);
         }
     }
 

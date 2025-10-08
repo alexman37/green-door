@@ -199,12 +199,12 @@ public class DialogueManager : MonoBehaviour
         Dictionary<string, string> charHexCodes = new Dictionary<string, string>()
         {
             { "0", "#aaaaaa" }, //inner monologue
-            { "1", "#418c49" }, //hazel
-            { "2", "#007f7f" }, //winter
-            { "3", "#ef5c00" }, //cassidy
-            { "4", "#642f7c" }, //allison
-            { "5", "#7f6b06" }, //damon
-            { "6", "#992a2a" }, //angelo
+            { "1", "#418c49" }, //green
+            { "2", "#007f7f" }, //teal
+            { "3", "#ef5c00" }, //orange
+            { "4", "#642f7c" }, //purple
+            { "5", "#7f6b06" }, //gold
+            { "6", "#992a2a" }, //crimson
             { "7", "#ffffff" }, //white
             { "8", "#000000" }, //black
             { "9", "#aa0000" }, //red
@@ -279,7 +279,7 @@ public class DialogueManager : MonoBehaviour
 
         for(int i = 0; i < numChoices; i++)
         {
-            Button copy = GameObject.Instantiate(dc_choice, dialogueContainer.transform);
+            Button copy = GameObject.Instantiate(dc_choice, dialogueContainer.transform.parent);
 
             // Set the button's position and values
             copy.image.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, adjustedStartPos - i * offset);

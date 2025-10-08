@@ -74,7 +74,7 @@ public class PlayerManager : MonoBehaviour
 
     IEnumerator controlMovement()
     {
-        float timeToMove1Tile = 0.25f;
+        float timeToMove1Tile = 0.2f;
 
         while (true)
         {
