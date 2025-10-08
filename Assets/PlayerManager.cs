@@ -19,6 +19,8 @@ public class PlayerManager : MonoBehaviour
     private List<(float time, float xChange, float yChange)> moveInputs;
     private Coroutine movingCoroutine; private bool isMoving;
     KeyCode holdingKey = KeyCode.None;
+    private bool readyForNextMove = true;
+
 
     // Start is called before the first frame update
     void Start()
@@ -33,25 +35,26 @@ public class PlayerManager : MonoBehaviour
     void Update()
     {
         //Interaction
-        if(Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             RoomObject maybeRoomObject = getInteractingWithEKeyObject();
-            if(maybeRoomObject != null)
+            if (maybeRoomObject != null)
             {
                 // If it's a door, open it!
                 // Else, if this room object has a dialogue conversation, play it!
-                if(maybeRoomObject is DoorObject)
+                if (maybeRoomObject is DoorObject)
                 {
                     //TODO: Character consequences- here or DoorObject? Probably here.
                     (maybeRoomObject as DoorObject).openDoor();
-                } else
+                }
+                else
                 {
                     maybeRoomObject.deployDialogue();
                 }
             }
         }
 
-        if(Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.D))
         {
             holdingKey = KeyCode.D;
         }
@@ -71,8 +74,8 @@ public class PlayerManager : MonoBehaviour
 
     IEnumerator controlMovement()
     {
-        float timeToMove1Tile = 0.2f;
-        
+        float timeToMove1Tile = 0.25f;
+
         while (true)
         {
             if (holdingKey != KeyCode.None && !Input.GetKey(holdingKey))
@@ -84,9 +87,9 @@ public class PlayerManager : MonoBehaviour
                 switch (holdingKey)
                 {
                     case KeyCode.D: yield return congaLineMovement(timeToMove1Tile, 1, 0, Direction.EAST); break;
-                    case KeyCode.A:  yield return congaLineMovement(timeToMove1Tile, -1, 0, Direction.WEST); break;
-                    case KeyCode.W:    yield return congaLineMovement(timeToMove1Tile, 0, 1, Direction.NORTH); break;
-                    case KeyCode.S:  yield return congaLineMovement(timeToMove1Tile, 0, -1, Direction.SOUTH); break;
+                    case KeyCode.A: yield return congaLineMovement(timeToMove1Tile, -1, 0, Direction.WEST); break;
+                    case KeyCode.W: yield return congaLineMovement(timeToMove1Tile, 0, 1, Direction.NORTH); break;
+                    case KeyCode.S: yield return congaLineMovement(timeToMove1Tile, 0, -1, Direction.SOUTH); break;
                 }
             }
             yield return new WaitForSeconds(0.02f);
@@ -96,6 +99,7 @@ public class PlayerManager : MonoBehaviour
     // Change the direction this sprite is looking
     private void changeSpriteDirection(PlayerObject character, Direction direction)
     {
+        character.rotate(direction);
         character.changeSprite(direction, 0);
     }
 
@@ -107,41 +111,46 @@ public class PlayerManager : MonoBehaviour
         int prevAnimation = 0;
 
         //If applicable...
+
+        // Check that there is not an object here, and (with colliders?) don't run out of bounds
         Coords wouldBeHere = c.currPosition.offset((int)xChange, (int)yChange);
-
-        // TODO : Check that there is not an object here, and (with colliders?) don't run out of bounds
-        // Update their charPosition in the PlayerObject once and immediately
-        c.currPosition.offsetThis((int)xChange, (int)yChange);
-        for (int i = 0; i < steps; i++)
+        if(!c.lookingAtWall && RoomManager.instance.activeRoom.getRoomObjectAt(wouldBeHere) == null)
         {
-            // Update their physical location in-game periodically
-            c.characterObj.transform.position = c.characterObj.transform.position + new Vector3(1 / steps * xChange, 1 / steps * yChange, 0);
-
-            //We end up using a total of 4 sprites in a loop: 0, 1, 0, 2...
-            int nextIFrame = (int)(i / (steps / animationLoops / 4)) % 4;
-            if (prevAnimation != nextIFrame)
+            // Update their charPosition in the PlayerObject once and immediately
+            c.currPosition.offsetThis((int)xChange, (int)yChange);
+            for (int i = 0; i < steps; i++)
             {
-                c.changeAnimationFrame(nextIFrame);
+                // Update their physical location in-game periodically
+                c.characterObj.transform.position = c.characterObj.transform.position + new Vector3(1 / steps * xChange, 1 / steps * yChange, 0);
+
+                //We end up using a total of 4 sprites in a loop: 0, 1, 0, 2...
+                int nextIFrame = (int)(i / (steps / animationLoops / 4)) % 4;
+                if (prevAnimation != nextIFrame)
+                {
+                    c.changeAnimationFrame(nextIFrame);
+                }
+                yield return new WaitForSeconds(timeToMove1Tile / steps);
             }
-            yield return new WaitForSeconds(timeToMove1Tile / steps);
         }
-        //else Debug.Log("I was stopped at " + wouldBeHere);
-
-
+        
+        // TODO figure out some way to set this when no future movements queued
+        //c.characterObj.transform.position = new Vector3(c.currPosition.x + 0.5f, c.currPosition.y + 0.5f, 0);
+        readyForNextMove = true;
     }
 
     // Move the characters. Follow the leader.
     IEnumerator congaLineMovement(float time, float xC, float yC, Direction direction)
     {
         // Add to the front of moveInputs- shift everything else down!
+        readyForNextMove = false;
         moveInputs.Add((time, xC, yC));
-        for(int i = moveInputs.Count - 1; i > 0; i--)
+        for (int i = moveInputs.Count - 1; i > 0; i--)
         {
             (float, float, float) tmp = moveInputs[i - 1];
             moveInputs[i - 1] = moveInputs[i];
             moveInputs[i] = tmp;
         }
-        for(int q = 0; q < moveInputs.Count; q++)
+        for (int q = 0; q < moveInputs.Count; q++)
         {
             if (q == playerObjects.Length) moveInputs.RemoveAt(playerObjects.Length);
             else
@@ -152,7 +161,7 @@ public class PlayerManager : MonoBehaviour
                 StartCoroutine(moveOneOver(playerObjects[q], time, xChange, yChange));
             }
         }
-        yield return new WaitForSeconds(time);
+        yield return new WaitUntil(() => readyForNextMove);
     }
 
     /*Get the object you'd like to interact with by pressing the E key
@@ -168,7 +177,7 @@ public class PlayerManager : MonoBehaviour
 
         // Else, look in front of you.
         // This may end up being on a "wall", or, one tile "out of bounds"
-        switch(playerObjects[0].direction)
+        switch (playerObjects[0].direction)
         {
             case Direction.NORTH:
                 return RoomManager.instance.activeRoom.getRoomObjectAt(playerObjects[0].currPosition.offset(0, 1));
@@ -198,7 +207,7 @@ public class PlayerManager : MonoBehaviour
 
     public void startMovement()
     {
-        if(!isMoving)
+        if (!isMoving)
         {
             isMoving = true;
             movingCoroutine = StartCoroutine(controlMovement());
@@ -218,8 +227,9 @@ public class PlayerManager : MonoBehaviour
 }
 
 
+// TODO replace
 public enum ActiveCharacter
 {
-    red,
-    lena
+    hazel,
+    winter
 }

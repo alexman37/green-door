@@ -25,49 +25,6 @@ public class RoomObject : MonoBehaviour
     {
         if (properties.dialogueFile != null) dialogueManager.processConversation(properties.dialogueFile);
     }
-
-    /*private void OnMouseOver()
-    {
-        Debug.Log(mouseOverLabel);
-    }*/
-
-    /// Rotate this particular room object (by rotating all its relative positions).
-    public void rotate(RotationOrder order)
-    {
-        /* Roation logic
-         * LEFT:      Invert X, then flip X and Y.
-         * RIGHT:     Invert Y, then flip X and Y.
-         * HALFMOON:  Invert X and Y.
-         */
-        switch (order)
-        {
-            case RotationOrder.LEFT:
-                foreach(Coords co in properties.relativePositions)
-                {
-                    co.x *= -1;
-                    int temp = co.x;
-                    co.x = co.y;
-                    co.y = temp;
-                }
-                break;
-            case RotationOrder.RIGHT:
-                foreach (Coords co in properties.relativePositions)
-                {
-                    co.y *= -1;
-                    int temp = co.x;
-                    co.x = co.y;
-                    co.y = temp;
-                }
-                break;
-            case RotationOrder.HALFMOON:
-                foreach (Coords co in properties.relativePositions)
-                {
-                    co.x *= -1;
-                    co.y *= -1;
-                }
-                break;
-        }
-    }
 }
 
 /* RoomObjectProperties stores all the data of the RoomObject
@@ -90,11 +47,6 @@ public class RoomObjectProperties
     public GameObject physicalObjectRef;
     public RoomObject roomObjectRef;
 
-    //Generation:
-    public List<RoomObjectGenLocation> genLocation; // Where to spawn this object in random rooms
-    public float probability; //0-1, with 1 being guaranteed to spawn
-    public int maxPossible; // How many? (probability is calculated each time)
-
     // Default const.
     public RoomObjectProperties()
     {
@@ -109,27 +61,5 @@ public class RoomObjectProperties
         mouseOverLabel = template.mouseOverLabel;
         absoluteCoords = new Coords(template.absoluteCoords.x, template.absoluteCoords.y);
         relativePositions = template.relativePositions.Clone() as Coords[];
-        genLocation = new List<RoomObjectGenLocation>(template.genLocation);
-        probability = template.probability;
-        maxPossible = template.maxPossible;
     }
-}
-
-public enum RoomObjectGenLocation
-{
-    FRONT_WALL,
-    ADJ_FRONT_WALL,
-    SIDE_WALL,
-    ADJ_SIDE_WALL,
-    BACK_WALL,
-    ADJ_BACK_WALL,
-    DOOR_POINTS,
-    GENERAL_CENTER
-}
-
-public enum RotationOrder
-{
-    LEFT,
-    RIGHT,
-    HALFMOON
 }

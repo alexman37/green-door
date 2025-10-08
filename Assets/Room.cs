@@ -19,11 +19,20 @@ public class Room : MonoBehaviour
     public int roomNumber;
     public Coords entryPoint; // Where your characters spawn when entering this room
 
+    public List<RoomObject> roomObjects;
+
     // Track what objects are in this room, and where
     public Dictionary<Vector2Int, RoomObjectProperties> roomObjectsMap = new Dictionary<Vector2Int, RoomObjectProperties>();
 
 
 
+    private void Start()
+    {
+        foreach(RoomObject ro in roomObjects)
+        {
+            roomObjectsMap.Add(ro.properties.absoluteCoords.asVector2Int(), ro.properties);
+        }
+    }
 
     // Add this room object to the roomTile (if eligible). That means it can no longer be walked on
     public void addRoomObject(RoomObjectProperties ro)
@@ -43,7 +52,12 @@ public class Room : MonoBehaviour
     // Return room object at this position, if there is one
     public RoomObject getRoomObjectAt(Coords position)
     {
-        if (roomObjectsMap.ContainsKey(position.asVector2Int())) return roomObjectsMap[position.asVector2Int()].roomObjectRef;
+        Debug.Log("Is there anything at " + position);
+        if (roomObjectsMap.ContainsKey(position.asVector2Int()))
+        {
+            Debug.Log("Yes: ");
+            return roomObjectsMap[position.asVector2Int()].roomObjectRef;
+        }
         else return null;
     }
 

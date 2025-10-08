@@ -14,6 +14,23 @@ public class PlayerObject : MonoBehaviour
     public ActiveCharacter character;
     public int order;
 
+    public Transform aheadCollider; // detects wall collisions
+    public bool lookingAtWall;
+
+    // Collider logic
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("Obj " + name + " colliding with " + collision.gameObject.name);
+        lookingAtWall = true;
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        Debug.Log("Obj " + name + " stopped colliding with " + collision.gameObject.name);
+        lookingAtWall = false;
+    }
+
     //Spawn the character in a new room. Reset some of their stats
     public void quoteOnQuoteInitialize(Coords startPos, int order)
     {
@@ -55,6 +72,19 @@ public class PlayerObject : MonoBehaviour
 
         // Offset real position by (0.5,0.5) so it's in the middle of that tile
         characterObj.transform.position = newRoomPosition.asVector2() + new Vector2(0.5f, 0.5f);
+    }
+
+    // rotate the collider box (must be done before movement)
+    public void rotate(Direction dir)
+    {
+        switch (dir)
+        {
+            case Direction.NORTH: aheadCollider.localPosition = new Vector3(0, 1, 0); break;
+            case Direction.SOUTH: aheadCollider.localPosition = new Vector3(0, -1, 0); break;
+            case Direction.WEST: aheadCollider.localPosition = new Vector3(-1, 0, 0); break;
+            case Direction.EAST: aheadCollider.localPosition = new Vector3(1, 0, 0); break;
+            default: aheadCollider.localPosition = new Vector3(0, 1, 0); break;
+        }
     }
 
     // Asset bundles needed for sprite movement
