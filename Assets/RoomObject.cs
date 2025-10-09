@@ -18,9 +18,13 @@ public class RoomObject : MonoBehaviour
     {
         dialogueManager = FindObjectsOfType<DialogueManager>()[0];
         physicalObjectRef = this.gameObject;
-
-        // Everything is offset by 0.5 because...that's just the way it is
-        properties.absoluteCoords = new Coords((int)(transform.position.x - 0.5f), (int)(transform.position.y - 0.5f));
+        
+        if(!properties.positionHardcoded)
+        {
+            // Everything is offset by 0.5 because...that's just the way it is
+            properties.absoluteCoords = new Coords((int)(transform.position.x - 0.5f), (int)(transform.position.y - 0.5f));
+        }
+        
         properties.roomObjectRef = this;
     }
 
@@ -45,6 +49,7 @@ public class RoomObjectProperties
     public string mouseOverLabel;
     public Coords absoluteCoords; // Where in the world is this?
     public Coords[] relativePositions; // RELATIVE to absolute coords, the object also extends to these places
+    public bool positionHardcoded;
 
     //Physical Game Object Reference
     [HideInInspector]
