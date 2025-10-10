@@ -55,7 +55,7 @@ public class DialogueManager : MonoBehaviour
         dc_text = dialogueContainer.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
         dc_choice = dialogueContainer.transform.GetChild(3).GetComponent<Button>();
 
-        playerManager = FindObjectsOfType<PlayerManager>()[0];
+        playerManager = FindObjectsByType<PlayerManager>(FindObjectsSortMode.None)[0];
     }
 
     private void Update()

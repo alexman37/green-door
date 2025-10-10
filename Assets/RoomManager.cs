@@ -26,7 +26,7 @@ public class RoomManager : MonoBehaviour
     {
         instance = this;
 
-        playerManager = FindObjectsOfType<PlayerManager>()[0];
+        playerManager = FindObjectsByType<PlayerManager>(FindObjectsSortMode.None)[0];
 
         // Get actions started
         currentRoomChanged += (Room r) => { };
