@@ -14,7 +14,7 @@ public class RoomObject : MonoBehaviour
     public RoomObjectProperties properties;
     private static DialogueManager dialogueManager;
 
-    private void Start()
+    public void Initialize()
     {
         dialogueManager = FindObjectsByType<DialogueManager>(FindObjectsSortMode.None)[0];
         physicalObjectRef = this.gameObject;

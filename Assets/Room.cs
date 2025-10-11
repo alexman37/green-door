@@ -30,6 +30,7 @@ public class Room : MonoBehaviour
     {
         foreach(RoomObject ro in roomObjects)
         {
+            ro.Initialize();
             addRoomObject(ro.properties);
         }
     }
