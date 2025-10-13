@@ -25,10 +25,18 @@ public class PlayerManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        RoomManager.currentRoomChanged += updateCurrentRoom;
-
         moveInputs = new List<(float time, float xChange, float yChange)>();
         startMovement();
+    }
+
+    void OnEnable()
+    {
+        RoomManager.currentRoomChanged += updateCurrentRoom;
+    }
+
+    void OnDisable()
+    {
+        RoomManager.currentRoomChanged -= updateCurrentRoom;
     }
 
     // Update is called once per frame
