@@ -1,0 +1,90 @@
+using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+
+/* See ScriptedEvent. It's the same idea, but these are Coroutines instead of methods.
+ * All events run in order and take a certain amount of time to complete
+ * */
+public class ScriptedTimedEvent : MonoBehaviour
+{
+    public IEnumerator coroutine;
+    public bool tethered;
+
+    // optional - use if you wish to create this scripted event from the inspector
+    public ScriptedEventInputs inputs;
+
+    public ScriptedTimedEvent(ScriptedEventInputs inputs)
+    {
+        setupCoroutine(inputs);
+    }
+
+    private void Start()
+    {
+        if(coroutine == null)
+        {
+            setupCoroutine(inputs);
+        }
+    }
+
+    // TODO the coroutine only can be used once. what if we have to reuse it?
+    private void setupCoroutine(ScriptedEventInputs inputs)
+    {
+        switch (inputs.eventType)
+        {
+            case ScriptedEventType.MOVEMENT:
+                coroutine = movementLinearCoroutine(inputs.focusObject, inputs.vector, inputs.time);
+                break;
+        }
+    }
+
+    public void trigger()
+    {
+        if(!tethered)
+        {
+            StartCoroutine(coroutine);
+        } else
+        {
+            EventManager.instance.QueueEvent(coroutine);
+        }
+        Destroy(this);
+    }
+
+    // Remake the coroutine from scratch if you might need to use this multiple times
+    public void triggerReusable()
+    {
+        setupCoroutine(inputs);
+        if (!tethered)
+        {
+            StartCoroutine(coroutine);
+        }
+        else
+        {
+            EventManager.instance.QueueEvent(coroutine);
+        }
+    }
+
+    public static IEnumerator movementLinearCoroutine(GameObject focus, Vector3 position, float time)
+    {
+        Vector3 startPos = focus.transform.position;
+        for(float t = 0; t < time; t += Time.deltaTime)
+        {
+            focus.transform.position = Vector3.Lerp(startPos, startPos + position, t / time);
+            yield return null;
+        }
+        EventManager.instance.finishEventExecution();
+    }
+}
+
+[System.Serializable]
+public class ScriptedEventInputs
+{
+    public ScriptedEventType eventType;
+    public GameObject focusObject;
+    public Vector3 vector;
+    public float time;
+}
+
+public enum ScriptedEventType
+{
+    MOVEMENT
+}
