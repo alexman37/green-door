@@ -8,10 +8,8 @@ using UnityEngine;
 /// Opening the wrong door means the character who did must suffer consequences.
 public class DoorObject : RoomObject
 {
-    public bool correct;
     private Animator animator;
     public int nextRoom;
-    public WrongDoorConsequences consequences;
 
     // Start is called before the first frame update
     void Start()
@@ -25,27 +23,12 @@ public class DoorObject : RoomObject
         
     }
 
-    // If correct, go to next room
-    // If incorrect, suffer the consequences
+
     public void openDoor()
     {
-        if (correct)
-        {
-            animator.SetTrigger("Opened");
+        animator.SetTrigger("Opened");
 
-            // RoomManager handles the fade transition
-            RoomManager.instance.changeCurrentRoom(nextRoom);
-        } else
-        {
-            //TODO suffer consequences
-            Debug.Log("You done goofed");
-        }
+        // RoomManager handles the fade transition
+        RoomManager.instance.changeCurrentRoom(nextRoom);
     }
-}
-
-/// What happens when you open the wrong door.
-/// Examples: Death, mood change, brought into trial room, injury (status effect), etc...
-public class WrongDoorConsequences
-{
-
 }

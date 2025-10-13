@@ -46,7 +46,6 @@ public class RoomObjectProperties
     //Properties:
     public string objectName;
     public TextAsset dialogueFile;
-    public string mouseOverLabel;
     public Coords absoluteCoords; // Where in the world is this?
     public Coords[] relativePositions; // RELATIVE to absolute coords, the object also extends to these places
     public bool positionHardcoded;
@@ -67,7 +66,6 @@ public class RoomObjectProperties
     {
         objectName = template.objectName;
         dialogueFile = template.dialogueFile;
-        mouseOverLabel = template.mouseOverLabel;
         absoluteCoords = new Coords(template.absoluteCoords.x, template.absoluteCoords.y);
         relativePositions = template.relativePositions.Clone() as Coords[];
     }
