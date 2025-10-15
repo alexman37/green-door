@@ -1,0 +1,17 @@
+using UnityEngine;
+
+public class Utils : MonoBehaviour
+{
+    // "Xerp"- Exponential interpretation. Right now only uses one function
+    public static Vector3 XerpStandard(Vector3 start, Vector3 end, float input)
+    {
+        float multiplier = -(Mathf.Pow((2.0f - 2.0f * input), 2.0f)) / 4.0f + 1.0f;
+        return Vector3.Lerp(start, end, multiplier);
+    }
+
+    public static Vector2 XerpStandard(Vector2 start, Vector2 end, float input)
+    {
+        float multiplier = -(Mathf.Pow((2.0f - 2.0f * input), 2.0f)) / 4.0f + 1.0f;
+        return Vector2.Lerp(start, end, multiplier);
+    }
+}

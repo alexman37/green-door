@@ -22,14 +22,19 @@ public class Room : MonoBehaviour
     public List<RoomObject> roomObjects;
 
     // Track what objects are in this room, and where
-    public Dictionary<Vector2Int, RoomObjectProperties> roomObjectsMap = new Dictionary<Vector2Int, RoomObjectProperties>();
+    public Dictionary<Vector2Int, RoomObjectProperties> roomObjectsMap;
 
 
 
     private void Start()
     {
-        foreach(RoomObject ro in roomObjects)
+        if (entryPoint == null) entryPoint = new Coords(0, 0); // will assume all room coords are in absolute/world position
+        if (roomObjects == null) roomObjects = new List<RoomObject>();
+        roomObjectsMap = new Dictionary<Vector2Int, RoomObjectProperties>();
+
+        foreach (RoomObject ro in roomObjects)
         {
+            ro.Initialize();
             addRoomObject(ro.properties);
         }
     }

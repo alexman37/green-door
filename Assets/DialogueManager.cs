@@ -19,8 +19,11 @@ using TMPro;
 //Why not static?: DialogueManager has to communicate with UI objects.
 public class DialogueManager : MonoBehaviour
 {
+    public static DialogueManager instance;
+    public static bool greenlight;
+
     public GameObject dialogueContainer;
-    Image dc_symbol;
+    public Sprite emptySprite;
     Image dc_portrait;
     TextMeshProUGUI dc_text;
     Button dc_choice;
@@ -30,8 +33,6 @@ public class DialogueManager : MonoBehaviour
     DialogueBlock block;
     string nextBlock = null;
     int entryInBlock = 0;
-
-    public TextAsset testFile;
 
     bool finishedDialogueLine = false;
 
@@ -45,17 +46,21 @@ public class DialogueManager : MonoBehaviour
 
     private void Start()
     {
+        if (instance == null) instance = this;
+        else Destroy(this);
+
         // Get actions started
         anyClick += () => { };
         DialogueChoiceButton.dialogueChoiceMade += makeChoice;
 
-        // Symbol, Portrait and Text fields are in dialogue container
-        dc_symbol = dialogueContainer.transform.GetChild(0).GetComponent<Image>();
-        dc_portrait = dialogueContainer.transform.GetChild(1).GetComponent<Image>();
-        dc_text = dialogueContainer.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
-        dc_choice = dialogueContainer.transform.GetChild(3).GetComponent<Button>();
+        // Portrait and Text fields are in dialogue container
+        dc_portrait = dialogueContainer.transform.GetChild(0).GetComponent<Image>();
+        dc_text = dialogueContainer.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        dc_choice = dialogueContainer.transform.GetChild(2).GetComponent<Button>();
 
         playerManager = FindObjectsByType<PlayerManager>(FindObjectsSortMode.None)[0];
+
+        greenlight = true;
     }
 
     private void Update()
@@ -64,11 +69,6 @@ public class DialogueManager : MonoBehaviour
         {
             finishedDialogueLine = false;
             anyClick.Invoke();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            processConversation(testFile);
         }
     }
 
@@ -147,8 +147,7 @@ public class DialogueManager : MonoBehaviour
                 dialogueContainer.SetActive(true);
             }
 
-            // Set symbol, sprite, and text
-            dc_symbol.sprite = getSymbolFromLine(dl);
+            // Set sprite, and text
             dc_portrait.sprite = getPortraitFromLine(dl);
 
             if(lastCharToSpeak != dl.character)
@@ -180,11 +179,9 @@ public class DialogueManager : MonoBehaviour
         float steps = 5;
 
         float ratio = startingLeft / steps;
-        dc_symbol.transform.position += new Vector3(-startingLeft, 0, 0);
         dc_portrait.transform.position += new Vector3(-startingLeft, 0, 0);
         for(int i = 0; i < steps; i++)
         {
-            dc_symbol.transform.position += new Vector3(ratio, 0, 0);
             dc_portrait.transform.position += new Vector3(ratio, 0, 0);
             yield return new WaitForSeconds(timeToTake / steps);
         }
@@ -357,8 +354,15 @@ public class DialogueManager : MonoBehaviour
     // TODO: If you can't find their mood for whatever reason just use their "default" portrait
     private Sprite getPortraitFromLine(DialogueLine line)
     {
-        Sprite next = getFromAssetBundle(line.character.ToLower() + "_portraits", line.portrait.ToLower());
-        return next;
+        string character = line.character.ToLower();
+        if(character == "n")
+        {
+            return emptySprite;
+        } else
+        {
+            Sprite next = getFromAssetBundle(line.character.ToLower() + "_portraits", line.portrait.ToLower());
+            return next;
+        }
     }
 
 

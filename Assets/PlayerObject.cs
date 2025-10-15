@@ -55,13 +55,6 @@ public class PlayerObject : MonoBehaviour
         return blockedInDirection[dir];
     }
 
-    //Spawn the character in a new room. Reset some of their stats
-    public void quoteOnQuoteInitialize(Coords startPos, int order)
-    {
-        currPosition = startPos;
-        this.order = order;
-    }
-
     public void changeSprite(Direction direction, int frame)
     {
         this.direction = direction;
