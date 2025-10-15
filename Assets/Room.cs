@@ -53,11 +53,12 @@ public class Room : MonoBehaviour
     // Return room object at this position, if there is one
     public RoomObject getRoomObjectAt(Coords position)
     {
-        Debug.Log("Is there anything at " + position);
+        Debug.Log($"Is there anything at {position} for room {roomNumber}");
         if (roomObjectsMap.ContainsKey(position.asVector2Int()))
         {
-            Debug.Log("Yes: ");
-            return roomObjectsMap[position.asVector2Int()].roomObjectRef;
+            RoomObject RO = roomObjectsMap[position.asVector2Int()].roomObjectRef;
+            Debug.Log($"Yes: {RO.name}");
+            return RO;
         }
         else return null;
     }

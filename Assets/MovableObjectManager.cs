@@ -94,6 +94,7 @@ public class MovableObjectManager : MonoBehaviour
         if (selectedObject != null)
         {
             selectedObject.SetSelected(false);
+            selectedObject.HideDraggingArrows();
         }
         
         // Select new object
@@ -124,6 +125,7 @@ public class MovableObjectManager : MonoBehaviour
         
         if (Mathf.Abs(dragDelta.x) > dragThreshold || Mathf.Abs(dragDelta.y) > dragThreshold)
         {
+            selectedObject.HideDraggingArrows();
             Direction dragDirection;
             
             if (Mathf.Abs(dragDelta.x) > Mathf.Abs(dragDelta.y))
@@ -139,6 +141,10 @@ public class MovableObjectManager : MonoBehaviour
             {
                 dragStartPosition = currentMousePos; // Reset drag start for continuous movement
             }
+        }
+        else
+        {
+            selectedObject.ShowDraggingArrows();
         }
     }
     

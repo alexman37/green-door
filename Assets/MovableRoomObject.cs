@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 /* MovableRoomObject extends RoomObject to add traffic jam-style movement capabilities.
@@ -14,6 +15,9 @@ public class MovableRoomObject : RoomObject
     public bool isSelected = false;
 
     private bool isMoving = false;
+
+    public List<GameObject> arrowObjects; // Visual indicators for possible movement directions
+    // This is on a sprite-by-sprite basis, since not all objects will have the same shape.
 
     //Here we can add a new enum for the type of movement. For example, right now we have it using the mouse,
     // but we could do something like strength puzzles from pokemon, where you can push an object by walking into it.
@@ -78,12 +82,28 @@ public class MovableRoomObject : RoomObject
         Coords oldPosition = new Coords(properties.absoluteCoords.x, properties.absoluteCoords.y);
         properties.absoluteCoords = new Coords(targetPosition.x, targetPosition.y);
 
+        // This solves the problem of the absolute and actual world positioning being off by 0.5.
+        // If the old position differs from the new one, then we need not do anything special.
+        // However, if they are the same, we need to add 0.5 to the new position to make it look right.
+        float xDiff = targetPosition.x + 0.5f;
+        float yDiff = targetPosition.y + 0.5f;
+       /* if (allowedDirection != MovementDirection.Both)
+        {
+            xDiff = oldPosition.x != targetPosition.x ? targetPosition.x : targetPosition.x + 0.5f;
+            yDiff = oldPosition.y != targetPosition.y ? targetPosition.y : targetPosition.y + 0.5f;
+        }
+        else
+        {
+            xDiff = oldPosition.x == targetPosition.x ? targetPosition.x : targetPosition.x + 0.5f;
+            yDiff = oldPosition.y != targetPosition.y ? targetPosition.y + 0.5f : targetPosition.y;
+        }
+       */
         // Add to new position in room map
         AddToRoomMap(currentRoom);
 
         // Animate physical movement
         Vector3 startPos = transform.position;
-        Vector3 endPos = new Vector3(targetPosition.x + 0.5f, targetPosition.y + 0.5f, transform.position.z);
+        Vector3 endPos = new Vector3(xDiff, yDiff, transform.position.z);
 
         float elapsed = 0f;
         while (elapsed < moveSpeed)
@@ -133,8 +153,20 @@ public class MovableRoomObject : RoomObject
     {
         if (isMoving) return false;
 
+        (bool valid, Coords targetPosition) = CheckIfValidDirection(direction);
+        if (valid)
+        {
+            MoveTo(targetPosition);
+            return true;
+        }
+
+        return false;
+    }
+
+    public (bool,Coords) CheckIfValidDirection(Direction direction)
+    {
         // Check if movement is allowed in this direction
-        if (!IsDirectionAllowed(direction)) return false;
+        if (!IsDirectionAllowed(direction)) return (false, new Coords(0,0));
 
         Coords targetPosition = properties.absoluteCoords;
 
@@ -155,12 +187,58 @@ public class MovableRoomObject : RoomObject
         }
 
         if (CanMoveTo(targetPosition))
-        {
-            MoveTo(targetPosition);
-            return true;
+        {           
+            return (true, targetPosition);
         }
+        return (false, new Coords(0, 0));
+    }
 
-        return false;
+    public void ShowDraggingArrows()
+    {
+        (bool valid, _) = CheckIfValidDirection(Direction.NORTH);
+        if (valid)
+        {
+            if (arrowObjects[0] != null) arrowObjects[0].SetActive(true);
+        }
+        else
+        {
+            if (arrowObjects[0] != null) arrowObjects[0].SetActive(false);
+        }
+        (valid, _) = CheckIfValidDirection(Direction.SOUTH);
+        if (valid)
+        {
+            if (arrowObjects[1] != null) arrowObjects[1].SetActive(true);
+        }
+        else
+        {
+            if (arrowObjects[1] != null) arrowObjects[1].SetActive(false);
+        }
+        (valid, _) = CheckIfValidDirection(Direction.EAST);
+        if (valid)
+        {
+            if(arrowObjects[2] != null) arrowObjects[2].SetActive(true);
+        }
+        else
+        {
+            if (arrowObjects[2] != null) arrowObjects[2].SetActive(false);
+        }
+        (valid, _) = CheckIfValidDirection(Direction.WEST);
+        if (valid)
+        {
+            if(arrowObjects[3] != null) arrowObjects[3].SetActive(true);
+        }
+        else
+        {
+            if (arrowObjects[3] != null) arrowObjects[3].SetActive(false);
+        }
+    }
+
+    public void HideDraggingArrows()
+    {
+        foreach(GameObject arrow in arrowObjects)
+        {
+            if (arrow != null) arrow.SetActive(false);
+        }
     }
 
     private bool IsDirectionAllowed(Direction direction)
