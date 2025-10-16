@@ -22,7 +22,7 @@ public class RoomObject : MonoBehaviour
         if(!properties.positionHardcoded)
         {
             // Everything is offset by 0.5 because...that's just the way it is
-            properties.absoluteCoords = new Coords((int)(transform.position.x - 0.5f), (int)(transform.position.y - 0.5f));
+            properties.absoluteCoords = new Coords(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y));
         }
         
         properties.roomObjectRef = this;
