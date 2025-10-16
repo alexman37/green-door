@@ -82,28 +82,12 @@ public class MovableRoomObject : RoomObject
         Coords oldPosition = new Coords(properties.absoluteCoords.x, properties.absoluteCoords.y);
         properties.absoluteCoords = new Coords(targetPosition.x, targetPosition.y);
 
-        // This solves the problem of the absolute and actual world positioning being off by 0.5.
-        // If the old position differs from the new one, then we need not do anything special.
-        // However, if they are the same, we need to add 0.5 to the new position to make it look right.
-        float xDiff = targetPosition.x + 0.5f;
-        float yDiff = targetPosition.y + 0.5f;
-       /* if (allowedDirection != MovementDirection.Both)
-        {
-            xDiff = oldPosition.x != targetPosition.x ? targetPosition.x : targetPosition.x + 0.5f;
-            yDiff = oldPosition.y != targetPosition.y ? targetPosition.y : targetPosition.y + 0.5f;
-        }
-        else
-        {
-            xDiff = oldPosition.x == targetPosition.x ? targetPosition.x : targetPosition.x + 0.5f;
-            yDiff = oldPosition.y != targetPosition.y ? targetPosition.y + 0.5f : targetPosition.y;
-        }
-       */
         // Add to new position in room map
         AddToRoomMap(currentRoom);
 
         // Animate physical movement
         Vector3 startPos = transform.position;
-        Vector3 endPos = new Vector3(xDiff, yDiff, transform.position.z);
+        Vector3 endPos = new Vector3(targetPosition.x, targetPosition.y, transform.position.z);
 
         float elapsed = 0f;
         while (elapsed < moveSpeed)

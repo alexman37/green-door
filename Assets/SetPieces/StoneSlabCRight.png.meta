@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 8373457718ab2754a96962db03c3e0bb
+guid: 47bbb0479aff0894cab42ef225216b40
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7152275670585559294
-    second: StoneSlab2-1_0
+      213: -5512895331394833630
+    second: StoneSlabCRight_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: StoneSlab2-1_0
+      name: StoneSlabCRight_0
       rect:
         serializedVersion: 2
         x: 1
         y: 1
-        width: 58
-        height: 115
+        width: 118
+        height: 179
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 20734170c230ebc90800000000000000
-      internalID: -7152275670585559294
+      spriteID: 2233d4897e24e73b0800000000000000
+      internalID: -5512895331394833630
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      StoneSlab2-1_0: -7152275670585559294
+      StoneSlabCRight_0: -5512895331394833630
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
