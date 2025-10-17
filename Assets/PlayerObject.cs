@@ -21,6 +21,7 @@ public class PlayerObject : MonoBehaviour
 
     private void Start()
     {
+        currPosition = new Coords(Mathf.FloorToInt(transform.position.x), Mathf.FloorToInt(transform.position.y));
         blockedInDirection = new Dictionary<Direction, bool>();
         blockedInDirection.Add(Direction.NORTH, false);
         blockedInDirection.Add(Direction.SOUTH, false);

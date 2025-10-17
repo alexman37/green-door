@@ -32,17 +32,18 @@ public class MovableRoomObject : RoomObject
 
         // Check all tiles this object would occupy at the target position
         List<Coords> occupiedTiles = GetOccupiedTiles(targetPosition);
-
+        Coords playerCoords = FindObjectsByType<PlayerObject>(FindObjectsSortMode.None)[0].currPosition;
+        
         foreach (Coords tile in occupiedTiles)
         {
             // Check if tile is occupied by another object (excluding this one)
             RoomObject objectAtTile = currentRoom.getRoomObjectAt(tile);
-            if (objectAtTile != null && objectAtTile != this)
-            {
+            if ((objectAtTile != null && objectAtTile != this) || (tile.x == playerCoords.x && tile.y == playerCoords.y))
+            {               
                 return false;
             }
         }
-
+        
         return true;
     }
 
