@@ -1,0 +1,4 @@
+/BLOCK=start
+	N():A sofa, for your patients.
+	N():You want them to be comfortable.
+/ENDBLOCK

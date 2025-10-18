@@ -1,0 +1,4 @@
+/BLOCK=start
+	N():Your desk.
+	N():Lately, it feels cleaner than usual.
+/ENDBLOCK

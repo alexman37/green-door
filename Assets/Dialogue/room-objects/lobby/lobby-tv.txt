@@ -1,0 +1,3 @@
+/BLOCK=start
+	N():There's nothing interesting on TV.
+/ENDBLOCK

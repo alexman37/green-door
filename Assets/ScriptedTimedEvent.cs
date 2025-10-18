@@ -84,6 +84,7 @@ public class ScriptedTimedEvent : MonoBehaviour
 public abstract class ScriptedEventInputs
 {
     public ScriptedEventType eventType;
+    public float totalTime;
 
     public ScriptedEventInputs(ScriptedEventType eventType)
     {
@@ -111,6 +112,7 @@ public class SEInputs_Movement : ScriptedEventInputs
         focus = f;
         delta = d;
         time = t;
+        totalTime = t;
     }
 
     public override IEnumerator getCoroutine()
@@ -148,6 +150,7 @@ public class SEInputs_Enable : ScriptedEventInputs
     {
         focus = f;
         enable = s;
+        totalTime = 0;
     }
 
     public override IEnumerator getCoroutine()
@@ -172,6 +175,7 @@ public class SEInputs_Fade : ScriptedEventInputs
     {
         inOrOut = f;
         time = t;
+        totalTime = t;
         if (fadingScreen == null) fadingScreen = ScriptedTimedEvent.fadingScreen;
     }
 
@@ -207,6 +211,7 @@ public class SEInputs_Show : ScriptedEventInputs
         content = c;
         trans = tr;
         time = t;
+        totalTime = t;
         if (pictureScreen == null) pictureScreen = ScriptedTimedEvent.pictureScreen;
     }
     
@@ -242,6 +247,7 @@ public class SEInputs_Hide : ScriptedEventInputs
     {
         trans = tr;
         time = t;
+        totalTime = t;
         if (pictureScreen == null) pictureScreen = ScriptedTimedEvent.pictureScreen;
     }
 

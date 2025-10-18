@@ -1,0 +1,71 @@
+/BLOCK=start
+
+	# TODO need some sort of delay here
+
+	# Starts on a black screen
+	$ FADE in 0
+
+	N():Showing door
+
+	# Door visual
+	$ SHOW green-door snap 0
+	$ FADE out 2
+
+	N():Showing garden
+
+	# Cut to visual of the garden
+	$ FADE in 1
+	$ SHOW garden snap 0
+	$ FADE out 1
+
+	N():Snap back to reality
+
+	# Cut back to reality. We are in a formal, cozy-looking therapist's office. Dr. Red Wallace is an old and quaint man. Lena is a visually bright young woman, but her sadness contradicts that.
+	$ HIDE fade 2
+
+	LENA()[1]:Speaking now
+
+	# Pause
+
+	RED():Speaking
+
+	# Pause
+
+	LENA():Choice
+	
+	/CHOICE
+		wonderful:It's your happy place
+		wishful:It's wishful thinking
+	/ENDCHOICE
+	
+/ENDBLOCK
+
+# You have two choices:It is your happy place // It is wishful thinking
+# [Wonderful Place]
+
+/BLOCK=wonderful
+	RED():Explanation 1
+	
+	$ FADE in 2
+	
+	N():narrator stuff
+	
+	$ FADE out 2
+	# Play animation
+/ENDBLOCK
+
+# [Wishful Thinking]
+
+/BLOCK=wishful
+	RED():Yap yap
+
+	# Fade to black
+
+	$ FADE in 2
+	
+	N():narrator stuff 2
+	
+	$ FADE out 2
+	# Play animation
+
+/ENDBLOCK

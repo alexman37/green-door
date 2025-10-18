@@ -1,0 +1,4 @@
+/BLOCK=start
+	N():A wall of books about human psychology.
+	N():They haven't been touched in a long time.
+/ENDBLOCK
