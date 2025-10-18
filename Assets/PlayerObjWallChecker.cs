@@ -29,11 +29,31 @@ public class PlayerObjWallChecker : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        checkerCollisionEnter.Invoke(direction);
+        LogicCollider possibleLC = collision.gameObject.GetComponent<LogicCollider>();
+        // Normal wall.
+        if (possibleLC == null)
+        {
+            checkerCollisionEnter.Invoke(direction);
+        }
+        // If not, do something special when entering this collider
+        else
+        {
+            possibleLC.onEntered();
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        checkerCollisionExit.Invoke(direction);
+        LogicCollider possibleLC = collision.gameObject.GetComponent<LogicCollider>();
+        // Normal wall.
+        if (possibleLC == null)
+        {
+            checkerCollisionExit.Invoke(direction);
+        }
+        // If not, do something special when entering this collider
+        else
+        {
+            possibleLC.onExited();
+        }
     }
 }
