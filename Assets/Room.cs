@@ -42,13 +42,12 @@ public class Room : MonoBehaviour
     // Add this room object to the roomTile (if eligible). That means it can no longer be walked on
     public void addRoomObject(RoomObjectProperties ro)
     {
-        Debug.Log("Adding object " + ro.objectName + " to " + ro.absoluteCoords.x + "," + ro.absoluteCoords.y + " in room " + roomNumber);
+        Debug.Log($"Adding {ro.objectName} with position {ro.absoluteCoords}");
         roomObjectsMap.Add(ro.absoluteCoords.asVector2Int(), ro);
 
         foreach (Coords c in ro.relativePositions)
         {
             roomObjectsMap.Add(ro.absoluteCoords.offset(c.x, c.y).asVector2Int(), ro);
-            Debug.Log("Adding object " + ro.objectName + " to " + ro.absoluteCoords.offset(c.x, c.y) + " in room " + roomNumber);
         }
     }
 
@@ -58,7 +57,7 @@ public class Room : MonoBehaviour
     // Return room object at this position, if there is one
     public RoomObject getRoomObjectAt(Coords position)
     {
-        Debug.Log($"Is there anything at {position} for room {roomNumber}");
+        //Debug.Log($"Is there anything at {position} for room {roomNumber}");
         if (roomObjectsMap.ContainsKey(position.asVector2Int()))
         {
             RoomObject RO = roomObjectsMap[position.asVector2Int()].roomObjectRef;

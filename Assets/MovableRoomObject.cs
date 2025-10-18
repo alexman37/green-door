@@ -79,16 +79,26 @@ public class MovableRoomObject : RoomObject
         // Remove from old position in room map
         RemoveFromRoomMap(currentRoom);
 
-        // Update logical position
-        Coords oldPosition = new Coords(properties.absoluteCoords.x, properties.absoluteCoords.y);
+        // Animate physical movement
+        Vector3 startPos = transform.position;
+        Vector3 endPos = new Vector3(targetPosition.x, targetPosition.y, transform.position.z);
+      
+        // This applies if the object has attempted to override the absolute position rather than use the default one.
+        // This is applicable for objects that are bottom-left oriented but would cause problems if the bottom-left tile is not blocked by anything, like
+        // the TopRightLBracket or TTable. If this check didn't exist, it would look like you could step on the bottom-left tile of the object, but you
+        // wouldn't actually be able to.
+        if (properties.absoluteCoords.x != Mathf.FloorToInt(transform.position.x) || properties.absoluteCoords.y != Mathf.FloorToInt(transform.position.y))
+        {
+            //Find what the trueX and trueY of where the object *should be* is.
+            int trueX = Mathf.FloorToInt(transform.position.x) - properties.absoluteCoords.x;
+            int trueY = Mathf.FloorToInt(transform.position.y) - properties.absoluteCoords.y;
+            //Correct the resultant position to use the adjusted trueX and trueY.
+            endPos = new Vector3(targetPosition.x + trueX, targetPosition.y + trueY, transform.position.z);
+        }
         properties.absoluteCoords = new Coords(targetPosition.x, targetPosition.y);
 
         // Add to new position in room map
         AddToRoomMap(currentRoom);
-
-        // Animate physical movement
-        Vector3 startPos = transform.position;
-        Vector3 endPos = new Vector3(targetPosition.x, targetPosition.y, transform.position.z);
 
         float elapsed = 0f;
         while (elapsed < moveSpeed)

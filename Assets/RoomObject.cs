@@ -8,8 +8,8 @@ using UnityEngine;
 */
 public class RoomObject : MonoBehaviour
 {
-    [HideInInspector]
-    public GameObject physicalObjectRef; // Needed bc of main thread BS
+    //[HideInInspector]
+    //public GameObject physicalObjectRef; // Needed bc of main thread BS
 
     public RoomObjectProperties properties;
     private static DialogueManager dialogueManager;
@@ -17,7 +17,7 @@ public class RoomObject : MonoBehaviour
     public void Initialize()
     {
         dialogueManager = FindObjectsByType<DialogueManager>(FindObjectsSortMode.None)[0];
-        physicalObjectRef = this.gameObject;
+        //physicalObjectRef = this.gameObject;
         
         if(!properties.positionHardcoded)
         {
@@ -52,7 +52,7 @@ public class RoomObjectProperties
 
     //Physical Game Object Reference
     [HideInInspector]
-    public GameObject physicalObjectRef;
+    //public GameObject physicalObjectRef;
     public RoomObject roomObjectRef;
 
     // Default const.

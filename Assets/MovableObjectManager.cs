@@ -78,7 +78,7 @@ public class MovableObjectManager : MonoBehaviour
             selectedObject.TryMoveInDirection(Direction.EAST);
         }
     }
-    
+
     private void SelectObjectUnderMouse()
     {
         Vector3 mouseWorldPos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
@@ -86,10 +86,36 @@ public class MovableObjectManager : MonoBehaviour
             Mathf.FloorToInt(mouseWorldPos.x),
             Mathf.FloorToInt(mouseWorldPos.y)
         );
-        
+
         RoomObject roomObject = RoomManager.instance.activeRoom.getRoomObjectAt(mouseGridPos);
+        if (roomObject is null)
+        {
+            return;
+        }
         MovableRoomObject movableObject = roomObject as MovableRoomObject;
-        
+        Coords playerCoords = FindObjectsByType<PlayerObject>(FindObjectsSortMode.None)[0].currPosition;
+        Coords objectCoords = roomObject.properties.absoluteCoords;
+
+        bool valid = false;
+        if (Mathf.Abs(playerCoords.x - objectCoords.x) + Mathf.Abs(playerCoords.y - objectCoords.y) <= 2) {
+            valid = true;
+        }
+        else
+        {        
+            foreach (Coords relativePos in roomObject.properties.relativePositions)
+            {
+                if (Mathf.Abs(playerCoords.x - (objectCoords.x + relativePos.x)) + Mathf.Abs(playerCoords.y - (objectCoords.y + relativePos.y)) <= 2)
+                {
+                    valid = true;
+                    break;
+                }
+            } 
+        }
+        if (!valid)
+        {
+            selectedObject = null;
+            return;
+        }
         // Deselect previous object
         if (selectedObject != null)
         {
@@ -154,6 +180,7 @@ public class MovableObjectManager : MonoBehaviour
         // Deselect previous object
         if (selectedObject != null)
         {
+            selectedObject.HideDraggingArrows();
             selectedObject.SetSelected(false);
         }
     }
