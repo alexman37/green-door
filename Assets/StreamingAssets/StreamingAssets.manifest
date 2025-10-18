@@ -1,31 +1,39 @@
 ManifestFileVersion: 0
-CRC: 2796058362
+UnityVersion: 6000.0.58f2
+CRC: 3646431781
+HashAppended: 0
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
-      Name: symbols
-      Dependencies: {}
-    Info_1:
-      Name: hazel_portraits
-      Dependencies: {}
-    Info_2:
-      Name: winter_portraits
-      Dependencies: {}
-    Info_3:
       Name: walk_into
       Dependencies: {}
-    Info_4:
-      Name: walk_left
+    Info_1:
+      Name: tilemap_mansion
       Dependencies: {}
-    Info_5:
+    Info_2:
       Name: walk_right
       Dependencies: {}
-    Info_6:
+    Info_3:
+      Name: walk_left
+      Dependencies: {}
+    Info_4:
+      Name: winter_portraits
+      Dependencies: {}
+    Info_5:
       Name: walk_outward
       Dependencies: {}
+    Info_6:
+      Name: hazel_portraits
+      Dependencies: {}
     Info_7:
-      Name: cassidy_portraits
+      Name: symbols
       Dependencies: {}
     Info_8:
-      Name: tilemap_mansion
+      Name: cassidy_portraits
+      Dependencies: {}
+    Info_9:
+      Name: lena_portraits
+      Dependencies: {}
+    Info_10:
+      Name: red_portraits
       Dependencies: {}

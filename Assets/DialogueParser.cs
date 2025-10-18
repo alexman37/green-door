@@ -44,10 +44,32 @@ using UnityEngine;
 
 public class DialogueParser
 {
-    //TODO: Parse conditionals.
-
+    /// <summary>
+    /// Parse a simple, raw text file. There will only be talking between characters and associated effects
+    /// </summary>
     public static DialogueSet parseDialogue(TextAsset txtFile)
     {
+        return parsingProcess(txtFile, null, false);
+    }
+
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public static DialogueSet parseDialogue(DialogueItem item)
+    {
+        return parsingProcess(null, item, true);
+    }
+
+
+
+    /// <summary>
+    /// 
+    /// </summary>
+    private static DialogueSet parsingProcess(TextAsset txtFile, DialogueItem item, bool isItemFormat)
+    {
+        if (isItemFormat) txtFile = item.rawFile;
+
         string[] raw = txtFile.text.Split('\n');
         string currBlock = null;
         List<DialogueBlock> dialogueBlocks = new List<DialogueBlock>();
@@ -57,74 +79,121 @@ public class DialogueParser
         List<(string opt, string disp)> choiceOptions = new List<(string opt, string disp)>();
         DialogueChoice choice = null;
 
-        for(int i = 0; i < raw.Length; i++)
+        for (int i = 0; i < raw.Length; i++)
         {
             string currLine = raw[i];
             currLine = currLine.Trim();
 
             // Ignore comments.
-            if(currLine.Length > 0 && currLine[0] != '#')
+            if (currLine.Length > 0 && currLine[0] != '#')
             {
-                if (currLine.Contains("/BLOCK="))
+                // Events / Commands.
+                if(!isItemFormat && currLine[0] == '$')
                 {
-                    currBlock = currLine.Split('=')[1];
+                    Debug.LogWarning("The file " + txtFile.name + " was not specified as a DialogueItem. Ignoring command.");
                 }
-                //Ignore everything before the first block.
-                else if (currBlock != null)
+                else if (isItemFormat && currLine[0] == '$')
                 {
-                    //Check for directives.
-                    if (currLine.Contains("/ENDBLOCK"))
+                    string[] actions = currLine.Split(' ');
+                    string masterCommand = actions[1];
+
+                    float time;
+                    switch (masterCommand)
                     {
-                        DialogueBlock dBlock = new DialogueBlock(currBlock, dialogueEntries);
-                        dialogueBlocks.Add(dBlock);
-                        dialogueEntries.Clear();
-                        currBlock = null;
+                        case "FADE":
+                            bool inOrOut = actions[2] == "in" ? true : false;
+                            time = float.Parse(actions[3]);
+
+                            DialogueCommand dc1 = new DialogueCommand(new SEInputs_Fade(inOrOut, time));
+                            dialogueEntries.Add(dc1);
+                            break;
+                        case "SHOW":
+                            string id = actions[2];
+                            PictureTransitionType trans = matchPictureTransition(actions[3]);
+                            time = float.Parse(actions[4]);
+
+                            DialogueCommand dc2 = new DialogueCommand(new SEInputs_Show(item.pictureRefs.getOfId(id), trans, time));
+                            dialogueEntries.Add(dc2);
+                            break;
+                        case "HIDE":
+                            PictureTransitionType trans2 = matchPictureTransition(actions[2]);
+                            time = float.Parse(actions[3]);
+
+                            DialogueCommand dc3 = new DialogueCommand(new SEInputs_Hide(trans2, time));
+                            dialogueEntries.Add(dc3);
+                            break;
+                        case "MOVE": break;
+                        case "ANIM": break;
+                        case "SFX": break;
                     }
+                }
 
-                    else if (currLine.Contains("/CHOICE"))
+
+                // Not an event or command.
+                else
+                {
+                    // Start of a new block.
+                    if (currLine.Contains("/BLOCK="))
                     {
-                        inChoice = true;
+                        currBlock = currLine.Split('=')[1];
                     }
-
-                    else if (currLine.Contains("/ENDCHOICE"))
+                    //Ignore everything before the first block.
+                    else if (currBlock != null)
                     {
-                        inChoice = false;
-                        choice = new DialogueChoice(new List<(string opt, string disp)>(choiceOptions));
-                        dialogueEntries.Add(choice);
-                        choiceOptions.Clear();
-                    }
-
-                    else if (currLine.Contains("/IF"))
-                    {
-                        //TODO
-                    }
-
-                    //Otherwise, this is an actual spoken line of dialogue.
-                    else if(!inChoice)
-                    {
-                        //TODO Debug.Log("I see the line is " + currLine);
-                        int idx1 = currLine.IndexOf('(');
-                        int idx2 = currLine.IndexOf(')');
-                        int idx3 = currLine.IndexOf('[');
-                        int idx4 = currLine.IndexOf(']');
-                        int idx5 = currLine.IndexOf(':');
-                        string charSpeaking = currLine.Substring(0, idx1);
-                        string charPortraitName = currLine.Substring(idx1 + 1, idx2 - idx1 - 1);
-                        int charWaitTime = idx3 == -1 ? 0 : System.Int32.Parse(currLine.Substring(idx3 + 1, (idx4 - idx3) - 1));
-                        string spoken = currLine.Substring(idx5 + 1);
-
-                        DialogueLine newLine = new DialogueLine(charSpeaking, charPortraitName, charWaitTime, spoken);
-                        dialogueEntries.Add(newLine);
-                    }
-
-
-                    // in choice check has to come after all the directives checking...
-                    else
-                    {
-                        string[] choiceParse = currLine.Split(':');
-                        if(choiceParse.Length > 1)
+                        //Check for directives.
+                        if (currLine.Contains("/ENDBLOCK"))
                         {
-                            choiceOptions.Add((choiceParse[0], choiceParse[1]));
+                            DialogueBlock dBlock = new DialogueBlock(currBlock, dialogueEntries);
+                            dialogueBlocks.Add(dBlock);
+                            dialogueEntries.Clear();
+                            currBlock = null;
+                        }
+
+                        else if (currLine.Contains("/CHOICE"))
+                        {
+                            inChoice = true;
+                        }
+
+                        else if (currLine.Contains("/ENDCHOICE"))
+                        {
+                            inChoice = false;
+                            choice = new DialogueChoice(new List<(string opt, string disp)>(choiceOptions));
+                            dialogueEntries.Add(choice);
+                            choiceOptions.Clear();
+                        }
+
+                        else if (currLine.Contains("/IF"))
+                        {
+                            //TODO
+                        }
+
+                        //Otherwise, this is an actual spoken line of dialogue.
+                        else if (!inChoice)
+                        {
+                            //TODO Debug.Log("I see the line is " + currLine);
+                            int idx1 = currLine.IndexOf('(');
+                            int idx2 = currLine.IndexOf(')');
+                            int idx3 = currLine.IndexOf('[');
+                            int idx4 = currLine.IndexOf(']');
+                            int idx5 = currLine.IndexOf(':');
+                            string charSpeaking = currLine.Substring(0, idx1);
+                            string charPortraitName = currLine.Substring(idx1 + 1, idx2 - idx1 - 1);
+                            int charWaitTime = idx3 == -1 ? 0 : System.Int32.Parse(currLine.Substring(idx3 + 1, (idx4 - idx3) - 1));
+                            string spoken = currLine.Substring(idx5 + 1);
+
+                            DialogueLine newLine = new DialogueLine(charSpeaking, charPortraitName, charWaitTime, spoken);
+                            dialogueEntries.Add(newLine);
+                        }
+
+
+                        // in choice check has to come after all the directives checking...
+                        else
+                        {
+                            string[] choiceParse = currLine.Split(':');
+                            if (choiceParse.Length > 1)
+                            {
+                                choiceOptions.Add((choiceParse[0], choiceParse[1]));
+                            }
                         }
                     }
                 }
@@ -135,4 +204,13 @@ public class DialogueParser
         return new DialogueSet(dialogueBlocks, txtFile.name);
     }
 
+    private static PictureTransitionType matchPictureTransition(string raw)
+    {
+        switch(raw)
+        {
+            case "fade": return PictureTransitionType.FADE;
+            case "snap": return PictureTransitionType.SNAP;
+            default: return PictureTransitionType.SNAP;
+        }
+    }
 }

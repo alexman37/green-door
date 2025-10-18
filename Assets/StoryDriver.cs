@@ -6,6 +6,7 @@ public class StoryDriver : MonoBehaviour
 {
     public static StoryDriver instance;
     public TextAsset initialFile;
+    public DialogueItem dialogueItem;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -16,12 +17,20 @@ public class StoryDriver : MonoBehaviour
     // Wait until all managers and important stuff are created. then begin with the story
     IEnumerator setupPhase()
     {
+        Debug.Log("Setting up story driver...");
         yield return new WaitUntil(() =>
         {
             return DialogueManager.greenlight;
         });
+        Debug.Log("Story Driver DONE");
 
-        DialogueManager.instance.processConversation(initialFile);
+        if(dialogueItem)
+        {
+            DialogueManager.instance.processConversation(dialogueItem);
+        } else
+        {
+            DialogueManager.instance.processConversation(initialFile);
+        }
     }
 }
 

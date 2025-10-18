@@ -1,6 +1,9 @@
 /BLOCK=start
 
+	# TODO need some sort of delay here
+
 	# Starts on a black screen
+	$ FADE in 0
 
 	N():I was young.
 	N():I can't remember how I found it. I guess, really, it found me.
@@ -9,12 +12,17 @@
 	N():Suddenly, there it was.
 
 	# Door visual
+	$ SHOW green-door snap 0
+	$ FADE out 2
 
 	N():An immaculate green door, adorned with lush leaves and white roses.
 	N():Most people overlooked it. I couldn't understand why.
 	N():I knew...I knew it was special.
 
 	# Cut to visual of the garden
+	$ FADE in 1
+	$ SHOW garden snap 0
+	$ FADE out 1
 
 	N():It's another world inside. A better world.
 	N():A beautiful, serene garden...as pristine as you can imagine.
@@ -25,6 +33,7 @@
 	N():I could stay there forever.
 
 	# Cut back to reality. We are in a formal, cozy-looking therapist's office. Dr. Red Wallace is an old and quaint man. Lena is a visually bright young woman, but her sadness contradicts that.
+	$ HIDE fade 2
 
 	LENA():That's what bothers me.
 
@@ -71,6 +80,11 @@
 
 	LENA():Please...
 	LENA():What do you think the garden means?
+	
+	/CHOICE
+		wonderful:It's your happy place
+		wishful:It's wishful thinking
+	/ENDCHOICE
 	
 /ENDBLOCK
 

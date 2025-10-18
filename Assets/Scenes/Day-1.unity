@@ -805,13 +805,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tethered: 0
-  inputs:
-    eventType: 0
-    focusObject: {fileID: 2016508262}
-    vector: {x: 0, y: 2, z: 0}
-    time: 4
-    flag: 0
-    col: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &122723211
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -959,13 +952,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tethered: 1
-  inputs:
-    eventType: 0
-    focusObject: {fileID: 252974114}
-    vector: {x: 2, y: 0, z: 0}
-    time: 4
-    flag: 0
-    col: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &143954240
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1328,7 +1314,8 @@ MonoBehaviour:
   physicalObjectRef: {fileID: 0}
   properties:
     objectName: Table
-    dialogueFile: {fileID: 4900000, guid: 94cc093a41e1c734fbc73c9c101668e8, type: 3}
+    dialogueFileRaw: {fileID: 0}
+    dialogueItem: {fileID: 0}
     absoluteCoords:
       x: 0
       y: 2
@@ -1412,7 +1399,8 @@ MonoBehaviour:
   physicalObjectRef: {fileID: 247816992}
   properties:
     objectName: RightDoor
-    dialogueFile: {fileID: 0}
+    dialogueFileRaw: {fileID: 0}
+    dialogueItem: {fileID: 0}
     absoluteCoords:
       x: 3
       y: -4
@@ -1970,13 +1958,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tethered: 1
-  inputs:
-    eventType: 3
-    focusObject: {fileID: 1977218087}
-    vector: {x: 0, y: 0, z: 0}
-    time: 2
-    flag: 1
-    col: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &351199004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2377,7 +2358,8 @@ MonoBehaviour:
   physicalObjectRef: {fileID: 0}
   properties:
     objectName: LobbyDesk
-    dialogueFile: {fileID: 0}
+    dialogueFileRaw: {fileID: 0}
+    dialogueItem: {fileID: 0}
     absoluteCoords:
       x: 31
       y: -7
@@ -2486,6 +2468,81 @@ Transform:
   m_Children: []
   m_Father: {fileID: 232678302}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &489159167
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 489159168}
+  - component: {fileID: 489159170}
+  - component: {fileID: 489159169}
+  m_Layer: 5
+  m_Name: Picture
+  m_TagString: PictureCanvas
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &489159168
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 489159167}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 752212538}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1600, y: 1200}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &489159169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 489159167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &489159170
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 489159167}
+  m_CullTransparentMesh: 1
 --- !u!1 &514586266
 GameObject:
   m_ObjectHideFlags: 0
@@ -3635,6 +3692,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 489159168}
   - {fileID: 1977218088}
   m_Father: {fileID: 951352649}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3754,7 +3812,8 @@ MonoBehaviour:
   physicalObjectRef: {fileID: 768771815}
   properties:
     objectName: RightDoor
-    dialogueFile: {fileID: 0}
+    dialogueFileRaw: {fileID: 0}
+    dialogueItem: {fileID: 0}
     absoluteCoords:
       x: 3
       y: -4
@@ -3918,13 +3977,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tethered: 1
-  inputs:
-    eventType: 0
-    focusObject: {fileID: 1599614092}
-    vector: {x: 2, y: 0, z: 0}
-    time: 4
-    flag: 0
-    col: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &841460207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4297,7 +4349,8 @@ MonoBehaviour:
   physicalObjectRef: {fileID: 926609074}
   properties:
     objectName: RightDoor
-    dialogueFile: {fileID: 0}
+    dialogueFileRaw: {fileID: 0}
+    dialogueItem: {fileID: 0}
     absoluteCoords:
       x: 3
       y: -4
@@ -4422,8 +4475,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 47665598}
   - {fileID: 752212538}
+  - {fileID: 47665598}
   - {fileID: 841460205}
   - {fileID: 143954238}
   - {fileID: 122723209}
@@ -4762,7 +4815,8 @@ MonoBehaviour:
   physicalObjectRef: {fileID: 0}
   properties:
     objectName: 
-    dialogueFile: {fileID: 0}
+    dialogueFileRaw: {fileID: 0}
+    dialogueItem: {fileID: 0}
     absoluteCoords:
       x: -5
       y: -3
@@ -5224,7 +5278,8 @@ MonoBehaviour:
   physicalObjectRef: {fileID: 0}
   properties:
     objectName: 
-    dialogueFile: {fileID: 0}
+    dialogueFileRaw: {fileID: 0}
+    dialogueItem: {fileID: 0}
     absoluteCoords:
       x: -5
       y: -1
@@ -37365,7 +37420,8 @@ MonoBehaviour:
   physicalObjectRef: {fileID: 0}
   properties:
     objectName: GeneralWall
-    dialogueFile: {fileID: 0}
+    dialogueFileRaw: {fileID: 0}
+    dialogueItem: {fileID: 0}
     absoluteCoords:
       x: 0
       y: 0
@@ -37956,7 +38012,8 @@ MonoBehaviour:
   physicalObjectRef: {fileID: 0}
   properties:
     objectName: Desk
-    dialogueFile: {fileID: 0}
+    dialogueFileRaw: {fileID: 0}
+    dialogueItem: {fileID: 0}
     absoluteCoords:
       x: -2
       y: 0
@@ -38167,7 +38224,8 @@ MonoBehaviour:
   physicalObjectRef: {fileID: 0}
   properties:
     objectName: Lobbyman
-    dialogueFile: {fileID: 0}
+    dialogueFileRaw: {fileID: 0}
+    dialogueItem: {fileID: 0}
     absoluteCoords:
       x: 29
       y: -7
@@ -38636,13 +38694,14 @@ GameObject:
   m_Component:
   - component: {fileID: 1721946680}
   - component: {fileID: 1721946679}
+  - component: {fileID: 1721946681}
   m_Layer: 0
   m_Name: StoryDriver
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1721946679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38655,7 +38714,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 909a23e94ebca1e45a10057e2c78c871, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialFile: {fileID: 4900000, guid: ed29b0536ed269b44836cc2c05f7380c, type: 3}
+  initialFile: {fileID: 0}
+  dialogueItem: {fileID: 1721946681}
 --- !u!4 &1721946680
 Transform:
   m_ObjectHideFlags: 0
@@ -38671,6 +38731,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1721946681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1721946678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9621263cd550924bb655b96a8e51e19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rawFile: {fileID: 4900000, guid: ed29b0536ed269b44836cc2c05f7380c, type: 3}
+  objectRefs:
+    listOfObjects:
+    - content: {fileID: 0}
+      id: 
+  pictureRefs:
+    listOfObjects:
+    - content: {fileID: 21300000, guid: d3959a311fc0ae54c87c0ea30fd8c3e7, type: 3}
+      id: green-door
+    - content: {fileID: 21300000, guid: 92ede6cc2362bc147aa82ac11754f82e, type: 3}
+      id: garden
 --- !u!1 &1745947281
 GameObject:
   m_ObjectHideFlags: 0
@@ -39158,13 +39241,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tethered: 1
-  inputs:
-    eventType: 3
-    focusObject: {fileID: 1977218087}
-    vector: {x: 0, y: 0, z: 0}
-    time: 2
-    flag: 0
-    col: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &1873776837
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39498,7 +39574,8 @@ MonoBehaviour:
   physicalObjectRef: {fileID: 0}
   properties:
     objectName: Couch
-    dialogueFile: {fileID: 0}
+    dialogueFileRaw: {fileID: 0}
+    dialogueItem: {fileID: 0}
     absoluteCoords:
       x: -2
       y: -2
@@ -39615,7 +39692,8 @@ MonoBehaviour:
   physicalObjectRef: {fileID: 0}
   properties:
     objectName: 
-    dialogueFile: {fileID: 0}
+    dialogueFileRaw: {fileID: 0}
+    dialogueItem: {fileID: 0}
     absoluteCoords:
       x: 4
       y: -3
@@ -40029,7 +40107,7 @@ GameObject:
   - component: {fileID: 1977218089}
   m_Layer: 5
   m_Name: Fade
-  m_TagString: Untagged
+  m_TagString: FadingCanvas
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40240,7 +40318,8 @@ MonoBehaviour:
   physicalObjectRef: {fileID: 2005123887}
   properties:
     objectName: RightDoor
-    dialogueFile: {fileID: 0}
+    dialogueFileRaw: {fileID: 0}
+    dialogueItem: {fileID: 0}
     absoluteCoords:
       x: 3
       y: -4
