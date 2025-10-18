@@ -832,28 +832,22 @@ MonoBehaviour:
       x: 0
       y: 0
     relativePositions:
-    - x: 1
-      y: 0
-    - x: 2
-      y: 0
-    - x: 3
-      y: 0
-    - x: 4
-      y: 0
-    - x: 5
-      y: 0
-    - x: -1
-      y: 0
-    - x: -2
-      y: 0
-    - x: -3
-      y: 0
-    - x: -4
-      y: 0
-    - x: -5
-      y: 0
-    - x: -6
-      y: 0
+    - x: 0
+      y: 1
+    - x: 0
+      y: 2
+    - x: 0
+      y: 3
+    - x: 0
+      y: -1
+    - x: 0
+      y: -2
+    - x: 0
+      y: -3
+    - x: 0
+      y: -4
+    - x: 0
+      y: -5
     positionHardcoded: 0
     roomObjectRef: {fileID: 0}
   wallDebugSprite: {fileID: 6194187588488795284, guid: 615ed6a3632d0d74da7781e1b0f6c2d0, type: 3}
@@ -1125,6 +1119,7 @@ MonoBehaviour:
   - {fileID: 3773723338233360961}
   - {fileID: 1305117471}
   - {fileID: 1466663076}
+  containsIce: 0
 --- !u!1 &394941514
 GameObject:
   m_ObjectHideFlags: 0
@@ -1397,7 +1392,7 @@ Transform:
   m_GameObject: {fileID: 514586266}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -40, y: -15, z: 0}
+  m_LocalPosition: {x: -40, y: -30, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2742,28 +2737,22 @@ MonoBehaviour:
       x: 0
       y: 0
     relativePositions:
-    - x: 1
-      y: 0
-    - x: 2
-      y: 0
-    - x: 3
-      y: 0
-    - x: 4
-      y: 0
-    - x: 5
-      y: 0
-    - x: -1
-      y: 0
-    - x: -2
-      y: 0
-    - x: -3
-      y: 0
-    - x: -4
-      y: 0
-    - x: -5
-      y: 0
-    - x: -6
-      y: 0
+    - x: 0
+      y: 1
+    - x: 0
+      y: 2
+    - x: 0
+      y: 3
+    - x: 0
+      y: -1
+    - x: 0
+      y: -2
+    - x: 0
+      y: -3
+    - x: 0
+      y: -4
+    - x: 0
+      y: -5
     positionHardcoded: 0
     roomObjectRef: {fileID: 0}
   wallDebugSprite: {fileID: 6194187588488795284, guid: 615ed6a3632d0d74da7781e1b0f6c2d0, type: 3}
@@ -2935,6 +2924,7 @@ MonoBehaviour:
   playerObjects:
   - {fileID: 514586269}
   activeChar: 0
+  doesCurrentRoomContainIce: 0
 --- !u!4 &791124463
 Transform:
   m_ObjectHideFlags: 0
@@ -4382,6 +4372,7 @@ MonoBehaviour:
   - {fileID: 1595828221}
   - {fileID: 654558683}
   - {fileID: 759817610}
+  containsIce: 0
 --- !u!1 &1370007151
 GameObject:
   m_ObjectHideFlags: 0
@@ -13621,6 +13612,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1461079076}
   - component: {fileID: 1461079077}
+  - component: {fileID: 1461079078}
   m_Layer: 0
   m_Name: Room4 (Ice Puzzle)
   m_TagString: Untagged
@@ -13664,6 +13656,378 @@ MonoBehaviour:
     x: 2
     y: 2
   roomObjects: []
+  containsIce: 1
+--- !u!114 &1461079078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1461079075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11aa1036edacf594fb245ba4820925be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wallDebugSprite: {fileID: 0}
+  iceTiles:
+  - x: -44
+    y: -34
+  - x: -43
+    y: -35
+  - x: -42
+    y: -35
+  - x: -44
+    y: -35
+  - x: -43
+    y: -36
+  - x: -42
+    y: -36
+  - x: -42
+    y: -34
+  - x: -43
+    y: -34
+  - x: -41
+    y: -34
+  - x: -41
+    y: -35
+  - x: -41
+    y: -36
+  - x: -40
+    y: -34
+  - x: -45
+    y: -30
+  - x: -43
+    y: -30
+  - x: -42
+    y: -30
+  - x: -44
+    y: -31
+  - x: -46
+    y: -32
+  - x: -45
+    y: -32
+  - x: -44
+    y: -32
+  - x: -41
+    y: -30
+  - x: -40
+    y: -31
+  - x: -43
+    y: -32
+  - x: -43
+    y: -31
+  - x: -44
+    y: -30
+  - x: -41
+    y: -31
+  - x: -42
+    y: -32
+  - x: -41
+    y: -32
+  - x: -40
+    y: -32
+  - x: -39
+    y: -31
+  - x: -40
+    y: -29
+  - x: -41
+    y: -29
+  - x: -40
+    y: -30
+  - x: -39
+    y: -30
+  - x: -39
+    y: -32
+  - x: -39
+    y: -33
+  - x: -39
+    y: -34
+  - x: -39
+    y: -35
+  - x: -40
+    y: -35
+  - x: -39
+    y: -36
+  - x: -38
+    y: -35
+  - x: -45
+    y: -34
+  - x: -46
+    y: -34
+  - x: -45
+    y: -35
+  - x: -46
+    y: -35
+  - x: -45
+    y: -36
+  - x: -44
+    y: -36
+  - x: -46
+    y: -36
+  - x: -46
+    y: -37
+  - x: -45
+    y: -37
+  - x: -47
+    y: -36
+  - x: -47
+    y: -37
+  - x: -44
+    y: -37
+  - x: -43
+    y: -37
+  - x: -42
+    y: -37
+  - x: -41
+    y: -37
+  - x: -40
+    y: -37
+  - x: -38
+    y: -36
+  - x: -37
+    y: -36
+  - x: -37
+    y: -35
+  - x: -38
+    y: -34
+  - x: -38
+    y: -33
+  - x: -38
+    y: -32
+  - x: -37
+    y: -33
+  - x: -37
+    y: -34
+  - x: -36
+    y: -33
+  - x: -36
+    y: -34
+  - x: -36
+    y: -36
+  - x: -36
+    y: -37
+  - x: -36
+    y: -35
+  - x: -37
+    y: -38
+  - x: -39
+    y: -37
+  - x: -38
+    y: -37
+  - x: -39
+    y: -38
+  - x: -41
+    y: -38
+  - x: -40
+    y: -38
+  - x: -40
+    y: -36
+  - x: -39
+    y: -39
+  - x: -38
+    y: -38
+  - x: -38
+    y: -39
+  - x: -37
+    y: -40
+  - x: -38
+    y: -40
+  - x: -39
+    y: -40
+  - x: -41
+    y: -40
+  - x: -40
+    y: -40
+  - x: -40
+    y: -39
+  - x: -41
+    y: -39
+  - x: -37
+    y: -39
+  - x: -36
+    y: -40
+  - x: -35
+    y: -40
+  - x: -37
+    y: -41
+  - x: -38
+    y: -41
+  - x: -39
+    y: -41
+  - x: -40
+    y: -41
+  - x: -41
+    y: -41
+  - x: -39
+    y: -42
+  - x: -40
+    y: -42
+  - x: -41
+    y: -42
+  - x: -38
+    y: -42
+  - x: -37
+    y: -42
+  - x: -36
+    y: -41
+  - x: -35
+    y: -41
+  - x: -35
+    y: -42
+  - x: -36
+    y: -42
+  - x: -37
+    y: -37
+  - x: -36
+    y: -38
+  - x: -36
+    y: -39
+  - x: -35
+    y: -39
+  - x: -35
+    y: -38
+  - x: -35
+    y: -37
+  - x: -35
+    y: -36
+  - x: -35
+    y: -35
+  - x: -35
+    y: -34
+  - x: -35
+    y: -33
+  - x: -35
+    y: -32
+  - x: -35
+    y: -31
+  - x: -35
+    y: -30
+  - x: -35
+    y: -28
+  - x: -35
+    y: -27
+  - x: -35
+    y: -29
+  - x: -37
+    y: -27
+  - x: -38
+    y: -27
+  - x: -36
+    y: -27
+  - x: -39
+    y: -27
+  - x: -40
+    y: -27
+  - x: -41
+    y: -27
+  - x: -40
+    y: -28
+  - x: -43
+    y: -28
+  - x: -44
+    y: -28
+  - x: -45
+    y: -28
+  - x: -46
+    y: -28
+  - x: -47
+    y: -27
+  - x: -46
+    y: -27
+  - x: -45
+    y: -27
+  - x: -44
+    y: -27
+  - x: -43
+    y: -27
+  - x: -44
+    y: -29
+  - x: -42
+    y: -28
+  - x: -42
+    y: -27
+  - x: -43
+    y: -29
+  - x: -41
+    y: -28
+  - x: -46
+    y: -29
+  - x: -45
+    y: -29
+  - x: -47
+    y: -29
+  - x: -46
+    y: -30
+  - x: -47
+    y: -30
+  - x: -47
+    y: -28
+  - x: -47
+    y: -31
+  - x: -46
+    y: -31
+  - x: -45
+    y: -31
+  - x: -45
+    y: -33
+  - x: -47
+    y: -33
+  - x: -47
+    y: -32
+  - x: -46
+    y: -33
+  - x: -47
+    y: -34
+  - x: -47
+    y: -35
+  - x: -44
+    y: -33
+  - x: -43
+    y: -33
+  - x: -42
+    y: -33
+  - x: -41
+    y: -33
+  - x: -40
+    y: -33
+  - x: -37
+    y: -32
+  - x: -36
+    y: -32
+  - x: -36
+    y: -31
+  - x: -36
+    y: -30
+  - x: -36
+    y: -29
+  - x: -36
+    y: -28
+  - x: -37
+    y: -29
+  - x: -37
+    y: -30
+  - x: -37
+    y: -31
+  - x: -37
+    y: -28
+  - x: -38
+    y: -29
+  - x: -38
+    y: -28
+  - x: -38
+    y: -30
+  - x: -38
+    y: -31
+  - x: -39
+    y: -29
+  - x: -39
+    y: -28
+  - x: -42
+    y: -29
+  - x: -42
+    y: -31
+  startAddingTiles: 0
 --- !u!114 &1466663076 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7211669968117086292, guid: f3f0c38df2bd1404284b3afa51fc1b19, type: 3}
@@ -15383,9 +15747,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1b5ffbce53721e4fa9000c22a6f8715, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeRoom: {fileID: 393965451}
+  activeRoom: {fileID: 1461079077}
   loadedRooms:
-  - {fileID: 393965451}
+  - {fileID: 1461079077}
   fadeCanvas: {fileID: 752212541}
   fadeBlock: {fileID: 1977218089}
 --- !u!4 &1937818069

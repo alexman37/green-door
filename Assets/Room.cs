@@ -23,6 +23,7 @@ public class Room : MonoBehaviour
 
     // Track what objects are in this room, and where
     public Dictionary<Vector2Int, RoomObjectProperties> roomObjectsMap;
+    public bool containsIce;
 
 
 

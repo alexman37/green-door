@@ -44,9 +44,21 @@ public class RoomManager : MonoBehaviour
 
         //TODO unload the previous room here and generate a new one in its place
         activeRoom = changeToThis;
-
+        if (changeToThis.containsIce)
+        {
+            playerManager.currentRoomHasIce(changeToThis.gameObject.GetComponent<IceRoomManager>());
+        }
         //Fade transition
         instance.StartCoroutine(fadeTransition(1.5f, changeToThis));
+    }
+
+    public void checkIfIcyTemp()
+    {
+        if(activeRoom.containsIce)
+        {
+            playerManager.currentRoomHasIce(activeRoom.gameObject.GetComponent<IceRoomManager>());
+            Debug.Log("You got ice fool");
+        }
     }
 
     private IEnumerator fadeTransition(float timeToFade, Room changeToThis)

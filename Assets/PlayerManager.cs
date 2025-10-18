@@ -20,6 +20,10 @@ public class PlayerManager : MonoBehaviour
     private Coroutine movingCoroutine; private bool isMoving;
     KeyCode holdingKey = KeyCode.None;
     private bool readyForNextMove = true;
+    public bool doesCurrentRoomContainIce = false;
+    private IceRoomManager currentIceRoomManager = null;
+    private Direction currentIceDirection; // The direction the player is currently sliding on ice
+    private bool isSliding = false;
 
 
     // Start is called before the first frame update
@@ -27,6 +31,7 @@ public class PlayerManager : MonoBehaviour
     {
         moveInputs = new List<(float time, float xChange, float yChange)>();
         startMovement();
+
     }
 
     void OnEnable()
@@ -78,6 +83,12 @@ public class PlayerManager : MonoBehaviour
         {
             holdingKey = KeyCode.S;
         }
+        if (Input.GetKey(KeyCode.I))
+        {
+            Debug.Log("Checking for ice...");
+            RoomManager.instance.checkIfIcyTemp();
+            
+        }
     }
 
     IEnumerator controlMovement()
@@ -85,12 +96,62 @@ public class PlayerManager : MonoBehaviour
         float timeToMove1Tile = 0.2f;
 
         while (true)
-        {
+        {           
             if (holdingKey != KeyCode.None && !Input.GetKey(holdingKey))
             {
                 holdingKey = KeyCode.None;
             }
-            if (holdingKey != KeyCode.None)
+            //We need to check if we are ontop of ice here
+            if (doesCurrentRoomContainIce)
+            {
+                if (currentIceRoomManager.HasTileAt(playerObjects[0].currPosition))
+                {
+                    Debug.Log("On ice!");
+                    if (!isSliding)
+                    {
+                        Debug.Log("Starting to slide...");
+                        switch (holdingKey)
+                        {
+                            case KeyCode.D: 
+                                currentIceDirection = Direction.EAST;
+                                isSliding = true; 
+                                break;
+                            case KeyCode.A: 
+                                currentIceDirection = Direction.WEST; 
+                                isSliding = true; 
+                                break;
+                            case KeyCode.W: 
+                                currentIceDirection = Direction.NORTH;
+                                isSliding = true; 
+                                break;
+                            case KeyCode.S: 
+                                currentIceDirection = Direction.SOUTH;
+                                isSliding = true; 
+                                break;
+                            default:
+                                // If we haven't started sliding, do nothing.
+                                // Otherwise, keep sliding.
+                                break;
+                        }
+                        
+                    }
+                    // The player will be forced to keep traveling in whatever direction they decide to go until they collide with something
+                    switch (currentIceDirection)
+                    {
+                        case Direction.EAST: yield return iceMovement(timeToMove1Tile, 1, 0, Direction.EAST); break;
+                        case Direction.WEST: yield return iceMovement(timeToMove1Tile, -1, 0, Direction.WEST); break;
+                        case Direction.NORTH: yield return iceMovement(timeToMove1Tile, 0, 1, Direction.NORTH); break;
+                        case Direction.SOUTH: yield return iceMovement(timeToMove1Tile, 0, -1, Direction.SOUTH); break;
+                    }
+                    
+                }
+                else
+                {
+                    isSliding = false;
+                    currentIceDirection = Direction.NONE; // Reset to default
+                }
+            }
+            if (holdingKey != KeyCode.None && !isSliding)
             {
                 switch (holdingKey)
                 {
@@ -102,6 +163,12 @@ public class PlayerManager : MonoBehaviour
             }
             yield return new WaitForSeconds(0.02f);
         }
+    }
+
+    public void currentRoomHasIce(IceRoomManager iceRoomManager)
+    {
+        currentIceRoomManager = iceRoomManager;
+        doesCurrentRoomContainIce = true;
     }
 
     // Change the direction this sprite is looking
@@ -170,6 +237,34 @@ public class PlayerManager : MonoBehaviour
             }
         }
         yield return new WaitUntil(() => readyForNextMove);
+    }
+
+    IEnumerator iceMovement(float time, float xChange, float yChange, Direction direction)
+    {
+        float steps = 30;
+
+        PlayerObject player = playerObjects[0];
+
+        // Check that there is not an object here, and (with colliders?) don't run out of bounds
+        Coords wouldBeHere = player.currPosition.offset((int)xChange, (int)yChange);
+        if (!player.lookingAtWall(direction) && RoomManager.instance.activeRoom.getRoomObjectAt(wouldBeHere) == null)
+        {
+            // Update their charPosition in the PlayerObject once and immediately
+            player.currPosition.offsetThis((int)xChange, (int)yChange);
+            for (int i = 0; i < steps; i++)
+            {
+                // Update their physical location in-game periodically
+                player.characterObj.transform.position = player.characterObj.transform.position + new Vector3(1 / steps * xChange, 1 / steps * yChange, 0);
+
+                //No need to animate more than their foot being out (since they are sliding)
+                player.changeAnimationFrame(1);
+                yield return new WaitForSeconds(time / steps);
+            }
+        }
+        else
+        {
+            isSliding = false; // Stop sliding if we hit a wall or object
+        }
     }
 
     /*Get the object you'd like to interact with by pressing the E key

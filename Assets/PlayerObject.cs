@@ -136,5 +136,5 @@ public class PlayerObject : MonoBehaviour
 
 public enum Direction
 {
-    NORTH, EAST, SOUTH, WEST
+    NORTH, EAST, SOUTH, WEST, NONE
 } 
