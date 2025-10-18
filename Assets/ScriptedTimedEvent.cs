@@ -11,40 +11,43 @@ public class ScriptedTimedEvent : MonoBehaviour
     public IEnumerator coroutine;
     public bool tethered;
 
+    public static Image fadingScreen;
+    public static Image pictureScreen;
+
     // optional - use if you wish to create this scripted event from the inspector
     public ScriptedEventInputs inputs;
 
-    public ScriptedTimedEvent(ScriptedEventInputs inputs)
-    {
-        setupCoroutine(inputs);
-    }
-
     private void Start()
     {
-        if(coroutine == null)
+        if(coroutine == null && inputs != null)
         {
             setupCoroutine(inputs);
         }
+        if(fadingScreen == null)
+        {
+            fadingScreen = GameObject.FindGameObjectWithTag("FadingCanvas").GetComponent<Image>();
+        }
+        if (pictureScreen == null)
+        {
+            pictureScreen = GameObject.FindGameObjectWithTag("PictureCanvas").GetComponent<Image>();
+        }
     }
 
-    // TODO the coroutine only can be used once. what if we have to reuse it?
-    private void setupCoroutine(ScriptedEventInputs inputs)
+    // If you need to reuse the coroutine, just call this method again
+    public void setupCoroutine(ScriptedEventInputs inputs, bool t)
     {
-        switch (inputs.eventType)
-        {
-            case ScriptedEventType.MOVEMENT:
-                coroutine = movementLinearCoroutine(inputs.focusObject, inputs.vector, inputs.time);
-                break;
-            case ScriptedEventType.MOVEMENT_X:
-                coroutine = movementLinearCoroutine(inputs.focusObject, inputs.vector, inputs.time);
-                break;
-            case ScriptedEventType.ENABLE:
-                coroutine = enableCoroutine(inputs.focusObject, inputs.flag);
-                break;
-            case ScriptedEventType.FADE:
-                coroutine = fadeImageCoroutine(inputs.focusObject, inputs.flag, inputs.time);
-                break;
-        }
+        tethered = t;
+        coroutine = inputs.getCoroutine();
+    }
+
+    public void setupCoroutine(ScriptedEventInputs inputs)
+    {
+        coroutine = inputs.getCoroutine();
+    }
+
+    public static IEnumerator getCoroutine(ScriptedEventInputs inputs)
+    {
+        return inputs.getCoroutine();
     }
 
     public void trigger()
@@ -72,63 +75,211 @@ public class ScriptedTimedEvent : MonoBehaviour
             EventManager.instance.QueueEvent(coroutine);
         }
     }
+}
 
-    public static IEnumerator movementLinearCoroutine(GameObject focus, Vector3 position, float time)
+/// <summary>
+/// Generic Scripted event type
+/// </summary>
+[System.Serializable]
+public abstract class ScriptedEventInputs
+{
+    public ScriptedEventType eventType;
+
+    public ScriptedEventInputs(ScriptedEventType eventType)
     {
-        Vector3 startPos = focus.transform.position;
-        for(float t = 0; t < time; t += Time.deltaTime)
-        {
-            focus.transform.position = Vector3.Lerp(startPos, startPos + position, Mathf.Clamp(t / time, 0, 1));
-            yield return null;
-        }
-        focus.transform.position = startPos + position;
-        EventManager.instance.finishEventExecution();
+        this.eventType = eventType;
     }
 
-    public static IEnumerator movementExponentialCoroutine(GameObject focus, Vector3 position, float time)
+    public abstract IEnumerator getCoroutine();
+}
+
+
+
+/// <summary>
+/// Movement event. Move something from one location to another
+/// </summary>
+[System.Serializable]
+public class SEInputs_Movement : ScriptedEventInputs
+{
+    public GameObject focus;
+    public Vector3 delta;
+    public float time;
+    public SEMovementType moveType;
+
+    public SEInputs_Movement(GameObject f, Vector3 d, float t, SEMovementType m) : base((m == SEMovementType.LINEAR) ? ScriptedEventType.MOVEMENT : ScriptedEventType.MOVEMENT_X)
     {
-        Vector3 startPos = focus.transform.position;
-        for (float t = 0; t <= time; t += Time.deltaTime)
-        {
-            focus.transform.position = Utils.XerpStandard(startPos, startPos + position, Mathf.Clamp(t / time, 0, 1));
-            yield return null;
-        }
-        focus.transform.position = startPos + position;
-        EventManager.instance.finishEventExecution();
+        focus = f;
+        delta = d;
+        time = t;
     }
 
-    public static IEnumerator enableCoroutine(GameObject focus, bool enabled)
+    public override IEnumerator getCoroutine()
     {
-        focus.SetActive(enabled);
+        Vector3 startPos = focus.transform.position;
+        if(time > 0)
+        {
+            for (float t = 0; t < time; t += Time.deltaTime)
+            {
+                switch (moveType)
+                {
+                    case SEMovementType.LINEAR: focus.transform.position = Vector3.Lerp(startPos, startPos + delta, Mathf.Clamp(t / time, 0, 1)); break;
+                    case SEMovementType.EXPONENTIAL: focus.transform.position = Utils.XerpStandard(startPos, startPos + delta, Mathf.Clamp(t / time, 0, 1)); break;
+                }
+
+                yield return null;
+            }
+        }
+        
+        focus.transform.position = startPos + delta;
+        EventManager.instance.finishEventExecution();
+    }
+}
+
+/// <summary>
+/// Enabling event. Enable or disable a game object
+/// </summary>
+[System.Serializable]
+public class SEInputs_Enable : ScriptedEventInputs
+{
+    public GameObject focus;
+    public bool enable;
+
+    public SEInputs_Enable(GameObject f, bool s) : base(ScriptedEventType.ENABLE)
+    {
+        focus = f;
+        enable = s;
+    }
+
+    public override IEnumerator getCoroutine()
+    {
+        focus.SetActive(enable);
         yield return null;
         EventManager.instance.finishEventExecution();
     }
+}
 
-    public static IEnumerator fadeImageCoroutine(GameObject focus, bool fadingIn, float time)
+/// <summary>
+/// Fade event. Fade the screen into, or out of, black
+/// </summary>
+[System.Serializable]
+public class SEInputs_Fade : ScriptedEventInputs
+{
+    public bool inOrOut;
+    public float time;
+    private static Image fadingScreen;
+
+    public SEInputs_Fade(bool f, float t) : base(ScriptedEventType.FADE)
     {
-        Image img = focus.GetComponent<Image>();
-        Color col = img.color;
-        for (float t = 0; t <= time; t += Time.deltaTime)
+        inOrOut = f;
+        time = t;
+        if (fadingScreen == null) fadingScreen = ScriptedTimedEvent.fadingScreen;
+    }
+
+    public override IEnumerator getCoroutine()
+    {
+        Color col = fadingScreen.color;
+        if(time > 0)
         {
-            img.color = new Color(col.r, col.g, col.b, (fadingIn ? (t / time) : 1 - (t / time)));
-            Debug.Log("New fade col " + img.color);
-            yield return null;
+            for (float t = 0; t <= time; t += Time.deltaTime)
+            {
+                fadingScreen.color = new Color(col.r, col.g, col.b, (inOrOut ? (t / time) : 1 - (t / time)));
+                yield return null;
+            }
         }
-        img.color = new Color(col.r, col.g, col.b, (fadingIn ? 1 : 0));
+        fadingScreen.color = new Color(col.r, col.g, col.b, (inOrOut ? 1 : 0));
         EventManager.instance.finishEventExecution();
     }
 }
 
+/// <summary>
+/// Show event. Display an image on screen
+/// </summary>
 [System.Serializable]
-public class ScriptedEventInputs
+public class SEInputs_Show : ScriptedEventInputs
 {
-    public ScriptedEventType eventType;
-    public GameObject focusObject;
-    public Vector3 vector;
+    public Sprite content;
+    public PictureTransitionType trans;
     public float time;
-    public bool flag;
-    public Color col;
+    private static Image pictureScreen;
+
+    public SEInputs_Show(Sprite c, PictureTransitionType tr, float t) : base(ScriptedEventType.SHOW)
+    {
+        content = c;
+        trans = tr;
+        time = t;
+        if (pictureScreen == null) pictureScreen = ScriptedTimedEvent.pictureScreen;
+    }
+    
+    public override IEnumerator getCoroutine()
+    {
+        Color col = pictureScreen.color;
+        pictureScreen.sprite = content;
+        if (trans == PictureTransitionType.FADE && time > 0)
+        {
+            pictureScreen.color = new Color(col.r, col.g, col.b, 0);
+            for (float t = 0; t <= time; t += Time.deltaTime)
+            {
+                pictureScreen.color = new Color(col.r, col.g, col.b, t / time);
+                yield return null;
+            }
+        }
+        pictureScreen.color = new Color(col.r, col.g, col.b, 1);
+        EventManager.instance.finishEventExecution();
+    }
 }
+
+/// <summary>
+/// Hide event. Fade out or immediately remove the shown image
+/// </summary>
+[System.Serializable]
+public class SEInputs_Hide : ScriptedEventInputs
+{
+    public PictureTransitionType trans;
+    public float time;
+    private static Image pictureScreen;
+
+    public SEInputs_Hide(PictureTransitionType tr, float t) : base(ScriptedEventType.HIDE)
+    {
+        trans = tr;
+        time = t;
+        if (pictureScreen == null) pictureScreen = ScriptedTimedEvent.pictureScreen;
+    }
+
+    public override IEnumerator getCoroutine()
+    {
+        Color col = pictureScreen.color;
+        if (trans == PictureTransitionType.FADE && time > 0)
+        {
+            for (float t = 0; t <= time; t += Time.deltaTime)
+            {
+                pictureScreen.color = new Color(col.r, col.g, col.b, col.a - (col.a * t / time));
+                yield return null;
+            }
+        }
+        pictureScreen.color = new Color(col.r, col.g, col.b, 0);
+        EventManager.instance.finishEventExecution();
+    }
+}
+
+/// <summary>
+/// Animation event. Play a new animation on an animated object
+/// </summary>
+[System.Serializable]
+public class SEInputs_Animate : ScriptedEventInputs
+{
+    public SEInputs_Animate() : base(ScriptedEventType.ANIMATE)
+    {
+
+    }
+
+    // TODO
+    public override IEnumerator getCoroutine()
+    {
+        yield return null;
+        EventManager.instance.finishEventExecution();
+    }
+}
+
 
 public enum ScriptedEventType
 {
@@ -136,5 +287,19 @@ public enum ScriptedEventType
     MOVEMENT_X,
     ENABLE,
     FADE,
+    SHOW,
+    HIDE,
     ANIMATE,
+}
+
+public enum SEMovementType
+{
+    LINEAR,
+    EXPONENTIAL
+}
+
+public enum PictureTransitionType
+{
+    FADE,
+    SNAP
 }

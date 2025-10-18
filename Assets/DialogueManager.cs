@@ -93,6 +93,28 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    // Use a dialogueItem instead - this allows you to do cooler stuff than just talking
+    public void processConversation(DialogueItem item)
+    {
+        if (currConversation == null)
+        {
+            // TODO parse with variables
+            DialogueSet dialogue = DialogueParser.parseDialogue(item);
+            currConversation = dialogue;
+            block = currConversation.dialogueBlocks.Find(block => block.blockName == "start");
+
+            // Stop movement
+            playerManager.stopMovement();
+
+            anyClick += advanceDialogue;
+            startConversation();
+        }
+        else
+        {
+            Debug.LogError("Could not process conversation " + item.rawFile.name + " - a conversation is already in progress");
+        }
+    }
+
     // Either display the next line of dialogue in this block or go to the next block (or end the conversation)
     private void advanceDialogue()
     {
@@ -162,10 +184,19 @@ public class DialogueManager : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
             finishedDialogueLine = true;
 
-        } else
+        } else if(entry is DialogueChoice)
         {
             DialogueChoice dc = entry as DialogueChoice;
             deployChoice(dc);
+        } else if(entry is DialogueCommand)
+        {
+            DialogueCommand dc = entry as DialogueCommand;
+            // TODO - REMOVE OLD COMPONENTS!
+            ScriptedTimedEvent ste = this.gameObject.AddComponent<ScriptedTimedEvent>();
+            // Dialogue events will always be tethered in that you must wait for them to finish before advancing
+            ste.setupCoroutine(dc.seInputs, true);
+            ste.trigger();
+            finishedDialogueLine = true;
         }
         yield return null;
     }
@@ -360,7 +391,7 @@ public class DialogueManager : MonoBehaviour
             return emptySprite;
         } else
         {
-            Sprite next = getFromAssetBundle(line.character.ToLower() + "_portraits", line.portrait.ToLower());
+            Sprite next = getFromAssetBundleWithBackup(line.character.ToLower() + "_portraits", line.portrait.ToLower(), "default");
             return next;
         }
     }
@@ -368,10 +399,10 @@ public class DialogueManager : MonoBehaviour
 
 
 
-
-
-    // We make use of asset bundles to load the necessary stuff by name pretty quickly
-    // Apparently you can do this async too. Maybe we can improve this later?
+    /// <summary>
+    /// We make use of asset bundles to load the necessary stuff by name pretty quickly \n
+    /// Apparently you can do this async too. Maybe we can improve this later?
+    /// </summary>
     private Sprite getFromAssetBundle(string bundleName, string assetName)
     {
         AssetBundle localAssetBundle = AssetBundle.LoadFromFile(Path.Combine(Application.streamingAssetsPath, bundleName));
@@ -383,6 +414,27 @@ public class DialogueManager : MonoBehaviour
         }
 
         Sprite asset = localAssetBundle.LoadAsset<Sprite>(assetName);
+        localAssetBundle.Unload(false);
+        return asset;
+    }
+
+
+    /// <summary>
+    /// 
+    /// </summary>
+    private Sprite getFromAssetBundleWithBackup(string bundleName, string assetName, string backup)
+    {
+        AssetBundle localAssetBundle = AssetBundle.LoadFromFile(Path.Combine(Application.streamingAssetsPath, bundleName));
+
+        if (localAssetBundle == null)
+        {
+            Debug.LogError("Failed to load AssetBundle!");
+            return null;
+        }
+
+        if (assetName == "") assetName = backup;
+        Sprite asset = localAssetBundle.LoadAsset<Sprite>(assetName);
+        if(asset == null) asset = localAssetBundle.LoadAsset<Sprite>(backup);
         localAssetBundle.Unload(false);
         return asset;
     }
@@ -477,5 +529,16 @@ public class DialogueChoice : DialogueEntry
     public DialogueChoice(List<(string opt, string dist)> bs)
     {
         blocks = bs;
+    }
+}
+
+
+public class DialogueCommand : DialogueEntry
+{
+    public ScriptedEventInputs seInputs;
+
+    public DialogueCommand(ScriptedEventInputs seInputs)
+    {
+        this.seInputs = seInputs;
     }
 }

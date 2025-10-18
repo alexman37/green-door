@@ -31,7 +31,8 @@ public class RoomObject : MonoBehaviour
     // If you are looking at an object and press E, you see its dialogue if there is any
     public void deployDialogue()
     {
-        if (properties.dialogueFile != null) dialogueManager.processConversation(properties.dialogueFile);
+        if (properties.dialogueItem != null) dialogueManager.processConversation(properties.dialogueItem);
+        else if (properties.dialogueFileRaw != null) dialogueManager.processConversation(properties.dialogueFileRaw);
     }
 }
 
@@ -45,7 +46,11 @@ public class RoomObjectProperties
 {
     //Properties:
     public string objectName;
-    public TextAsset dialogueFile;
+
+    //If this object will have dialogue, it can use a simple raw file, or a more advanced dialogueItem
+    public TextAsset dialogueFileRaw;
+    public DialogueItem dialogueItem;
+
     public Coords absoluteCoords; // Where in the world is this?
     public Coords[] relativePositions; // RELATIVE to absolute coords, the object also extends to these places
     public bool positionHardcoded;
@@ -65,7 +70,7 @@ public class RoomObjectProperties
     public RoomObjectProperties(RoomObjectProperties template)
     {
         objectName = template.objectName;
-        dialogueFile = template.dialogueFile;
+        dialogueFileRaw = template.dialogueFileRaw;
         absoluteCoords = new Coords(template.absoluteCoords.x, template.absoluteCoords.y);
         relativePositions = template.relativePositions.Clone() as Coords[];
     }
