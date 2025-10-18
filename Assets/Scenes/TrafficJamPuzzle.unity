@@ -659,7 +659,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   properties:
     objectName: Table
-    dialogueFile: {fileID: 4900000, guid: 94cc093a41e1c734fbc73c9c101668e8, type: 3}
+    dialogueFileRaw: {fileID: 0}
+    dialogueItem: {fileID: 0}
     absoluteCoords:
       x: 0
       y: 2
@@ -1853,7 +1854,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   properties:
     objectName: 
-    dialogueFile: {fileID: 0}
+    dialogueFileRaw: {fileID: 0}
+    dialogueItem: {fileID: 0}
     absoluteCoords:
       x: -6
       y: 0
@@ -2130,7 +2132,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   properties:
     objectName: 
-    dialogueFile: {fileID: 0}
+    dialogueFileRaw: {fileID: 0}
+    dialogueItem: {fileID: 0}
     absoluteCoords:
       x: 0
       y: 0
@@ -2155,6 +2158,7 @@ MonoBehaviour:
     roomObjectRef: {fileID: 0}
   wallDebugSprite: {fileID: 6194187588488795284, guid: 615ed6a3632d0d74da7781e1b0f6c2d0, type: 3}
   wallObjects: []
+  showWall: 0
 --- !u!1 &752212537
 GameObject:
   m_ObjectHideFlags: 0
@@ -2289,7 +2293,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   properties:
     objectName: Table 1
-    dialogueFile: {fileID: 0}
+    dialogueFileRaw: {fileID: 0}
+    dialogueItem: {fileID: 0}
     absoluteCoords:
       x: -4
       y: 1
@@ -2456,7 +2461,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   properties:
     objectName: RightDoor
-    dialogueFile: {fileID: 0}
+    dialogueFileRaw: {fileID: 0}
+    dialogueItem: {fileID: 0}
     absoluteCoords:
       x: 3
       y: -4
@@ -2659,7 +2665,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   properties:
     objectName: 
-    dialogueFile: {fileID: 0}
+    dialogueFileRaw: {fileID: 0}
+    dialogueItem: {fileID: 0}
     absoluteCoords:
       x: 0
       y: 0
@@ -2684,6 +2691,7 @@ MonoBehaviour:
     roomObjectRef: {fileID: 0}
   wallDebugSprite: {fileID: 6194187588488795284, guid: 615ed6a3632d0d74da7781e1b0f6c2d0, type: 3}
   wallObjects: []
+  showWall: 0
 --- !u!4 &834576564 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3524886816541971566, guid: 3330776c271bc574baa86291d5276e83, type: 3}
@@ -2793,7 +2801,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   properties:
     objectName: 
-    dialogueFile: {fileID: 0}
+    dialogueFileRaw: {fileID: 0}
+    dialogueItem: {fileID: 0}
     absoluteCoords:
       x: 0
       y: 0
@@ -2824,6 +2833,7 @@ MonoBehaviour:
     roomObjectRef: {fileID: 0}
   wallDebugSprite: {fileID: 6194187588488795284, guid: 615ed6a3632d0d74da7781e1b0f6c2d0, type: 3}
   wallObjects: []
+  showWall: 0
 --- !u!4 &847082045 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 52808948349100446, guid: 3bb13c421a87d5344878726904ef9f89, type: 3}
@@ -2932,7 +2942,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   properties:
     objectName: RightDoor
-    dialogueFile: {fileID: 0}
+    dialogueFileRaw: {fileID: 0}
+    dialogueItem: {fileID: 0}
     absoluteCoords:
       x: 3
       y: -4
@@ -3303,7 +3314,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   properties:
     objectName: Long table 1
-    dialogueFile: {fileID: 0}
+    dialogueFileRaw: {fileID: 0}
+    dialogueItem: {fileID: 0}
     absoluteCoords:
       x: -5
       y: -3
@@ -3694,7 +3706,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   properties:
     objectName: Table 2
-    dialogueFile: {fileID: 0}
+    dialogueFileRaw: {fileID: 0}
+    dialogueItem: {fileID: 0}
     absoluteCoords:
       x: -4
       y: 0
@@ -3775,7 +3788,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   properties:
     objectName: RightDoor
-    dialogueFile: {fileID: 0}
+    dialogueFileRaw: {fileID: 0}
+    dialogueItem: {fileID: 0}
     absoluteCoords:
       x: 3
       y: -4
@@ -11431,7 +11445,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   properties:
     objectName: GeneralWall
-    dialogueFile: {fileID: 0}
+    dialogueFileRaw: {fileID: 0}
+    dialogueItem: {fileID: 0}
     absoluteCoords:
       x: 0
       y: 0
@@ -11864,7 +11879,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   properties:
     objectName: Desk
-    dialogueFile: {fileID: 0}
+    dialogueFileRaw: {fileID: 0}
+    dialogueItem: {fileID: 0}
     absoluteCoords:
       x: -2
       y: 0
@@ -11976,7 +11992,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   properties:
     objectName: 
-    dialogueFile: {fileID: 0}
+    dialogueFileRaw: {fileID: 0}
+    dialogueItem: {fileID: 0}
     absoluteCoords:
       x: 0
       y: 0
@@ -12332,7 +12349,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   properties:
     objectName: 
-    dialogueFile: {fileID: 0}
+    dialogueFileRaw: {fileID: 0}
+    dialogueItem: {fileID: 0}
     absoluteCoords:
       x: 0
       y: 0
@@ -12363,6 +12381,7 @@ MonoBehaviour:
     roomObjectRef: {fileID: 0}
   wallDebugSprite: {fileID: 6194187588488795284, guid: 615ed6a3632d0d74da7781e1b0f6c2d0, type: 3}
   wallObjects: []
+  showWall: 0
 --- !u!1 &1774886101
 GameObject:
   m_ObjectHideFlags: 0
@@ -12433,7 +12452,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   properties:
     objectName: RightDoor
-    dialogueFile: {fileID: 0}
+    dialogueFileRaw: {fileID: 0}
+    dialogueItem: {fileID: 0}
     absoluteCoords:
       x: 3
       y: -4
@@ -12795,7 +12815,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   properties:
     objectName: Couch
-    dialogueFile: {fileID: 0}
+    dialogueFileRaw: {fileID: 0}
+    dialogueItem: {fileID: 0}
     absoluteCoords:
       x: -2
       y: -2
@@ -12910,7 +12931,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   properties:
     objectName: Rack
-    dialogueFile: {fileID: 0}
+    dialogueFileRaw: {fileID: 0}
+    dialogueItem: {fileID: 0}
     absoluteCoords:
       x: 4
       y: -2
@@ -13892,7 +13914,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   properties:
     objectName: 
-    dialogueFile: {fileID: 0}
+    dialogueFileRaw: {fileID: 0}
+    dialogueItem: {fileID: 0}
     absoluteCoords:
       x: 0
       y: 0
