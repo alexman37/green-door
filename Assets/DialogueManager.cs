@@ -35,6 +35,7 @@ public class DialogueManager : MonoBehaviour
     int entryInBlock = 0;
 
     bool finishedDialogueLine = false;
+    bool advanceAutomatically = false;
 
     // Needed to know whether or not we should do the quickslide
     string lastCharToSpeak = "";
@@ -68,6 +69,12 @@ public class DialogueManager : MonoBehaviour
         if(finishedDialogueLine && Input.GetMouseButtonDown(0))
         {
             finishedDialogueLine = false;
+            advanceAutomatically = false;
+            anyClick.Invoke();
+        } else if(advanceAutomatically)
+        {
+            finishedDialogueLine = false;
+            advanceAutomatically = false;
             anyClick.Invoke();
         }
     }
@@ -191,12 +198,15 @@ public class DialogueManager : MonoBehaviour
         } else if(entry is DialogueCommand)
         {
             DialogueCommand dc = entry as DialogueCommand;
-            // TODO - REMOVE OLD COMPONENTS!
             ScriptedTimedEvent ste = this.gameObject.AddComponent<ScriptedTimedEvent>();
             // Dialogue events will always be tethered in that you must wait for them to finish before advancing
             ste.setupCoroutine(dc.seInputs, true);
             ste.trigger();
-            finishedDialogueLine = true;
+            yield return new WaitForSeconds(dc.seInputs.totalTime + 0.25f);
+
+            // TODO cause problems later?...if you run into any errors with deleting an active component or something, this might be why.
+            Destroy(ste);
+            advanceAutomatically = true;
         }
         yield return null;
     }
@@ -329,8 +339,8 @@ public class DialogueManager : MonoBehaviour
         }
         new_choice_buttons.Clear();
 
-        finishedDialogueLine = true;
         anyClick += advanceDialogue;
+        advanceAutomatically = true;
     }
 
 

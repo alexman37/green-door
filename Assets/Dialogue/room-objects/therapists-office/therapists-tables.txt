@@ -1,0 +1,4 @@
+/BLOCK=start
+	N():You're not even sure why you bought these.
+	N():Maybe you just hate the feeling of emptiness this room tends to give.
+/ENDBLOCK

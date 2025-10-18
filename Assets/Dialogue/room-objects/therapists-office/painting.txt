@@ -1,0 +1,4 @@
+/BLOCK=start
+	N():A painting of a lone red tree in a wheat field.
+	N():You've always liked having it.
+/ENDBLOCK
