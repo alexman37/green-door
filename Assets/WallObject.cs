@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 /* A WallObject is an object that represents a wall in the room
@@ -15,6 +16,7 @@ public class WallObject : RoomObject
         if (showWall) DisplayWalls();
         
     }
+
 
     //Lets you toggle seeing the wall in the inspector at runtime
     private void OnValidate()
@@ -53,8 +55,9 @@ public class WallObject : RoomObject
         {
             foreach (GameObject go in wallObjects)
             {
-                Destroy(go);
+                EditorApplication.delayCall += () => DestroyImmediate(go);
             }
         }
+        wallObjects.Clear();
     }
 }
