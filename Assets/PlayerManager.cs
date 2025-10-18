@@ -206,6 +206,7 @@ public class PlayerManager : MonoBehaviour
                 }
                 yield return new WaitForSeconds(timeToMove1Tile / steps);
             }
+            c.updateLayerOrder(wouldBeHere.y);
         }
         
         // TODO figure out some way to set this when no future movements queued
@@ -260,6 +261,7 @@ public class PlayerManager : MonoBehaviour
                 player.changeAnimationFrame(1);
                 yield return new WaitForSeconds(time / steps);
             }
+            player.updateLayerOrder(wouldBeHere.y);
         }
         else
         {

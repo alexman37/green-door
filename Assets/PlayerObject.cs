@@ -21,6 +21,8 @@ public class PlayerObject : MonoBehaviour
     // Collider logic
     private Dictionary<Direction, bool> blockedInDirection;
 
+    private SpriteRenderer spriteRenderer;
+
     private void Start()
     {
         currPosition = new Coords(Mathf.FloorToInt(transform.position.x), Mathf.FloorToInt(transform.position.y));
@@ -29,6 +31,8 @@ public class PlayerObject : MonoBehaviour
         blockedInDirection.Add(Direction.SOUTH, false);
         blockedInDirection.Add(Direction.EAST, false);
         blockedInDirection.Add(Direction.WEST, false);
+
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void OnEnable()
@@ -93,9 +97,19 @@ public class PlayerObject : MonoBehaviour
     public void moveToPosition(Coords newRoomPosition, Room room)
     {
         currPosition = newRoomPosition;
+        updateLayerOrder(newRoomPosition.y);
 
         // Offset real position by (0.5,0.5) so it's in the middle of that tile
         characterObj.transform.position = newRoomPosition.asVector2() + new Vector2(0.5f, 0.5f);
+    }
+
+    public void updateLayerOrder(int newYCoord)
+    {
+        int proposedNewOrder = 0 - newYCoord;
+        if(proposedNewOrder != spriteRenderer.sortingOrder)
+        {
+            spriteRenderer.sortingOrder = proposedNewOrder;
+        }
     }
 
     // rotate the collider box (must be done before movement)

@@ -8,23 +8,24 @@ using UnityEngine;
 */
 public class RoomObject : MonoBehaviour
 {
-    //[HideInInspector]
-    //public GameObject physicalObjectRef; // Needed bc of main thread BS
-
     public RoomObjectProperties properties;
     private static DialogueManager dialogueManager;
 
     public void Initialize()
     {
         dialogueManager = FindObjectsByType<DialogueManager>(FindObjectsSortMode.None)[0];
-        //physicalObjectRef = this.gameObject;
         
         if(!properties.positionHardcoded)
         {
-            // Everything is offset by 0.5 because...that's just the way it is
+            // Everything is based on a strict grid system
             properties.absoluteCoords = new Coords(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y));
         }
-        
+
+        // Draw objects with lower Y coordinates "in front"
+        if (properties.layerOrder == -9999) properties.layerOrder = Mathf.RoundToInt(0 - transform.position.y);
+        SpriteRenderer renderer = GetComponent<SpriteRenderer>();
+        if(renderer != null) renderer.sortingOrder = properties.layerOrder;
+
         properties.roomObjectRef = this;
     }
 
@@ -55,6 +56,8 @@ public class RoomObjectProperties
     public Coords[] relativePositions; // RELATIVE to absolute coords, the object also extends to these places
     public bool positionHardcoded;
 
+    public int layerOrder = -9999;
+
     //Physical Game Object Reference
     [HideInInspector]
     //public GameObject physicalObjectRef;
@@ -73,5 +76,6 @@ public class RoomObjectProperties
         dialogueFileRaw = template.dialogueFileRaw;
         absoluteCoords = new Coords(template.absoluteCoords.x, template.absoluteCoords.y);
         relativePositions = template.relativePositions.Clone() as Coords[];
+        layerOrder = template.layerOrder;
     }
 }
