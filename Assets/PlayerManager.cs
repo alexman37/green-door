@@ -112,28 +112,28 @@ public class PlayerManager : MonoBehaviour
                         Debug.Log("Starting to slide...");
                         switch (holdingKey)
                         {
-                            case KeyCode.D: 
+                            case KeyCode.D:
                                 currentIceDirection = Direction.EAST;
-                                isSliding = true; 
+                                isSliding = true;
                                 break;
-                            case KeyCode.A: 
-                                currentIceDirection = Direction.WEST; 
-                                isSliding = true; 
+                            case KeyCode.A:
+                                currentIceDirection = Direction.WEST;
+                                isSliding = true;
                                 break;
-                            case KeyCode.W: 
+                            case KeyCode.W:
                                 currentIceDirection = Direction.NORTH;
-                                isSliding = true; 
+                                isSliding = true;
                                 break;
-                            case KeyCode.S: 
+                            case KeyCode.S:
                                 currentIceDirection = Direction.SOUTH;
-                                isSliding = true; 
+                                isSliding = true;
                                 break;
                             default:
                                 // If we haven't started sliding, do nothing.
                                 // Otherwise, keep sliding.
                                 break;
                         }
-                        
+
                     }
                     // The player will be forced to keep traveling in whatever direction they decide to go until they collide with something
                     switch (currentIceDirection)
@@ -143,7 +143,7 @@ public class PlayerManager : MonoBehaviour
                         case Direction.NORTH: yield return iceMovement(timeToMove1Tile, 0, 1, Direction.NORTH); break;
                         case Direction.SOUTH: yield return iceMovement(timeToMove1Tile, 0, -1, Direction.SOUTH); break;
                     }
-                    
+
                 }
                 else
                 {

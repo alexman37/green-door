@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System.IO;
+using UnityEngine;
+using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 
 // Represents the physical object for this character
@@ -10,6 +11,7 @@ public class PlayerObject : MonoBehaviour
     public GameObject characterObj;
     public Coords currPosition;
     public Direction direction;
+    public GameObject reflection; //For ice/water etc.
 
     public ActiveCharacter character;
     public int order;
@@ -61,7 +63,8 @@ public class PlayerObject : MonoBehaviour
         this.direction = direction;
         string directionCat = convertDirectionToSpriteCategory(direction);
         characterObj.GetComponent<SpriteRenderer>().sprite = getFromAssetBundle(directionCat, character.ToString());
-        changeAnimationFrame(frame);
+        reflection.GetComponent<SpriteRenderer>().sprite = getFromAssetBundle(directionCat, character.ToString());
+        changeAnimationFrame(frame);        
     }
 
     public void changeAnimationFrame(int frame)
@@ -72,12 +75,15 @@ public class PlayerObject : MonoBehaviour
             case 0:
             case 2:
                 characterObj.GetComponent<SpriteRenderer>().sprite = getFromAssetBundle(directionCat, character.ToString());
+                reflection.GetComponent<SpriteRenderer>().sprite = getFromAssetBundle(directionCat, character.ToString());
                 break;
             case 1:
                 characterObj.GetComponent<SpriteRenderer>().sprite = getFromAssetBundle(directionCat, character.ToString() + "_1");
+                reflection.GetComponent<SpriteRenderer>().sprite = getFromAssetBundle(directionCat, character.ToString() + "_1");
                 break;
             case 3:
                 characterObj.GetComponent<SpriteRenderer>().sprite = getFromAssetBundle(directionCat, character.ToString() + "_2");
+                reflection.GetComponent<SpriteRenderer>().sprite = getFromAssetBundle(directionCat, character.ToString() + "_2");
                 break;
         }
     }
