@@ -315,12 +315,14 @@ public class DialogueManager : MonoBehaviour
         float startPosY = dc_choice.image.rectTransform.localPosition.y;
         float adjustedStartPos = startPosY + ((offset / 2) * (numChoices - 1));
 
-        for(int i = 0; i < numChoices; i++)
+        for (int i = 0; i < numChoices; i++)
         {
-            Button copy = GameObject.Instantiate(dc_choice, dialogueContainer.transform.parent);
+            Button copy = GameObject.Instantiate(dc_choice, dialogueContainer.transform);
+            RectTransform copyRT = copy.image.GetComponent<RectTransform>();
+            float middleX = dialogueContainer.transform.GetComponent<RectTransform>().rect.width / 2 - copyRT.rect.width / 2;
 
             // Set the button's position and values
-            copy.image.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, adjustedStartPos - i * offset);
+            copyRT.anchoredPosition = new Vector2(middleX, adjustedStartPos - i * offset);
             copy.GetComponent<DialogueChoiceButton>().setButton(dc.blocks[i].opt, dc.blocks[i].disp);
 
             new_choice_buttons.Add(copy);

@@ -26,16 +26,3 @@ public class LogicCollider : MonoBehaviour
 
     }
 }
-
-public class LC_Doorway : LogicCollider
-{
-    public override void onEntered()
-    {
-        Debug.Log("You have entered a doorway...");
-    }
-
-    public override void onExited()
-    {
-        Debug.Log("This should never happen");
-    }
-}
