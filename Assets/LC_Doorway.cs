@@ -12,6 +12,7 @@ public class LC_Doorway : LogicCollider
 
     public override void onExited()
     {
-        Debug.Log("This should never happen");
+        //actually, it does happen when you complete the transition to the next room. doh.
+        //Debug.Log("This should never happen");
     }
 }
