@@ -19,18 +19,18 @@ public class PlayerObject : MonoBehaviour
     public Transform aheadCollider; // detects wall collisions
 
     // Collider logic
-    private Dictionary<Direction, bool> blockedInDirection;
+    private Dictionary<Direction, GameObject> blockedInDirection;
 
     private SpriteRenderer spriteRenderer;
 
     private void Start()
     {
         currPosition = new Coords(Mathf.FloorToInt(transform.position.x), Mathf.FloorToInt(transform.position.y));
-        blockedInDirection = new Dictionary<Direction, bool>();
-        blockedInDirection.Add(Direction.NORTH, false);
-        blockedInDirection.Add(Direction.SOUTH, false);
-        blockedInDirection.Add(Direction.EAST, false);
-        blockedInDirection.Add(Direction.WEST, false);
+        blockedInDirection = new Dictionary<Direction, GameObject>();
+        blockedInDirection.Add(Direction.NORTH, null);
+        blockedInDirection.Add(Direction.SOUTH, null);
+        blockedInDirection.Add(Direction.EAST, null);
+        blockedInDirection.Add(Direction.WEST, null);
 
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
@@ -47,19 +47,23 @@ public class PlayerObject : MonoBehaviour
         PlayerObjWallChecker.checkerCollisionExit -= offWall;
     }
 
-    private void touchingWall(Direction dir)
+    private void touchingWall(Direction dir, Collision2D collision)
     {
-        blockedInDirection[dir] = true;
+        blockedInDirection[dir] = collision.gameObject;
     }
 
-    private void offWall(Direction dir)
+    private void offWall(Direction dir, Collision2D collision)
     {
-        blockedInDirection[dir] = false;
+        if (blockedInDirection[dir] == collision.gameObject)
+        {
+            blockedInDirection[dir] = null;
+        }
+        // else, we've already switched over to a different wall, so don't bother
     }
 
     public bool lookingAtWall(Direction dir)
     {
-        return blockedInDirection[dir];
+        return blockedInDirection[dir] != null;
     }
 
     public void changeSprite(Direction direction, int frame)

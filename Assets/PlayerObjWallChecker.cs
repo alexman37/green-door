@@ -12,18 +12,18 @@ public class PlayerObjWallChecker : MonoBehaviour
 {
     public Direction direction;
 
-    public static Action<Direction> checkerCollisionEnter;
-    public static Action<Direction> checkerCollisionExit;
+    public static Action<Direction, Collision2D> checkerCollisionEnter;
+    public static Action<Direction, Collision2D> checkerCollisionExit;
 
     public void Start()
     {
         if(checkerCollisionEnter == null)
         {
-            checkerCollisionEnter += (_) => { };
+            checkerCollisionEnter += (_, __) => { };
         }
         if (checkerCollisionExit == null)
         {
-            checkerCollisionExit += (_) => { };
+            checkerCollisionExit += (_, __) => { };
         }
     }
 
@@ -33,7 +33,7 @@ public class PlayerObjWallChecker : MonoBehaviour
         // Normal wall.
         if (possibleLC == null)
         {
-            checkerCollisionEnter.Invoke(direction);
+            checkerCollisionEnter.Invoke(direction, collision);
         }
         // If not, do something special when entering this collider
         else
@@ -48,7 +48,7 @@ public class PlayerObjWallChecker : MonoBehaviour
         // Normal wall.
         if (possibleLC == null)
         {
-            checkerCollisionExit.Invoke(direction);
+            checkerCollisionExit.Invoke(direction, collision);
         }
         // If not, do something special when entering this collider
         else
