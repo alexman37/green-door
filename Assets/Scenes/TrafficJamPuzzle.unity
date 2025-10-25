@@ -13939,7 +13939,7 @@ MonoBehaviour:
     y: -29
   - x: -42
     y: -31
-  startAddingTiles: 1
+  startAddingTiles: 0
 --- !u!114 &1466663076 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7211669968117086292, guid: f3f0c38df2bd1404284b3afa51fc1b19, type: 3}
