@@ -85,7 +85,6 @@ public class PlayerManager : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.I))
         {
-            Debug.Log("Checking for ice...");
             RoomManager.instance.checkIfIcyTemp();
             
         }
@@ -106,10 +105,8 @@ public class PlayerManager : MonoBehaviour
             {
                 if (currentIceRoomManager.HasTileAt(playerObjects[0].currPosition))
                 {
-                    Debug.Log("On ice!");
                     if (!isSliding)
                     {
-                        Debug.Log("Starting to slide...");
                         switch (holdingKey)
                         {
                             case KeyCode.D:
@@ -145,16 +142,30 @@ public class PlayerManager : MonoBehaviour
                     }
 
                 }
+                else if (holdingKey != KeyCode.None && !isSliding)
+                {
+                    isSliding = false;
+                    currentIceDirection = Direction.NONE; // Reset to default
+                    switch (holdingKey)
+                    {
+
+                        case KeyCode.D: yield return congaLineMovement(timeToMove1Tile, 1, 0, Direction.EAST); break;
+                        case KeyCode.A: yield return congaLineMovement(timeToMove1Tile, -1, 0, Direction.WEST); break;
+                        case KeyCode.W: yield return congaLineMovement(timeToMove1Tile, 0, 1, Direction.NORTH); break;
+                        case KeyCode.S: yield return congaLineMovement(timeToMove1Tile, 0, -1, Direction.SOUTH); break;
+                    }
+                }
                 else
                 {
                     isSliding = false;
                     currentIceDirection = Direction.NONE; // Reset to default
                 }
             }
-            if (holdingKey != KeyCode.None && !isSliding)
+            else if (holdingKey != KeyCode.None && !isSliding)
             {
                 switch (holdingKey)
                 {
+
                     case KeyCode.D: yield return congaLineMovement(timeToMove1Tile, 1, 0, Direction.EAST); break;
                     case KeyCode.A: yield return congaLineMovement(timeToMove1Tile, -1, 0, Direction.WEST); break;
                     case KeyCode.W: yield return congaLineMovement(timeToMove1Tile, 0, 1, Direction.NORTH); break;
@@ -257,6 +268,7 @@ public class PlayerManager : MonoBehaviour
                 // Update their physical location in-game periodically
                 player.characterObj.transform.position = player.characterObj.transform.position + new Vector3(1 / steps * xChange, 1 / steps * yChange, 0);
 
+                changeSpriteDirection(playerObjects[0], direction);
                 //No need to animate more than their foot being out (since they are sliding)
                 player.changeAnimationFrame(1);
                 yield return new WaitForSeconds(time / steps);
