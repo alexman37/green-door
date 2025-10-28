@@ -17,6 +17,8 @@ public class ScriptedTimedEvent : MonoBehaviour
     // optional - use if you wish to create this scripted event from the inspector
     public ScriptedEventInputs inputs;
 
+    public static bool staticSetup = false;
+
     private void Start()
     {
         if(coroutine == null && inputs != null)
@@ -31,6 +33,7 @@ public class ScriptedTimedEvent : MonoBehaviour
         {
             pictureScreen = GameObject.FindGameObjectWithTag("PictureCanvas").GetComponent<Image>();
         }
+        staticSetup = true;
     }
 
     // If you need to reuse the coroutine, just call this method again
@@ -77,11 +80,12 @@ public class ScriptedTimedEvent : MonoBehaviour
     }
 }
 
+
+
 /// <summary>
 /// Generic Scripted event type
 /// </summary>
-[System.Serializable]
-public abstract class ScriptedEventInputs
+public class ScriptedEventInputs
 {
     public ScriptedEventType eventType;
     public float totalTime;
@@ -91,7 +95,11 @@ public abstract class ScriptedEventInputs
         this.eventType = eventType;
     }
 
-    public abstract IEnumerator getCoroutine();
+    public virtual IEnumerator getCoroutine()
+    {
+        Debug.LogError("Please override the scripted event.");
+        return null;
+    }
 }
 
 
@@ -181,6 +189,8 @@ public class SEInputs_Fade : ScriptedEventInputs
 
     public override IEnumerator getCoroutine()
     {
+        yield return new WaitUntil(() => ScriptedTimedEvent.staticSetup);
+        Debug.Log("Completed static setup.");
         Color col = fadingScreen.color;
         if(time > 0)
         {
@@ -267,6 +277,65 @@ public class SEInputs_Hide : ScriptedEventInputs
     }
 }
 
+
+/// <summary>
+/// Play music
+/// </summary>
+[System.Serializable]
+public class SEInputs_Music : ScriptedEventInputs
+{
+    public string musicTrackId;
+    public float volume;
+    public bool mainMusic; // as opposed to atmospheric
+
+    public SEInputs_Music(string trackId, float vol, bool main) : base(ScriptedEventType.MUSIC)
+    {
+        musicTrackId = trackId;
+        volume = vol;
+        mainMusic = main;
+    }
+
+    public override IEnumerator getCoroutine()
+    {
+        yield return null;
+        MusicManager whereToPlay = mainMusic ? MusicManager.mainInstance : MusicManager.ambientInstance;
+        if (musicTrackId == "stop")
+        {
+            whereToPlay.stopMusic();
+        }
+        else if (musicTrackId == "fade")
+        {
+            whereToPlay.fadeOutCurrent();
+        }
+        else
+        {
+            whereToPlay.playTrackByName(musicTrackId, volume);
+        }
+        EventManager.instance.finishEventExecution();
+    }
+}
+
+/// <summary>
+/// Play music
+/// </summary>
+[System.Serializable]
+public class SEInputs_SFX : ScriptedEventInputs
+{
+    public string sfxTrackId;
+
+    public SEInputs_SFX(string trackId) : base(ScriptedEventType.SFX)
+    {
+        sfxTrackId = trackId;
+    }
+
+    public override IEnumerator getCoroutine()
+    {
+        yield return null;
+        SfxManager.instance.playSFXbyName(sfxTrackId, 1);
+        EventManager.instance.finishEventExecution();
+    }
+}
+
 /// <summary>
 /// Animation event. Play a new animation on an animated object
 /// </summary>
@@ -296,6 +365,8 @@ public enum ScriptedEventType
     SHOW,
     HIDE,
     ANIMATE,
+    MUSIC,
+    SFX
 }
 
 public enum SEMovementType

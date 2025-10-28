@@ -18,6 +18,7 @@ public class Room : MonoBehaviour
 {
     public int roomNumber;
     public Coords entryPoint; // Where your characters spawn when entering this room
+    public DialogueItem dialogueOnEntry; // (optional) play dialogue immediately when entering a room
 
     public List<RoomObject> roomObjects;
 

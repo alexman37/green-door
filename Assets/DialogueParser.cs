@@ -122,9 +122,23 @@ public class DialogueParser
                             DialogueCommand dc3 = new DialogueCommand(new SEInputs_Hide(trans2, time));
                             dialogueEntries.Add(dc3);
                             break;
+                        case "MUSIC":
+                            string musicTrackId = actions[2];
+                            float volume = float.Parse(actions[3]);
+
+                            DialogueCommand dc4 = new DialogueCommand(new SEInputs_Music(musicTrackId, volume, true));
+                            dialogueEntries.Add(dc4);
+                            break;
+                        case "AMB":
+                            string ambientTrackId = actions[2];
+                            float ambientVolume = float.Parse(actions[3]);
+
+                            DialogueCommand dc5 = new DialogueCommand(new SEInputs_Music(ambientTrackId, ambientVolume, false));
+                            dialogueEntries.Add(dc5);
+                            break;
+                        case "SFX": break;
                         case "MOVE": break;
                         case "ANIM": break;
-                        case "SFX": break;
                     }
                 }
 

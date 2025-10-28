@@ -1,14 +1,14 @@
 /BLOCK=start
-
+	$ MUSIC dreamy 0.3
 	# TODO need some sort of delay here
 
 	# Starts on a black screen
 	$ FADE in 0
 
 	N():I was young.
-	N():I can't remember how I found it. I guess, really, it found me.
-	N():One day, I was wandering around town...didn't know where I was going. Didn't want to know.
-	N():I must have been looking for adventure, or an escape.
+	N():I can't remember how I found it.\nI guess, really, it found me.
+	N():One day, I was wandering around town...\nDidn't know where I was going.\nDidn't want to know.
+	N():I must have been looking for adventure.\nOr an escape.
 	N():Suddenly, there it was.
 
 	# Door visual
@@ -16,69 +16,74 @@
 	$ FADE out 2
 
 	N():An immaculate green door, adorned with lush leaves and white roses.
-	N():Most people overlooked it. I couldn't understand why.
-	N():I knew...I knew it was special.
+	N():It was out of place in a town like this. It didn't belong.
+	N():...I knew it was special.
 
 	# Cut to visual of the garden
 	$ FADE in 1
+
+	N():I looked inside.
+
 	$ SHOW garden snap 0
 	$ FADE out 1
 
-	N():It's another world inside. A better world.
+	N():There was another world inside. A better world.
 	N():A beautiful, serene garden...as pristine as you can imagine.
 	N():A place where the setting sun always shines...
 	N():Where the warm breeze puts your mind at ease...
-	N():Where the flowery fields and the gentle hills go on, and on, and on...
+	N():Where the golden plains and the gentle hills go on, and on, and on...
 	N():The place of my dreams.
-	N():I could stay there forever.
+	N():I could have stayed there forever.
 
+	$ MUSIC fade 0
 	# Cut back to reality. We are in a formal, cozy-looking therapist's office. Dr. Red Wallace is an old and quaint man. Lena is a visually bright young woman, but her sadness contradicts that.
-	$ HIDE fade 2
+	$ HIDE fade 4
+	$ AMB clock 0.12
 
-	LENA():That's what bothers me.
+	LENA()[2]:That's what bothers me.
 
 	# Pause
 
 	RED():Why does it bother you?
-	LENA():Because I haven't been back since.
-	LENA():I've tried looking for it. By now I must've searched every street in this town.
+	LENA():I haven't been back since.
+	LENA():I've tried looking for it.\nBy now, I must've searched every street in this town.
 	LENA():And I'm still searching...
 
 	# Pause
 
-	RED():Why is it important that you find the garden again?
+	RED()[2]:Why is it important that you find the garden again?
 	LENA():...
 	LENA():You don't believe me.
 	RED():That's not what I meant.
-	LENA():No, I get it. I wouldn't believe me, either.
+	LENA():No, I get it.\nI wouldn't believe me, either.
 	LENA():This is all just...ridiculous, you know?
 
 	# Pauses
 
-	RED():Whether the garden is real or not, the experience has impacted you in some way.
+	RED()[2]:Whether the garden is real or not, the experience has impacted you in some way.
 	RED():You were willing to tell this story, knowing I likely wouldn't believe it.
 	RED():That must mean something.
 
 	# Pauses
 
-	LENA():I've always had a hard time fitting in.
-	LENA():Everything moves so fast. There's always so much to do, and so little time.
+	LENA()[3]:I've always had a hard time fitting in.
+	LENA():Everything moves so fast.\nThere's always so much to do, in so little time.
 	LENA():But in that field, surrounded by endless nature...
-	LENA():I had all the time in the world.
+	LENA():I felt like I had all the time in the world.
 
 	# Pauses
 
-	LENA():What do you make of all that?
+	LENA()[3]:What do you make of that?
 	RED():You're asking me for a diagnosis?
 	LENA():I guess so.
 	RED():I'm simply here to talk you through your feelings.
-	RED():Only you can answer that question. It would be unprofessional for me to judge you-
+	RED():Only you can answer that question.\nIt would be unprofessional for me to judge you-
 	LENA():I'll allow it.
 	RED():...
 
 	# Pause
 
-	LENA():Please...
+	LENA()[2]:Please...
 	LENA():What do you think the garden means?
 	
 	/CHOICE
@@ -98,11 +103,11 @@
 
 	# Pause
 
-	LENA():Then wake up here.
+	LENA()[1]:Then I wake up here.
 
 	# Pause
 
-	RED():Whether the garden is real or not...
+	RED()[3]:Whether the garden is real or not...
 	RED():Whether you manage to find it or not...
 	RED():There is something you can learn from all this.
 	LENA():What's that?
@@ -113,10 +118,13 @@
 
 	# Pause
 
-	RED():My advice is that you channel that sense of adventure - the one that led you to the garden in the first place.
+	RED()[2]:My advice is that you channel that sense of adventure - the one that led you to the garden in the first place.
 	RED():Keep searching. And I promise you, that somewhere...
 	RED():Somewhere, you will find your garden.
+
+	$ FADE in 2
 	N():(Lena left, with something to look forward to.)
+	$ FADE out 2
 /ENDBLOCK
 
 # [Wishful Thinking]
@@ -132,18 +140,18 @@
 
 	# Pause
 
-	RED():What if you don't?
+	RED()[2]:What if you don't?
 	LENA():What?
 	RED():Suppose, after many years, you cannot find that green door again.
 	RED():What will you do then?
 
 	# Pause
 
-	LENA():I don't know.
+	LENA()[2]:I don't know.
 
 	# Pause
 
-	RED():Unfortunately, it is a realistic possibility.
+	RED()[2]:Unfortunately, it is a realistic possibility.
 	RED():If it comes to pass, you must find something else to fill the void left by your garden.
 	RED():It will not be easy. It will take time.
 	RED():But we find our ways to cope. To survive.
@@ -151,10 +159,13 @@
 
 	# Pause
 
-	LENA():I hope so.
+	LENA()[3]:I hope so.
 
+	$ FADE in 2
 	# Fade to black
 
 	N():(Lena left, unsure of what you said.)
+
+	$ FADE out 2
 
 /ENDBLOCK

@@ -30,5 +30,10 @@ public class DoorObject : RoomObject
 
         // RoomManager handles the fade transition
         RoomManager.instance.changeCurrentRoom(nextRoom);
+
+        if(properties.dialogueItem != null)
+        {
+            DialogueManager.instance.processConversation(properties.dialogueItem);
+        }
     }
 }

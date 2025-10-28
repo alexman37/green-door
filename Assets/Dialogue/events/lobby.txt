@@ -1,0 +1,3 @@
+/BLOCK=start
+  $ AMB lobby 0.3
+/ENDBLOCK

@@ -1,0 +1,4 @@
+/BLOCK=start
+  $ AMB winter-ambience 0.1
+  $ MUSIC outside 0.3
+/ENDBLOCK

@@ -1,8 +1,7 @@
 /BLOCK=start
-	MAYA():So, what brings you back here?
-	MAYA():Wanna take my job?
+	MAYA():What brings you back here?\nWanna take my job?
 	RED():I wouldn't be very good at it.
-	MAYA():Heh...don't be silly.
-	MAYA():All you have to do is look busy and happy.
+	MAYA():Oh, don't be silly, dear.
+	MAYA():All I have to do is look busy and happy.
 	RED():...
 /ENDBLOCK

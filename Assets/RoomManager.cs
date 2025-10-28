@@ -82,6 +82,12 @@ public class RoomManager : MonoBehaviour
         }
         fadeCanvas.gameObject.SetActive(false);
 
-        playerManager.startMovement();
+        if(changeToThis.dialogueOnEntry != null)
+        {
+            DialogueManager.instance.processConversation(changeToThis.dialogueOnEntry);
+        } else
+        {
+            playerManager.startMovement();
+        }
     }
 }
