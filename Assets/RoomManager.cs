@@ -28,6 +28,8 @@ public class RoomManager : MonoBehaviour
 
         playerManager = FindObjectsByType<PlayerManager>(FindObjectsSortMode.None)[0];
 
+        checkForIce(activeRoom);
+
         // Get actions started
         currentRoomChanged += (Room r) => { };
     }
@@ -42,24 +44,24 @@ public class RoomManager : MonoBehaviour
         playerManager.stopMovement();
         Room changeToThis = loadedRooms[nextRoomIndex];
 
-        //TODO unload the previous room here and generate a new one in its place
         activeRoom = changeToThis;
-        if (changeToThis.containsIce)
-        {
-            playerManager.currentRoomHasIce(changeToThis.gameObject.GetComponent<IceRoomManager>());
-        }
+
+        checkForIce(changeToThis);
+
         //Fade transition
         instance.StartCoroutine(fadeTransition(1.5f, changeToThis));
     }
 
-    public void checkIfIcyTemp()
+    public void checkForIce(Room room)
     {
-        if(activeRoom.containsIce)
+        if (room.containsIce)
         {
-            playerManager.currentRoomHasIce(activeRoom.gameObject.GetComponent<IceRoomManager>());
-            Debug.Log("You got ice fool");
+            playerManager.currentRoomHasIce(room.gameObject.GetComponent<IceRoomManager>());
+            Debug.Log("The current room has ice.");
         }
+        else playerManager.noIce();
     }
+
 
     private IEnumerator fadeTransition(float timeToFade, Room changeToThis)
     {

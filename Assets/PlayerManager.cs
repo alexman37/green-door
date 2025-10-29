@@ -83,11 +83,6 @@ public class PlayerManager : MonoBehaviour
         {
             holdingKey = KeyCode.S;
         }
-        if (Input.GetKey(KeyCode.I))
-        {
-            RoomManager.instance.checkIfIcyTemp();
-            
-        }
     }
 
     IEnumerator controlMovement()
@@ -180,6 +175,12 @@ public class PlayerManager : MonoBehaviour
     {
         currentIceRoomManager = iceRoomManager;
         doesCurrentRoomContainIce = true;
+    }
+
+    public void noIce()
+    {
+        currentIceRoomManager = null;
+        doesCurrentRoomContainIce = false;
     }
 
     // Change the direction this sprite is looking

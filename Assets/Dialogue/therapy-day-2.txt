@@ -1,0 +1,160 @@
+/BLOCK=start
+	$ AMB clock 0.12
+	$ FADE out 3
+
+	LENA(): I've always felt like I didn't fit in with other people...
+	LENA(): Like I don't deserve them.
+	LENA(): Just coming here took years of convincing myself that I needed to.
+	LENA(): That I wouldn't be wasting everyone's time.
+	
+	RED()[2]: I'm sorry you feel that way.
+	LENA(): The thing is, I don't know where or when those feelings started...
+	LENA(): But I know how they got worse.
+
+	# Pause
+
+	RED()[3]: The garden?
+	LENA(): There was just something about it.
+	LENA(): I knew I was the only one there, and...I was totally fine with it.
+	LENA(): People didn't need me for anything. And, I know this sounds bad, but...
+	LENA()[2]: I didn't need them.
+	LENA(): I had everything I wanted in that garden.
+
+	# Pause
+
+	RED()[4]: What about your friends and family? They must have missed you when you were gone.
+	LENA()[2]: ...
+	RED(): Lena?
+	LENA(): No one missed me.
+	LENA(): No one misses me right now.
+	RED(): I'm sorry, but that isn't-
+	LENA(): It IS true!
+	LENA(): I...
+
+	# Pauses
+
+	LENA()[3]: I'm sorry...I'm sorry.
+	LENA(): I shouldn't have said that.
+
+	# Pause
+
+	LENA()[3]: I've just...I've never been good at understanding other people.
+	LENA(): Ha, it's actually kind of ironic.
+
+	# Pause
+
+	LENA()[3]: Everyone who's happy seems to have friends.
+	LENA(): I always thought I needed them...
+	LENA(): But the longer I went on without them, I wondered if it was possible to live a happy life all by yourself.
+	LENA(): The garden told me that I could.
+
+	# Pause
+
+	LENA()[3]: Is it really okay to do that?
+	
+	/CHOICE
+		solitude:Solitude is a virtue
+		friends:Friends are what life is for
+	/ENDCHOICE
+/ENDBLOCK
+
+# Two choices: Solitude is a virtue // Friends are what life is for
+# [Solitude]
+
+/BLOCK=solitude
+	RED(): What you are describing is a human behavior that resulted from centuries of evolution.
+	LENA(): ...?
+	RED(): Bear with me for a moment.
+
+	# Pause
+
+	RED()[2]: In ancient times, survival was difficult.
+	RED(): Human beings aren't particularly strong, durable, or resilient creatures.
+	RED(): Not enough to last long, alone in the wild.
+	RED(): We stood a better chance if we stuck together.
+
+	# Pause
+
+	RED()[2]: Of course, there were exceptions. Some were outsiders, not suitable for a tribe.
+	RED(): Sometimes, it wasn't their own fault.
+	RED(): Regardless...those who could socialize protected each other, and lived on through future generations.
+	RED(): The outsiders died long ago.
+
+	# Pause
+
+	RED()[2]: Humanity's fortunes have changed since those times.
+	RED(): Our society is only in its advanced stage because of centuries of cooperation.
+	RED(): We rely on thousands of people, whose names and actions we quickly forget.
+	RED(): We are, still, not surviving alone.
+	RED(): But we can certainly feel that way.
+
+	# Pause
+
+	RED()[2]: The lack of socialization sparks some deeper fear within us...a remainder of our distant past.
+	RED(): It's not unlike our fear of the dark, or thunderstorms.
+	RED(): It is possible to grow out of this fear.
+	RED(): I would know.
+
+	# Pause
+
+	LENA()[2]: Then...the garden really is all I need?
+	RED(): For you, it represents true freedom.
+	RED(): Freedom from a society that you feel outside of.
+	RED(): Freedom from earthly responsibility.
+	RED(): We are all searching for our gardens.
+	RED()[2]: I sincerely believe, one way or another, you will find yours.
+
+	$ FADE in 2
+	N():(Lena left, feeling understood.)
+	$ FADE out 2
+/ENDBLOCK
+	
+# [Friends]
+
+/BLOCK=friends
+	RED(): Typically, I don't like bringing up other patients. But here, it feels practical.
+	RED(): Many before you have sat in that same chair and expressed something similar.
+	RED(): Many were your age.
+	RED(): It is hard to make friends...
+	RED(): But it is an essential part of the human experience.
+
+	# Pause
+
+	LENA()[2]: You get what I'm saying though, right?
+	LENA(): This feeling of loneliness...like I have no place in society. It's always been with me.
+	LENA(): And then...when I found that garden...
+	LENA(): I felt validated. Like I didn't need them, either.
+	LENA(): I just want to go back to that...
+	RED(): I know you do.
+
+	# Pause
+
+	RED()[4]: You said that you found the garden in this town?
+	LENA(): It was behind a green door...but that's all I can remember.
+	LENA(): Like I said, I was a little kid. I wasn't really paying attention.
+	RED(): And you've searched every street trying to find it?
+	LENA(): Countless times...
+
+	# Pause
+
+	RED()[4]: Perhaps you should expand your search.
+	LENA(): Huh?
+	RED(): It's a big town, but the world is bigger.
+	RED(): You have many years left to keep looking.
+	LENA()[2]: You're saying I should give up on the garden.
+	RED(): I think there's more things out there worth finding.
+	RED(): And, especially, I don't want you to give up on humanity as a whole.
+	RED(): Many of us feel that we don't match society's expectations.
+	RED(): But society is not a monolith.
+	RED(): Somewhere out there, someone feels all the same things you do.
+	RED(): Someone understands you.
+	RED(): They might be closer than you think.
+
+	# Pause
+
+	LENA()[2]: I hope so...
+	
+	$ FADE in 2
+	N():(Lena left, feeling lonely.)
+	$ FADE out 2
+/ENDBLOCK
