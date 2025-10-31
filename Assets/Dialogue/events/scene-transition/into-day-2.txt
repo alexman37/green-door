@@ -1,0 +1,4 @@
+/BLOCK=start
+  $ FADE in 3
+  $ SCENE Day-2
+/ENDBLOCK

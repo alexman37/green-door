@@ -1,0 +1,5 @@
+/BLOCK=start
+	N():\i"Click and hold a box to move it.\!
+	N():\iYou must be 2 or fewer squares away to move it.\!
+	N():\iIt's not like you're a wizard."\!
+/ENDBLOCK

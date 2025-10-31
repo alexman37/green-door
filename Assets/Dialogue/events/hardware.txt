@@ -1,5 +1,5 @@
 /BLOCK=start
-  $ MUSIC fade 0
+  $ MUSIC fade 2
   $ AMB fade 0
   N()[3]:The garden isn't here.
 /ENDBLOCK

@@ -1,0 +1,5 @@
+/BLOCK=start
+	N():\i"On ice, one step in any direction sends you slipping all the way in that direction.\!
+	N():\iSee if you can slip your way to the exit.\!
+	N():\iPress that button in the bottom left if you want to start over."\!
+/ENDBLOCK

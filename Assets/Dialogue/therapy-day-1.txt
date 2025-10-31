@@ -123,6 +123,9 @@
 	RED(smiling):Somewhere, you will find your garden.
 
 	$ FADE in 2
+	$ SWAP couch empty-couch
+	$ SWAP desk empty-desk
+	$ SWAP player standing
 	N():(Lena left, with something to look forward to.)
 	$ FADE out 2
 /ENDBLOCK
@@ -165,6 +168,9 @@
 	$ FADE in 2
 	# Fade to black
 
+	$ SWAP couch empty-couch
+	$ SWAP desk empty-desk
+	$ SWAP player standing
 	N():(Lena left, unsure of what you said.)
 
 	$ FADE out 2

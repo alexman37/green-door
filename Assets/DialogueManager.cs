@@ -197,6 +197,7 @@ public class DialogueManager : MonoBehaviour
             deployChoice(dc);
         } else if(entry is DialogueCommand)
         {
+            Debug.Log("recognized command");
             DialogueCommand dc = entry as DialogueCommand;
             ScriptedTimedEvent ste = this.gameObject.AddComponent<ScriptedTimedEvent>();
             // Dialogue events will always be tethered in that you must wait for them to finish before advancing

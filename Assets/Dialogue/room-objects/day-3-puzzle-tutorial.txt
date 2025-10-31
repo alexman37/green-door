@@ -1,0 +1,3 @@
+/BLOCK=start
+	N():\i"Follow your heart...\!
+/ENDBLOCK

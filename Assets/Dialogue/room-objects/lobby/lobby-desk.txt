@@ -2,8 +2,8 @@
 	N():Maya, the lobbywoman.
 	N():She's been here as long as you have.
 	N():Even still, you don't talk much.
-	MAYA():Heading out, Dr. Wallace?
+	N():"Heading out, Dr. Wallace?"
 	RED():Yes.
-	MAYA():Ok. You have a good night, dear.
+	N():"Ok. You have a good night, dear."
 	RED():You as well.
 /ENDBLOCK

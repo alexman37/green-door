@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 /* See ScriptedEvent. It's the same idea, but these are Coroutines instead of methods.
  * All events run in order and take a certain amount of time to complete
@@ -164,6 +165,30 @@ public class SEInputs_Enable : ScriptedEventInputs
     public override IEnumerator getCoroutine()
     {
         focus.SetActive(enable);
+        yield return null;
+        EventManager.instance.finishEventExecution();
+    }
+}
+
+/// <summary>
+/// For objects with a sprite renderer, change the sprite
+/// </summary>
+[System.Serializable]
+public class SEInputs_SpriteSwap : ScriptedEventInputs
+{
+    public GameObject focus;
+    public Sprite newSprite;
+
+    public SEInputs_SpriteSwap(GameObject f, Sprite s) : base(ScriptedEventType.SPRITE_SWAP)
+    {
+        focus = f;
+        newSprite = s;
+        totalTime = 0;
+    }
+
+    public override IEnumerator getCoroutine()
+    {
+        focus.GetComponent<SpriteRenderer>().sprite = newSprite;
         yield return null;
         EventManager.instance.finishEventExecution();
     }
@@ -355,18 +380,42 @@ public class SEInputs_Animate : ScriptedEventInputs
     }
 }
 
+/// <summary>
+/// Scene transition
+/// </summary>
+[System.Serializable]
+public class SEInputs_SceneTransition : ScriptedEventInputs
+{
+    public string sceneName;
+
+    public SEInputs_SceneTransition(string s) : base(ScriptedEventType.SCENE_TRANSITION)
+    {
+        sceneName = s;
+    }
+
+    // TODO
+    public override IEnumerator getCoroutine()
+    {
+        SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
+        yield return null;
+        EventManager.instance.finishEventExecution();
+    }
+}
+
 
 public enum ScriptedEventType
 {
     MOVEMENT,
     MOVEMENT_X,
     ENABLE,
+    SPRITE_SWAP,
     FADE,
     SHOW,
     HIDE,
     ANIMATE,
     MUSIC,
-    SFX
+    SFX,
+    SCENE_TRANSITION
 }
 
 public enum SEMovementType

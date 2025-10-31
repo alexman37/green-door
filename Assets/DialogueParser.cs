@@ -136,6 +136,26 @@ public class DialogueParser
                             DialogueCommand dc5 = new DialogueCommand(new SEInputs_Music(ambientTrackId, ambientVolume, false));
                             dialogueEntries.Add(dc5);
                             break;
+                        case "SWAP":
+                            string objWithSpriteId = actions[2];
+                            string newSpriteId = actions[3];
+
+                            DialogueCommand dc6 = new DialogueCommand(new SEInputs_SpriteSwap(item.objectRefs.getOfId(objWithSpriteId), item.pictureRefs.getOfId(newSpriteId)));
+                            dialogueEntries.Add(dc6);
+                            break;
+                        case "ENABLE":
+                            string objToEnable = actions[2];
+                            bool enabling = actions[3] == "true" ? true : false;
+
+                            DialogueCommand dc7 = new DialogueCommand(new SEInputs_Enable(item.objectRefs.getOfId(objToEnable), enabling));
+                            dialogueEntries.Add(dc7);
+                            break;
+                        case "SCENE":
+                            string sceneName = actions[2];
+
+                            DialogueCommand dc8 = new DialogueCommand(new SEInputs_SceneTransition(sceneName));
+                            dialogueEntries.Add(dc8);
+                            break;
                         case "SFX": break;
                         case "MOVE": break;
                         case "ANIM": break;
