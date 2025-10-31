@@ -1,16 +1,16 @@
 ManifestFileVersion: 0
 UnityVersion: 6000.0.58f2
-CRC: 3204353408
+CRC: 3453239442
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: fe302b07ebe27881832d71dc1220394f
+    Hash: ff9a1c496aef72818c3f8da64da5362b
   TypeTreeHash:
     serializedVersion: 2
     Hash: 9f349c36d7a6532f767333f9299b3e74
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: 876be928a59e8565c25be1356cbd7a98
+    Hash: 7762c2b9575f31f5e4fa052e6d627d7a
 HashAppended: 0
 ClassTypes:
 - Class: 28
@@ -21,12 +21,12 @@ SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/BundledAssets/char sprite/lena/happy.png
 - Assets/BundledAssets/char sprite/lena/lookup.png
-- Assets/BundledAssets/char sprite/lena/angry.png
 - Assets/BundledAssets/char sprite/lena/default.png
 - Assets/BundledAssets/char sprite/lena/talking.png
 - Assets/BundledAssets/char sprite/lena/crossed.png
 - Assets/BundledAssets/char sprite/lena/weak-smile.png
 - Assets/BundledAssets/char sprite/lena/pensive.png
+- Assets/BundledAssets/char sprite/lena/sigh.png
 - Assets/BundledAssets/char sprite/lena/antsy-2.png
 - Assets/BundledAssets/char sprite/lena/lookup-2.png
 - Assets/BundledAssets/char sprite/lena/glance-2.png
