@@ -1,16 +1,16 @@
 ManifestFileVersion: 0
 UnityVersion: 6000.0.58f2
-CRC: 357600132
+CRC: 79716166
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: d177641c69d65f6327c32a4d852a3642
+    Hash: 53bdbbb3beb0424b0219a9678e1b80bc
   TypeTreeHash:
     serializedVersion: 2
     Hash: 9f349c36d7a6532f767333f9299b3e74
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: 6476f05394518152e6a4b4234107bbd2
+    Hash: 001c0d0a4b30ed3e43b852de6cac7ef2
 HashAppended: 0
 ClassTypes:
 - Class: 28
@@ -19,16 +19,13 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/Sprites/walk_into/gray.png
 - Assets/Sprites/walk_into/hazel_2.png
-- Assets/Sprites/walk_into/angelo.png
-- Assets/Sprites/walk_into/raven.png
+- Assets/Sprites/walk_into/red_1.png
 - Assets/Sprites/walk_into/hazel.png
-- Assets/Sprites/walk_into/allison.png
-- Assets/Sprites/walk_into/cassidy.png
 - Assets/Sprites/walk_into/hazel_1.png
-- Assets/Sprites/walk_into/damon.png
 - Assets/Sprites/walk_into/winter.png
+- Assets/Sprites/walk_into/red_2.png
 - Assets/Sprites/walk_into/winter_1.png
 - Assets/Sprites/walk_into/winter_2.png
+- Assets/Sprites/walk_into/red.png
 Dependencies: []

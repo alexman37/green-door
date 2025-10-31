@@ -40,51 +40,51 @@
 	$ HIDE fade 4
 	$ AMB clock 0.12
 
-	LENA()[2]:That's what bothers me.
+	LENA(crossed)[2]:That's what bothers me.
 
 	# Pause
 
-	RED():Why does it bother you?
-	LENA():I haven't been back since.
-	LENA():I've tried looking for it.\nBy now, I must've searched every street in this town.
-	LENA():And I'm still searching...
+	RED(writing-lookup):Why does it bother you?
+	LENA(crossed-2):I haven't been back since.
+	LENA(bothered):I've tried looking for it.\nBy now, I must've searched every street in this town.
+	LENA(nervous):And I'm still searching...
 
 	# Pause
 
-	RED()[2]:Why is it important that you find the garden again?
-	LENA():...
-	LENA():You don't believe me.
-	RED():That's not what I meant.
-	LENA():No, I get it.\nI wouldn't believe me, either.
-	LENA():This is all just...ridiculous, you know?
+	RED(writing-lookup-2)[2]:Why is it important that you find the garden again?
+	LENA(pensive-2):...
+	LENA(pensive):You don't believe me.
+	RED(grumpy2):That's not what I meant.
+	LENA(look-away):No, I get it.\nI wouldn't believe me, either.
+	LENA(look-away-2):This is all just...ridiculous, you know?
 
 	# Pauses
 
-	RED()[2]:Whether the garden is real or not, the experience has impacted you in some way.
-	RED():You were willing to tell this story, knowing I likely wouldn't believe it.
-	RED():That must mean something.
+	RED(folded-hands)[2]:Whether the garden is real or not, the experience has impacted you in some way.
+	RED(folded-hands-2):You were willing to tell this story, knowing I likely wouldn't believe it.
+	RED(default):That must mean something.
 
 	# Pauses
 
-	LENA()[3]:I've always had a hard time fitting in.
-	LENA():Everything moves so fast.\nThere's always so much to do, in so little time.
-	LENA():But in that field, surrounded by endless nature...
-	LENA():I felt like I had all the time in the world.
+	LENA(defeated)[3]:I've always had a hard time fitting in.
+	LENA(defeated):Everything moves so fast.\nThere's always so much to do, in so little time.
+	LENA(glance-2):But in that field, surrounded by endless nature...
+	LENA(weak-smile):I felt like I had all the time in the world.
 
 	# Pauses
 
-	LENA()[3]:What do you make of that?
-	RED():You're asking me for a diagnosis?
-	LENA():I guess so.
-	RED():I'm simply here to talk you through your feelings.
-	RED():Only you can answer that question.\nIt would be unprofessional for me to judge you-
-	LENA():I'll allow it.
-	RED():...
+	LENA(talking)[3]:What do you make of that?
+	RED(normal-talking):You're asking me for a diagnosis?
+	LENA(default):I guess so.
+	RED(grumpy):I'm simply here to talk you through your feelings.
+	RED(folded-hands):Only you can answer that question.\nIt would be unprofessional for me to judge you-
+	LENA(glance-2):I'll allow it.
+	RED(default):...
 
 	# Pause
 
-	LENA()[2]:Please...
-	LENA():What do you think the garden means?
+	LENA(look-away)[2]:Please...
+	LENA(look-away-2):What do you think the garden means?
 	
 	/CHOICE
 		wonderful:It's your happy place
@@ -97,30 +97,30 @@
 # [Wonderful Place]
 
 /BLOCK=wonderful
-	RED():It sounds like a wonderful place.
-	LENA():It was.
-	LENA():I dream about it every night...
+	RED(default):It sounds like a wonderful place.
+	LENA(weak-smile):It was.
+	LENA(bothered):I dream about it every night...
 
 	# Pause
 
-	LENA()[1]:Then I wake up here.
+	LENA(pensive-2)[1]:Then I wake up here.
 
 	# Pause
 
-	RED()[3]:Whether the garden is real or not...
-	RED():Whether you manage to find it or not...
-	RED():There is something you can learn from all this.
+	RED(looking-off)[3]:Whether the garden is real or not...
+	RED(looking-off-talking):Whether you manage to find it or not...
+	RED(looking-off):There is something you can learn from all this.
 	LENA():What's that?
-	RED():You are not as far from happiness as you think.
-	RED():You are young, thoughtful, and curious.
-	RED():Our world can often be the opposite of those things.
-	RED():Not all the time, though.
+	RED(default):You are not as far from happiness as you think.
+	RED(normal-talking):You are young, thoughtful, and curious.
+	RED(grumpy2):Our world can often be the opposite of those things.
+	RED(default):Not all the time, though.
 
 	# Pause
 
-	RED()[2]:My advice is that you channel that sense of adventure - the one that led you to the garden in the first place.
-	RED():Keep searching. And I promise you, that somewhere...
-	RED():Somewhere, you will find your garden.
+	RED(folded-hands)[2]:My advice is that you channel that sense of adventure - the one that led you to the garden in the first place.
+	RED(folded-hands-2):Keep searching. And I promise you, that somewhere...
+	RED(smiling):Somewhere, you will find your garden.
 
 	$ FADE in 2
 	N():(Lena left, with something to look forward to.)
@@ -130,36 +130,37 @@
 # [Wishful Thinking]
 
 /BLOCK=wishful
-	RED():Oftentimes, when we face hardships in the present, we reminisce on the past.
-	RED():My view is that this memory, real or not, brings you happiness and comfort at a particular time where you need it.
-	LENA():I'm sorry, but that's not right. This has gone on much longer.
-	LENA():Ever since I walked into that garden all those years ago...it's all I've thought about.
-	LENA():Nothing else in the world comes close to it.
-	LENA():It's all so...hollow.
-	LENA():I have to find that garden again.
+	RED(looking-off):Oftentimes, when we face hardships in the present, we reminisce on the past.
+	RED(looking-off-talking):My view is that this memory, real or not, brings you happiness and comfort at a particular time where you need it.
+	LENA(bothered):I'm sorry, but that's not right. This has gone on much longer.
+	LENA(crossed-2):Ever since I walked into that garden all those years ago...it's all I've thought about.
+	LENA(crossed):Nothing else in the world comes close to it.
+	LENA(bothered):It's all so...hollow.
+	LENA(bothered):I have to find that garden again.
 
 	# Pause
 
-	RED()[2]:What if you don't?
-	LENA():What?
-	RED():Suppose, after many years, you cannot find that green door again.
-	RED():What will you do then?
+	RED(folded-hands)[2]:What if you don't?
+	LENA(antsy):What?
+	RED(default):Suppose, after many years, you cannot find that green door again.
+	RED(normal-talking):What will you do then?
 
 	# Pause
 
-	LENA()[2]:I don't know.
+	LENA(defeated)[4]:...
+	LENA(distraught):No idea.
 
 	# Pause
 
-	RED()[2]:Unfortunately, it is a realistic possibility.
-	RED():If it comes to pass, you must find something else to fill the void left by your garden.
-	RED():It will not be easy. It will take time.
-	RED():But we find our ways to cope. To survive.
-	RED():We can help you.
+	RED(pensive)[2]:Unfortunately, it is a realistic possibility.
+	RED(default):If it comes to pass, you must find something else to fill the void left by your garden.
+	RED(normal-talking):It will not be easy. It will take time.
+	RED(folded-hands-2):But we find our ways to cope. To survive.
+	RED(normal-talking):We can help you.
 
 	# Pause
 
-	LENA()[3]:I hope so.
+	LENA(defeated)[3]:I hope so.
 
 	$ FADE in 2
 	# Fade to black

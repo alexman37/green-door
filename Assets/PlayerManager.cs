@@ -348,6 +348,6 @@ public class PlayerManager : MonoBehaviour
 // TODO replace
 public enum ActiveCharacter
 {
-    hazel,
-    winter
+    red,
+    lena
 }

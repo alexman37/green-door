@@ -55,7 +55,9 @@ public class WallObject : RoomObject
         {
             foreach (GameObject go in wallObjects)
             {
-                EditorApplication.delayCall += () => DestroyImmediate(go);
+                #if UNITY_EDITOR
+                    EditorApplication.delayCall += () => DestroyImmediate(go);
+                #endif
             }
         }
         wallObjects.Clear();

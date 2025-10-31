@@ -1,16 +1,16 @@
 ManifestFileVersion: 0
 UnityVersion: 6000.0.58f2
-CRC: 2208144471
+CRC: 3204353408
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: af1de0d4f83efe7dd13c451e1801636a
+    Hash: fe302b07ebe27881832d71dc1220394f
   TypeTreeHash:
     serializedVersion: 2
     Hash: 9f349c36d7a6532f767333f9299b3e74
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: cbfe4dda7c004e2f5db65ad1e0a942e7
+    Hash: 876be928a59e8565c25be1356cbd7a98
 HashAppended: 0
 ClassTypes:
 - Class: 28
@@ -19,5 +19,27 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
+- Assets/BundledAssets/char sprite/lena/happy.png
+- Assets/BundledAssets/char sprite/lena/lookup.png
+- Assets/BundledAssets/char sprite/lena/angry.png
 - Assets/BundledAssets/char sprite/lena/default.png
+- Assets/BundledAssets/char sprite/lena/talking.png
+- Assets/BundledAssets/char sprite/lena/crossed.png
+- Assets/BundledAssets/char sprite/lena/weak-smile.png
+- Assets/BundledAssets/char sprite/lena/pensive.png
+- Assets/BundledAssets/char sprite/lena/antsy-2.png
+- Assets/BundledAssets/char sprite/lena/lookup-2.png
+- Assets/BundledAssets/char sprite/lena/glance-2.png
+- Assets/BundledAssets/char sprite/lena/bothered.png
+- Assets/BundledAssets/char sprite/lena/antsy.png
+- Assets/BundledAssets/char sprite/lena/lookup-sad.png
+- Assets/BundledAssets/char sprite/lena/nervous.png
+- Assets/BundledAssets/char sprite/lena/defeated.png
+- Assets/BundledAssets/char sprite/lena/distraught.png
+- Assets/BundledAssets/char sprite/lena/glance.png
+- Assets/BundledAssets/char sprite/lena/look-away-2.png
+- Assets/BundledAssets/char sprite/lena/look-away.png
+- Assets/BundledAssets/char sprite/lena/teary.png
+- Assets/BundledAssets/char sprite/lena/pensive-2.png
+- Assets/BundledAssets/char sprite/lena/crossed-2.png
 Dependencies: []

@@ -1,16 +1,16 @@
 ManifestFileVersion: 0
 UnityVersion: 6000.0.58f2
-CRC: 2225812591
+CRC: 324802964
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: cbc2ce6208f72fc7eb11676629f549e8
+    Hash: af6f727b60c4c067f105348e4b8a84ee
   TypeTreeHash:
     serializedVersion: 2
     Hash: 9f349c36d7a6532f767333f9299b3e74
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: 5a58a34fd8ad6a2978d37cd0e65f8573
+    Hash: da318ac024c9d928a8fc337467b3654f
 HashAppended: 0
 ClassTypes:
 - Class: 28
@@ -20,9 +20,12 @@ ClassTypes:
 SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Sprites/walk_outward/winter.png
+- Assets/Sprites/walk_outward/red_1.png
 - Assets/Sprites/walk_outward/hazel_1.png
 - Assets/Sprites/walk_outward/hazel_2.png
 - Assets/Sprites/walk_outward/winter_1.png
 - Assets/Sprites/walk_outward/hazel.png
+- Assets/Sprites/walk_outward/red_2.png
 - Assets/Sprites/walk_outward/winter_2.png
+- Assets/Sprites/walk_outward/red.png
 Dependencies: []

@@ -1,16 +1,16 @@
 ManifestFileVersion: 0
 UnityVersion: 6000.0.58f2
-CRC: 2880615844
+CRC: 2744481576
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 80706592a63aebbeb3cc0431038d52fc
+    Hash: 51deb5380ebcff91704cb33d1fb19b6a
   TypeTreeHash:
     serializedVersion: 2
     Hash: 9f349c36d7a6532f767333f9299b3e74
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: 95c5e3761308ae30d1ebb8221ff3597d
+    Hash: bb47687c84522ce7aa95b6c6eb098501
 HashAppended: 0
 ClassTypes:
 - Class: 28
@@ -19,5 +19,22 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
+- Assets/BundledAssets/char sprite/red/writing-lookup.png
+- Assets/BundledAssets/char sprite/red/grumpy.png
 - Assets/BundledAssets/char sprite/red/default.png
+- Assets/BundledAssets/char sprite/red/looking-off.png
+- Assets/BundledAssets/char sprite/red/adjust-glasses.png
+- Assets/BundledAssets/char sprite/red/tears.png
+- Assets/BundledAssets/char sprite/red/folded-hands.png
+- Assets/BundledAssets/char sprite/red/writing1.png
+- Assets/BundledAssets/char sprite/red/looking-off-talking.png
+- Assets/BundledAssets/char sprite/red/normal-talking.png
+- Assets/BundledAssets/char sprite/red/writing-lookup-2.png
+- Assets/BundledAssets/char sprite/red/smiling.png
+- Assets/BundledAssets/char sprite/red/writing2.png
+- Assets/BundledAssets/char sprite/red/writing-lookup-concerned.png
+- Assets/BundledAssets/char sprite/red/folded-hands-2.png
+- Assets/BundledAssets/char sprite/red/sad.png
+- Assets/BundledAssets/char sprite/red/grumpy2.png
+- Assets/BundledAssets/char sprite/red/pensive.png
 Dependencies: []
