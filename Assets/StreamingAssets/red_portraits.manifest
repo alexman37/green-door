@@ -1,16 +1,16 @@
 ManifestFileVersion: 0
 UnityVersion: 6000.0.58f2
-CRC: 2744481576
+CRC: 3514852228
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 51deb5380ebcff91704cb33d1fb19b6a
+    Hash: fd3fed6be976440c578ea5cb84f86dab
   TypeTreeHash:
     serializedVersion: 2
     Hash: 9f349c36d7a6532f767333f9299b3e74
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: bb47687c84522ce7aa95b6c6eb098501
+    Hash: 8fe179839d112a3ea0d9f85b478244bc
 HashAppended: 0
 ClassTypes:
 - Class: 28
@@ -19,6 +19,7 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
+- Assets/BundledAssets/char sprite/red/down-2.png
 - Assets/BundledAssets/char sprite/red/writing-lookup.png
 - Assets/BundledAssets/char sprite/red/grumpy.png
 - Assets/BundledAssets/char sprite/red/default.png
@@ -29,6 +30,7 @@ Assets:
 - Assets/BundledAssets/char sprite/red/writing1.png
 - Assets/BundledAssets/char sprite/red/looking-off-talking.png
 - Assets/BundledAssets/char sprite/red/normal-talking.png
+- Assets/BundledAssets/char sprite/red/down.png
 - Assets/BundledAssets/char sprite/red/writing-lookup-2.png
 - Assets/BundledAssets/char sprite/red/smiling.png
 - Assets/BundledAssets/char sprite/red/writing2.png

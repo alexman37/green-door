@@ -1,0 +1,4 @@
+/BLOCK=start
+	N():"..."
+	N():"Please leave."
+/ENDBLOCK

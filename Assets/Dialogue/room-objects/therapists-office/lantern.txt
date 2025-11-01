@@ -1,0 +1,3 @@
+/BLOCK=start
+	N():The lantern from yesterday.
+/ENDBLOCK

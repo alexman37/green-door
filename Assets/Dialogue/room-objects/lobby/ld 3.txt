@@ -1,0 +1,8 @@
+/BLOCK=start
+	N():"R- Dr. Wallace."
+	N():"Are you alright?"
+	RED(looking-off-talking):Fine.
+	N():"..."
+	N():"Who were you talking to in there?"
+	N()[2]:"Red?"
+/ENDBLOCK
