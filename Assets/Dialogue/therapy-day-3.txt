@@ -1,4 +1,8 @@
 /BLOCK=start
+	# Assuming you are already faded in.
+	$ AMB clock 0.12
+	$ FADE out 3
+
 	LENA(antsy): I'm sorry...
 	LENA(defeated):I don't even know where to begin today.
 	LENA(distraught):There's just so much going through my head right now, I...
@@ -6,32 +10,32 @@
 
 	# Red reaches his hand out
 
-
-	RED(folded-hands):It's okay.
+	N():The doctor reaches his hand out.
+	RED(folded-hands)[3]:It's okay.
 	RED(folded-hands-2):Breathe.
 
 
 	# They breathe
 
 
-	RED(looking-off):I am here to listen to your concerns, and talk you through them.
+	RED(looking-off)[3]:I am here to listen to your concerns, and talk you through them.
 	RED(looking-off-talking):What brings you here today?
 
 	# Pause
 
-	LENA(glance):I've been thinking about, well, all of this. And the garden.
+	LENA(glance)[3]:I've been thinking about, well, all of this. And the garden.
 	LENA(glance-2):And then I realized something...
 	LENA(look-away):I don't know what I'd do if I found it.
 
 	# Pause
 
-	LENA(bothered):I can't remember how, or why, I left in the first place.
+	LENA(bothered)[2]:I can't remember how, or why, I left in the first place.
 	LENA(nervous):But I don't think it was my choice.
 	LENA(defeated):If I remember one thing...it's wanting to be there forever.
 
 	# Pause
 
-	LENA(pensive):The world still moves so fast.
+	LENA(pensive)[2]:The world still moves so fast.
 	LENA(pensive):Everyone feels so distant.
 	LENA(pensive-2):I've tried to fix myself. I really have.
 	LENA(sigh):But...
@@ -40,7 +44,7 @@
 	# Pause
 
 
-	LENA(antsy):What if I couldn't come back?
+	LENA(antsy)[4]:What if I couldn't come back?
 	LENA(antsy-2):What if I found that green door, and never had the chance to come back?
 	LENA(look-away-2):...Would I never want to leave?
 	
@@ -65,14 +69,14 @@
 	# Pause
 
 
-	RED(folded-hands):I think your situation is special.
+	RED(folded-hands)[2]:I think your situation is special.
 	RED(looking-off):If this garden is truly what you say it is...
 	RED(looking-off-talking):I would understand if you kept going.
 	RED(normal-talking):Even if it became your new home.
 
 	# Pause
 
-	RED(folded-hands-2):Humans aren't like other creatures.
+	RED(folded-hands-2)[2]:Humans aren't like other creatures.
 	RED(down):We don't only need food, water and shelter to survive.
 	RED(down-2):We also need a purpose.
 	RED(down):You believe that society doesn't accept you. So you lack purpose.
@@ -81,14 +85,21 @@
 
 	# Pause
 
-	RED(normal-talking):It is your decision, but I will say this.
+	RED(normal-talking)[2]:It is your decision, but I will say this.
 	RED(down):If there is something in this world that will miss you, that needs you...
 	RED(default):That you deserve...
 
 	# Pauses
 
-	RED(smiling):It will find you, in your perfect garden.
+	RED(smiling)[2]:It will find you, in your perfect garden.
+
+	$ FADE in 2
+	$ SWAP couch empty-couch
+	$ SWAP desk empty-desk
+	$ SWAP player standing
 	N():(Lena left, happy.)
+	$ FADE out 2
+
 /ENDBLOCK
 
 /BLOCK=stay
@@ -101,7 +112,7 @@
 
 	# Pause
 
-	RED(folded-hands):Suppose there was a machine that could make the user "experience" any emotion.
+	RED(folded-hands)[3]:Suppose there was a machine that could make the user "experience" any emotion.
 	RED(folded-hands-2):The world could be anything they imagined. They would feel whatever they desired.
 	RED(folded-hands):To the user, it would be paradise - and reality.
 	RED(down):But in our reality...they would forever be alone, locked in that machine.
@@ -109,7 +120,7 @@
 
 	# Pause
 
-	LENA(sigh):...
+	LENA(sigh)[3]:...
 	LENA(bothered):I'm supposed to say ‘no', aren't I?
 	RED(grumpy2):There is no right or wrong answer.
 	LENA(glance):But something tells me there is.
@@ -118,7 +129,7 @@
 
 	# Pause
 
-	RED(default):Then something is keeping you here.
+	RED(default)[2]:Then something is keeping you here.
 	RED(looking-off):Perhaps you should give the question more thought.
 	RED(looking-off-talking):So you'll be prepared...if you ever do find that machine.
 
@@ -129,18 +140,27 @@
 	RED(normal-talking):I'm sorry?
 	LENA(crossed-2):I don't want any more sessions.\nThanks for your time.
 	RED(down):Lena, wait...
+
 	RED(pensive)[2]:Please...don't go.
 	RED(down-2):Let's keep talking about this.
-	LENA(angry):Where's talking got us?
+	LENA(angry):Where's talking gotten us?
 	LENA(angry-2):You keep giving me all these weird speeches and hypotheticals.
 	LENA(angry-2):Trying to convince me I didn't see what I \iknow\! I saw.
 	LENA(bothered):It's not exactly therapeutic.
-	LENA(lookup-sad):...
 	
-	LENA(lookup-sad)[2]:No one believes me.\nWhy should they?
+	LENA(lookup-sad)[2]:...
+	LENA(lookup-sad):No one believes me.\nWhy should they?
 	LENA(glance-2):This has always been my own problem to solve.
-	LENA(defeated):I'm finding that garden even if it's the last thing I do.
+	LENA(defeated):I'm finding that garden if it's the last thing I do.
 	LENA(defeated)[2]:Goodbye.
 
+	RED(sad)[2]:Lena...
+
+	$ FADE in 2
+	$ SWAP couch empty-couch
+	$ SWAP desk empty-desk
+	$ SWAP player standing
 	N():(Lena left you all alone.)
+	$ FADE out 2
+
 /ENDBLOCK

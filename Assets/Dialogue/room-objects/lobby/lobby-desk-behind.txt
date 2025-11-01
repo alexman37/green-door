@@ -1,7 +1,7 @@
 /BLOCK=start
 	N():"What brings you back here?\nWanna take my job?"
-	RED():I wouldn't be very good at it.
+	RED(grumpy2):I wouldn't be very good at it.
 	N():"Oh, don't be silly, dear."
 	N():"All I have to do is look busy and happy."
-	RED():...
+	RED(grumpy):...
 /ENDBLOCK

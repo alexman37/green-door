@@ -1,0 +1,3 @@
+/BLOCK=start
+	N():It's that rope you found yesterday.
+/ENDBLOCK

@@ -1,0 +1,5 @@
+/BLOCK=start
+	N():"..."
+	N():"Could you...give me some space?"
+	RED(grumpy):Sorry.
+/ENDBLOCK

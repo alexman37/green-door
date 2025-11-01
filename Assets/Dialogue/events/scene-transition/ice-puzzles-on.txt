@@ -1,0 +1,3 @@
+/BLOCK=start
+  $ ENABLE restart-button true
+/ENDBLOCK

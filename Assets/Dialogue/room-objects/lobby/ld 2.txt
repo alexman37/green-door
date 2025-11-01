@@ -1,0 +1,9 @@
+/BLOCK=start
+	N():Maya, as usual.
+	N():"You look tired, dear."
+	N():"Maybe you're working too much."
+	RED(looking-off-talking):I'm fine.
+	N():"..."
+	N():"Well, have a good night then."
+	RED(down):You as well.
+/ENDBLOCK

@@ -3,7 +3,7 @@
 	N():She's been here as long as you have.
 	N():Even still, you don't talk much.
 	N():"Heading out, Dr. Wallace?"
-	RED():Yes.
+	RED(normal-talking):Yes.
 	N():"Ok. You have a good night, dear."
-	RED():You as well.
+	RED(default):You as well.
 /ENDBLOCK
