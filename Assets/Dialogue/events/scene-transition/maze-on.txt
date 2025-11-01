@@ -1,0 +1,3 @@
+/BLOCK=start
+  $ ENABLE vignette true
+/ENDBLOCK

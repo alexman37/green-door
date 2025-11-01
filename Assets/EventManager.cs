@@ -30,10 +30,18 @@ public class EventManager : MonoBehaviour
         
     }
 
-    public void finishEventExecution()
+    public void resetEventManager()
+    {
+        futureEvents.Clear();
+        activeEvent = false;
+        StopAllCoroutines();
+        instance = null;
+    }
+
+    public void finishEventExecution(bool terminate)
     {
         activeEvent = false;
-        if(futureEvents.Count > 0)
+        if(futureEvents.Count > 0 && !terminate)
         {
             activeEvent = true;
             IEnumerator next = futureEvents.Dequeue();

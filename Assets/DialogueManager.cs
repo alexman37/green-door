@@ -52,7 +52,6 @@ public class DialogueManager : MonoBehaviour
 
         // Get actions started
         anyClick += () => { };
-        DialogueChoiceButton.dialogueChoiceMade += makeChoice;
 
         // Portrait and Text fields are in dialogue container
         dc_portrait = dialogueContainer.transform.GetChild(0).GetComponent<Image>();
@@ -62,6 +61,21 @@ public class DialogueManager : MonoBehaviour
         playerManager = FindObjectsByType<PlayerManager>(FindObjectsSortMode.None)[0];
 
         greenlight = true;
+    }
+
+    private void OnEnable()
+    {
+        DialogueChoiceButton.dialogueChoiceMade += makeChoice;
+    }
+
+    private void OnDisable()
+    {
+        DialogueChoiceButton.dialogueChoiceMade -= makeChoice;
+    }
+
+    private void OnDestroy()
+    {
+        DialogueChoiceButton.dialogueChoiceMade -= makeChoice;
     }
 
     private void Update()
@@ -202,7 +216,20 @@ public class DialogueManager : MonoBehaviour
             ScriptedTimedEvent ste = this.gameObject.AddComponent<ScriptedTimedEvent>();
             // Dialogue events will always be tethered in that you must wait for them to finish before advancing
             ste.setupCoroutine(dc.seInputs, true);
-            ste.trigger();
+
+            // Scene transitions are a special case BC you have to make sure the conversation ends.
+            if(dc.seInputs is SEInputs_SceneTransition)
+            {
+                endFromSceneTransition();
+                instance = null;
+                greenlight = false;
+                ste.trigger();
+                Destroy(this);
+            } else
+            {
+                ste.trigger();
+            }
+
             yield return new WaitForSeconds(dc.seInputs.totalTime + 0.25f);
 
             // TODO cause problems later?...if you run into any errors with deleting an active component or something, this might be why.
@@ -368,6 +395,16 @@ public class DialogueManager : MonoBehaviour
 
         // Restart movement again
         playerManager.startMovement();
+    }
+
+    // Short circuit on scene transitions - just quietly dismantle the conversation
+    private void endFromSceneTransition()
+    {
+        anyClick -= advanceDialogue;
+        currConversation = null;
+        block = null;
+        nextBlock = null;
+        entryInBlock = 0;
     }
 
 

@@ -87,7 +87,7 @@ public class PlayerManager : MonoBehaviour
 
     IEnumerator controlMovement()
     {
-        float timeToMove1Tile = 0.2f;
+        float timeToMove1Tile = 0.25f;
 
         while (true)
         {           
@@ -205,7 +205,6 @@ public class PlayerManager : MonoBehaviour
     // Move a tile, and adjust animation frame as you go. Takes a certain amount of time
     IEnumerator moveOneOver(PlayerObject c, float timeToMove1Tile, float xChange, float yChange, Direction dir)
     {
-        float steps = 30;
         float animationLoops = 1;
         int prevAnimation = 0;
 
@@ -217,19 +216,23 @@ public class PlayerManager : MonoBehaviour
         {
             // Update their charPosition in the PlayerObject once and immediately
             c.currPosition.offsetThis((int)xChange, (int)yChange);
-            for (int i = 0; i < steps; i++)
+            Vector3 start = c.characterObj.transform.position;
+            Vector3 target = start + new Vector3(xChange, yChange, 0);
+            for (float i = 0; i < timeToMove1Tile; i += Time.deltaTime)
             {
                 // Update their physical location in-game periodically
-                c.characterObj.transform.position = c.characterObj.transform.position + new Vector3(1 / steps * xChange, 1 / steps * yChange, 0);
+                c.characterObj.transform.position = Vector3.Lerp(start, target, i / timeToMove1Tile);
 
                 //We end up using a total of 4 sprites in a loop: 0, 1, 0, 2...
-                int nextIFrame = (int)(i / (steps / animationLoops / 4)) % 4;
+                int nextIFrame = Mathf.FloorToInt(i / timeToMove1Tile * 4);
                 if (prevAnimation != nextIFrame)
                 {
                     c.changeAnimationFrame(nextIFrame);
                 }
-                yield return new WaitForSeconds(timeToMove1Tile / steps);
+                yield return null;
             }
+            c.characterObj.transform.position = target;
+            c.changeAnimationFrame(0);
             c.updateLayerOrder(wouldBeHere.y);
         }
         

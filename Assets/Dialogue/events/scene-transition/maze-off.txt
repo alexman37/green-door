@@ -1,0 +1,10 @@
+/BLOCK=start
+  $ ENABLE vignette false
+  N():Hello!\nUnfortunately, you've reached the end of the game...for now.
+  N():We had a special ending planned, and really wanted to get it right.
+  N():But we ran out of time before we could finish it...
+  N():So this is where the game ends for now.
+  N():Stay tuned for a future update hopefully not too long away where we wrap this thing up.
+  N():Thanks for playing our game!\nWe hope you enjoyed!
+  N():- Alex and John
+/ENDBLOCK

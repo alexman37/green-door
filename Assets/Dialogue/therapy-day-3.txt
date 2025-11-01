@@ -10,7 +10,7 @@
 
 	# Red reaches his hand out
 
-	N():The doctor reaches his hand out.
+	N():\0The doctor reaches his hand out.\!
 	RED(folded-hands)[3]:It's okay.
 	RED(folded-hands-2):Breathe.
 

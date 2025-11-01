@@ -6,6 +6,7 @@ TagManager:
   tags:
   - FadingCanvas
   - PictureCanvas
+  - FadingScreen
   layers:
   - Default
   - TransparentFX

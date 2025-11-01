@@ -13,6 +13,7 @@ public class ScriptedTimedEvent : MonoBehaviour
     public bool tethered;
 
     public static Image fadingScreen;
+    public static Canvas fadingCanvas;
     public static Image pictureScreen;
 
     // optional - use if you wish to create this scripted event from the inspector
@@ -28,7 +29,8 @@ public class ScriptedTimedEvent : MonoBehaviour
         }
         if(fadingScreen == null)
         {
-            fadingScreen = GameObject.FindGameObjectWithTag("FadingCanvas").GetComponent<Image>();
+            fadingCanvas = GameObject.FindGameObjectWithTag("FadingCanvas").GetComponent<Canvas>();
+            fadingScreen = GameObject.FindGameObjectWithTag("FadingScreen").GetComponent<Image>();
         }
         if (pictureScreen == null)
         {
@@ -142,7 +144,7 @@ public class SEInputs_Movement : ScriptedEventInputs
         }
         
         focus.transform.position = startPos + delta;
-        EventManager.instance.finishEventExecution();
+        EventManager.instance.finishEventExecution(false);
     }
 }
 
@@ -166,7 +168,7 @@ public class SEInputs_Enable : ScriptedEventInputs
     {
         focus.SetActive(enable);
         yield return null;
-        EventManager.instance.finishEventExecution();
+        EventManager.instance.finishEventExecution(false);
     }
 }
 
@@ -190,7 +192,7 @@ public class SEInputs_SpriteSwap : ScriptedEventInputs
     {
         focus.GetComponent<SpriteRenderer>().sprite = newSprite;
         yield return null;
-        EventManager.instance.finishEventExecution();
+        EventManager.instance.finishEventExecution(false);
     }
 }
 
@@ -214,6 +216,7 @@ public class SEInputs_Fade : ScriptedEventInputs
 
     public override IEnumerator getCoroutine()
     {
+        ScriptedTimedEvent.fadingCanvas.gameObject.SetActive(true);
         yield return new WaitUntil(() => ScriptedTimedEvent.staticSetup);
         Debug.Log("Completed static setup.");
         Color col = fadingScreen.color;
@@ -226,7 +229,14 @@ public class SEInputs_Fade : ScriptedEventInputs
             }
         }
         fadingScreen.color = new Color(col.r, col.g, col.b, (inOrOut ? 1 : 0));
-        EventManager.instance.finishEventExecution();
+        EventManager.instance.finishEventExecution(false);
+
+        // disable when you've faded out
+        if(!inOrOut && !ScriptedTimedEvent.pictureScreen.gameObject.activeInHierarchy)
+        {
+            ScriptedTimedEvent.fadingCanvas.gameObject.SetActive(false);
+            Debug.Log("Hid canvas");
+        }
     }
 }
 
@@ -252,6 +262,7 @@ public class SEInputs_Show : ScriptedEventInputs
     
     public override IEnumerator getCoroutine()
     {
+        pictureScreen.gameObject.SetActive(true);
         Color col = pictureScreen.color;
         pictureScreen.sprite = content;
         if (trans == PictureTransitionType.FADE && time > 0)
@@ -264,7 +275,7 @@ public class SEInputs_Show : ScriptedEventInputs
             }
         }
         pictureScreen.color = new Color(col.r, col.g, col.b, 1);
-        EventManager.instance.finishEventExecution();
+        EventManager.instance.finishEventExecution(false);
     }
 }
 
@@ -298,7 +309,8 @@ public class SEInputs_Hide : ScriptedEventInputs
             }
         }
         pictureScreen.color = new Color(col.r, col.g, col.b, 0);
-        EventManager.instance.finishEventExecution();
+        pictureScreen.gameObject.SetActive(false);
+        EventManager.instance.finishEventExecution(false);
     }
 }
 
@@ -336,7 +348,7 @@ public class SEInputs_Music : ScriptedEventInputs
         {
             whereToPlay.playTrackByName(musicTrackId, volume);
         }
-        EventManager.instance.finishEventExecution();
+        EventManager.instance.finishEventExecution(false);
     }
 }
 
@@ -357,7 +369,7 @@ public class SEInputs_SFX : ScriptedEventInputs
     {
         yield return null;
         SfxManager.instance.playSFXbyName(sfxTrackId, 1);
-        EventManager.instance.finishEventExecution();
+        EventManager.instance.finishEventExecution(false);
     }
 }
 
@@ -376,7 +388,7 @@ public class SEInputs_Animate : ScriptedEventInputs
     public override IEnumerator getCoroutine()
     {
         yield return null;
-        EventManager.instance.finishEventExecution();
+        EventManager.instance.finishEventExecution(false);
     }
 }
 
@@ -396,9 +408,19 @@ public class SEInputs_SceneTransition : ScriptedEventInputs
     // TODO
     public override IEnumerator getCoroutine()
     {
+        resetStaticSetup();
+        EventManager.instance.resetEventManager();
         SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
         yield return null;
-        EventManager.instance.finishEventExecution();
+    }
+
+    // Necessary when scene changes - you gotta get the canvases and stuff all over again.
+    private void resetStaticSetup()
+    {
+        ScriptedTimedEvent.staticSetup = false;
+        ScriptedTimedEvent.pictureScreen = null;
+        ScriptedTimedEvent.fadingCanvas = null;
+        ScriptedTimedEvent.fadingScreen = null;
     }
 }
 
