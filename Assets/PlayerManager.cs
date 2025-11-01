@@ -167,8 +167,20 @@ public class PlayerManager : MonoBehaviour
                     case KeyCode.S: yield return congaLineMovement(timeToMove1Tile, 0, -1, Direction.SOUTH); break;
                 }
             }
-            yield return new WaitForSeconds(0.02f);
+            if (isSliding) yield return null;
+            else yield return new WaitForSeconds(0.02f);
         }
+    }
+
+    public void restartCurrentIcePuzzle()
+    {
+        stopMovement();
+        isSliding = false;
+        isMoving = false;
+        readyForNextMove = true;
+        Coords backup = new Coords(currentIceRoomManager.restartPosition.x, currentIceRoomManager.restartPosition.y);
+        playerObjects[0].moveToPosition(backup, RoomManager.instance.activeRoom);
+        startMovement();
     }
 
     public void currentRoomHasIce(IceRoomManager iceRoomManager)
@@ -254,26 +266,32 @@ public class PlayerManager : MonoBehaviour
 
     IEnumerator iceMovement(float time, float xChange, float yChange, Direction direction)
     {
-        float steps = 30;
-
         PlayerObject player = playerObjects[0];
 
         // Check that there is not an object here, and (with colliders?) don't run out of bounds
         Coords wouldBeHere = player.currPosition.offset((int)xChange, (int)yChange);
+
+        // Hard coding this until it behaves!!
+        time = 0.2f;
+
         if (!player.lookingAtWall(direction) && RoomManager.instance.activeRoom.getRoomObjectAt(wouldBeHere) == null)
         {
             // Update their charPosition in the PlayerObject once and immediately
             player.currPosition.offsetThis((int)xChange, (int)yChange);
-            for (int i = 0; i < steps; i++)
+
+            Vector3 start = player.characterObj.transform.position;
+            Vector3 target = player.characterObj.transform.position + new Vector3(xChange, yChange, 0);
+            for (float i = 0; i < time; i += Time.deltaTime)
             {
                 // Update their physical location in-game periodically
-                player.characterObj.transform.position = player.characterObj.transform.position + new Vector3(1 / steps * xChange, 1 / steps * yChange, 0);
+                player.characterObj.transform.position = Vector3.Lerp(start, target, i / time);
 
                 changeSpriteDirection(playerObjects[0], direction);
                 //No need to animate more than their foot being out (since they are sliding)
                 player.changeAnimationFrame(1);
-                yield return new WaitForSeconds(time / steps);
+                yield return null;
             }
+            player.characterObj.transform.position = target;
             player.updateLayerOrder(wouldBeHere.y);
         }
         else

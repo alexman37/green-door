@@ -175,4 +175,6 @@
 
 	$ FADE out 2
 
+	N():\0WASD = Move around\nE = Interact with objects\!
+
 /ENDBLOCK

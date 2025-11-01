@@ -10,6 +10,8 @@ public class IceRoomManager : MonoBehaviour
     public bool startAddingTiles;
     private Camera mainCamera;
 
+    public Coords restartPosition;
+
     private void Start()
     {
         mainCamera = Camera.main;
